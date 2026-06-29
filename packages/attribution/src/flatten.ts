@@ -62,9 +62,7 @@ export const flattenAttributionSnapshotToSdkAttributes = (
     const sk = sanitizeExtKey(rawKey);
     if (!sk) continue;
     if (rawVal !== undefined && rawVal !== '') {
-      const extKey = `${LINK_EXT_PREFIX}${sk}`;
-      if (extKey in out) continue;
-      out[extKey] = rawVal;
+      out[`${LINK_EXT_PREFIX}${sk}`] = rawVal;
     }
   }
 

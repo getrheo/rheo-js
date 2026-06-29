@@ -134,17 +134,11 @@ export const ScreenInputDraftProvider = ({
   screen: Screen;
   children: ReactNode;
 }) => {
-  const scaleConfigSig = useMemo(() => {
-    const input = findInputLayer(screen);
-    if (input?.kind !== 'scale_input') return '';
-    return [input.min, input.max, input.step, input.defaultValue ?? ''].join('\0');
-  }, [screen]);
-
   const [draft, setDraft] = useState<InputDraft | null>(() => initialDraftForScreen(screen));
 
   useEffect(() => {
     setDraft(initialDraftForScreen(screen));
-  }, [screen.id, scaleConfigSig]);
+  }, [screen.id]);
 
   const validity = useMemo(() => computeValidity(screen, draft), [screen, draft]);
   const toResponse = useCallback(() => draftToResponse(screen, draft), [screen, draft]);

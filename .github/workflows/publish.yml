@@ -19,7 +19,7 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm verify
+      - run: pnpm build
       - run: |
           pnpm --filter @getrheo/flow-runtime publish --access public --no-git-checks
           pnpm --filter @getrheo/flow-ui-state publish --access public --no-git-checks

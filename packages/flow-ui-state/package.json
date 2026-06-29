@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/flow-ui-state",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -17,8 +17,8 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/contracts": "2.0.0",
-    "@getrheo/flow-runtime": "2.0.0"
+    "@getrheo/contracts": "2.0.1",
+    "@getrheo/flow-runtime": "2.0.1"
   },
   "devDependencies": {
     "@rheo/config": "workspace:*",
