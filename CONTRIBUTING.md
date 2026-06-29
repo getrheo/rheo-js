@@ -10,14 +10,19 @@ Thanks for your interest in Rheo open-source client libraries.
 
 ## Development
 
-Each repository is self-contained. After Phase 3 extraction lands, follow the README in that repo for install, build, and test commands.
+Each repository is self-contained. Follow the **README** in this repo for install, build, and test commands:
 
-Until extraction is complete, active development may still happen in the private Rheo platform monorepo; public repos will receive mirrored releases. External PRs against these repos are welcome once CI is wired (Phase 3).
+```bash
+pnpm install
+pnpm verify
+```
+
+Active SDK development happens in the private Rheo platform monorepo first; public repos receive mirrored updates via `pnpm extract:oss-repos --push` (model B). External PRs against these repositories are welcome when CI is green.
 
 ## Pull requests
 
-- Use the PR template checklist.
-- Ensure `pnpm test` / CI passes (when available).
+- Use the PR template checklist when present.
+- Ensure CI passes (`Verify`, `Gitleaks`, and any platform-specific jobs).
 - Update docs or CHANGELOG when user-visible behavior changes.
 
 ## Security
