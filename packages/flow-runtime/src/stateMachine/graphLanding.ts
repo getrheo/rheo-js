@@ -96,6 +96,7 @@ export const resolveThroughGraph = (
   onDecisionEvaluated?: (payload: DecisionEvaluationTelemetry) => void,
 ): GraphLanding => {
   let cur = cursor;
+  const seen = new Set<string>();
   const evalCtx = {
     locale: session.locale,
     platform: session.platform,
@@ -105,6 +106,11 @@ export const resolveThroughGraph = (
   while (cur) {
     const dn = findDecisionNode(manifest, cur);
     if (!dn) break;
+    if (seen.has(cur)) {
+      cur = null;
+      break;
+    }
+    seen.add(cur);
     const evalResult = evaluateDecisionNode(dn, evalCtx);
     onDecisionEvaluated?.({
       decisionNodeId: dn.id,
