@@ -1,0 +1,44 @@
+name: Bug report
+description: Report a problem with this Rheo SDK package
+title: "[bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a bug. Include versions and a minimal repro when possible.
+  - type: input
+    id: package-version
+    attributes:
+      label: Package / tag version
+      description: npm version (e.g. 2.0.0) or Swift tag (e.g. swiftui-v2.0.0)
+      placeholder: "2.0.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      options:
+        - React Native (Expo)
+        - React Native (bare)
+        - SwiftUI
+        - TypeScript / shared runtime
+        - Agent skill
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: What did you do? What did you expect? What happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or screenshots
+      description: Stack traces, SDK logs, or screenshots (no secrets or API keys)
+      render: shell

@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest an improvement for this Rheo SDK package
+title: "[feature]: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or use case
+      description: What are you trying to accomplish?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How would you like this to work?
+    validations:
+      required: true
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: I am willing to open a PR for this
+          required: false
+        - label: This affects the public SDK API (semver impact)
+          required: false

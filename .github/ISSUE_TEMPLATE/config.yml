@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Rheo documentation
+    url: https://docs.getrheo.io/docs/developer-guide/sdk
+    about: SDK install, API reference, and integration guides
+  - name: Rheo support
+    url: https://getrheo.io
+    about: Account, billing, and dashboard questions (not SDK bugs)
