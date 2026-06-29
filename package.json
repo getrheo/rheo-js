@@ -1,0 +1,25 @@
+{
+  "name": "rheo-js",
+  "private": true,
+  "packageManager": "pnpm@8.15.9",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "lint": "pnpm -r lint",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "build": "turbo run build --filter=@getrheo/flow-runtime --filter=@getrheo/flow-ui-state --filter=@getrheo/renderer-core --filter=@getrheo/attribution",
+    "check:npm-publish-graph": "node scripts/check-npm-publish-graph-js.mjs",
+    "verify": "pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm check:npm-publish-graph"
+  },
+  "devDependencies": {
+    "turbo": "^2.9.6",
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.2.1",
+    "eslint-plugin-unused-imports": "^4.4.1",
+    "typescript-eslint": "^8.59.0",
+    "typescript": "^5.6.3",
+    "tsup": "^8.5.1"
+  }
+}
