@@ -1,0 +1,257 @@
+{
+  "name": "@getrheo/flow-runtime",
+  "version": "2.0.0",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./animations": "./src/animations.ts",
+    "./buttonVariantChrome": "./src/buttonVariantChrome.ts",
+    "./counterLayer": "./src/counterLayer.ts",
+    "./emailPasswordAuthValidation": "./src/emailPasswordAuthValidation.ts",
+    "./hyperlinkLabel": "./src/hyperlinkLabel.ts",
+    "./interpolateTemplate": "./src/interpolateTemplate.ts",
+    "./layerTypography": "./src/layerTypography.ts",
+    "./layers": "./src/layers.ts",
+    "./layout": "./src/layout/index.ts",
+    "./responsive": "./src/responsive/index.ts",
+    "./responsive/*": "./src/responsive/*.ts",
+    "./restingMotion": "./src/restingMotion.ts",
+    "./scaleValidation": "./src/scaleValidation.ts",
+    "./stateMachine": "./src/stateMachine.ts",
+    "./textInputValidation": "./src/textInputValidation.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "node ../../scripts/build-publishable-package.mjs",
+    "prepublishOnly": "pnpm run build"
+  },
+  "dependencies": {
+    "@getrheo/contracts": "2.0.0"
+  },
+  "devDependencies": {
+    "@rheo/config": "workspace:*",
+    "@types/node": "^22.10.1",
+    "typescript": "^5.6.3",
+    "vitest": "^3.2.6",
+    "@rheo/contracts-fixtures": "workspace:*"
+  },
+  "license": "MIT",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js",
+        "default": "./dist/index.js"
+      },
+      "./animations": {
+        "types": "./dist/animations.d.ts",
+        "import": "./dist/animations.js",
+        "default": "./dist/animations.js"
+      },
+      "./buttonVariantChrome": {
+        "types": "./dist/buttonVariantChrome.d.ts",
+        "import": "./dist/buttonVariantChrome.js",
+        "default": "./dist/buttonVariantChrome.js"
+      },
+      "./counterLayer": {
+        "types": "./dist/counterLayer.d.ts",
+        "import": "./dist/counterLayer.js",
+        "default": "./dist/counterLayer.js"
+      },
+      "./emailPasswordAuthValidation": {
+        "types": "./dist/emailPasswordAuthValidation.d.ts",
+        "import": "./dist/emailPasswordAuthValidation.js",
+        "default": "./dist/emailPasswordAuthValidation.js"
+      },
+      "./hyperlinkLabel": {
+        "types": "./dist/hyperlinkLabel.d.ts",
+        "import": "./dist/hyperlinkLabel.js",
+        "default": "./dist/hyperlinkLabel.js"
+      },
+      "./interpolateTemplate": {
+        "types": "./dist/interpolateTemplate.d.ts",
+        "import": "./dist/interpolateTemplate.js",
+        "default": "./dist/interpolateTemplate.js"
+      },
+      "./layerTypography": {
+        "types": "./dist/layerTypography.d.ts",
+        "import": "./dist/layerTypography.js",
+        "default": "./dist/layerTypography.js"
+      },
+      "./layers": {
+        "types": "./dist/layers.d.ts",
+        "import": "./dist/layers.js",
+        "default": "./dist/layers.js"
+      },
+      "./layout": {
+        "types": "./dist/layout/index.d.ts",
+        "import": "./dist/layout/index.js",
+        "default": "./dist/layout/index.js"
+      },
+      "./responsive": {
+        "types": "./dist/responsive/index.d.ts",
+        "import": "./dist/responsive/index.js",
+        "default": "./dist/responsive/index.js"
+      },
+      "./responsive/breakpoints": {
+        "types": "./dist/responsive/breakpoints.d.ts",
+        "import": "./dist/responsive/breakpoints.js",
+        "default": "./dist/responsive/breakpoints.js"
+      },
+      "./responsive/layerResolve": {
+        "types": "./dist/responsive/layerResolve.d.ts",
+        "import": "./dist/responsive/layerResolve.js",
+        "default": "./dist/responsive/layerResolve.js"
+      },
+      "./responsive/merge": {
+        "types": "./dist/responsive/merge.d.ts",
+        "import": "./dist/responsive/merge.js",
+        "default": "./dist/responsive/merge.js"
+      },
+      "./responsive/previewSafeAreaInsets": {
+        "types": "./dist/responsive/previewSafeAreaInsets.d.ts",
+        "import": "./dist/responsive/previewSafeAreaInsets.js",
+        "default": "./dist/responsive/previewSafeAreaInsets.js"
+      },
+      "./responsive/screenContainerResolve": {
+        "types": "./dist/responsive/screenContainerResolve.d.ts",
+        "import": "./dist/responsive/screenContainerResolve.js",
+        "default": "./dist/responsive/screenContainerResolve.js"
+      },
+      "./responsive/screenShellInsets": {
+        "types": "./dist/responsive/screenShellInsets.d.ts",
+        "import": "./dist/responsive/screenShellInsets.js",
+        "default": "./dist/responsive/screenShellInsets.js"
+      },
+      "./restingMotion": {
+        "types": "./dist/restingMotion.d.ts",
+        "import": "./dist/restingMotion.js",
+        "default": "./dist/restingMotion.js"
+      },
+      "./scaleValidation": {
+        "types": "./dist/scaleValidation.d.ts",
+        "import": "./dist/scaleValidation.js",
+        "default": "./dist/scaleValidation.js"
+      },
+      "./stateMachine": {
+        "types": "./dist/stateMachine.d.ts",
+        "import": "./dist/stateMachine.js",
+        "default": "./dist/stateMachine.js"
+      },
+      "./textInputValidation": {
+        "types": "./dist/textInputValidation.d.ts",
+        "import": "./dist/textInputValidation.js",
+        "default": "./dist/textInputValidation.js"
+      },
+      "./aiFlowGenerationMerge": {
+        "types": "./dist/aiFlowGenerationMerge.d.ts",
+        "import": "./dist/aiFlowGenerationMerge.js",
+        "default": "./dist/aiFlowGenerationMerge.js"
+      },
+      "./assignment": {
+        "types": "./dist/assignment.d.ts",
+        "import": "./dist/assignment.js",
+        "default": "./dist/assignment.js"
+      },
+      "./brandGradient": {
+        "types": "./dist/brandGradient.d.ts",
+        "import": "./dist/brandGradient.js",
+        "default": "./dist/brandGradient.js"
+      },
+      "./brandGradientManifestIssues": {
+        "types": "./dist/brandGradientManifestIssues.d.ts",
+        "import": "./dist/brandGradientManifestIssues.js",
+        "default": "./dist/brandGradientManifestIssues.js"
+      },
+      "./checkboxGlyphStyle": {
+        "types": "./dist/checkboxGlyphStyle.d.ts",
+        "import": "./dist/checkboxGlyphStyle.js",
+        "default": "./dist/checkboxGlyphStyle.js"
+      },
+      "./choiceOptionSelection": {
+        "types": "./dist/choiceOptionSelection.d.ts",
+        "import": "./dist/choiceOptionSelection.js",
+        "default": "./dist/choiceOptionSelection.js"
+      },
+      "./colorAlpha": {
+        "types": "./dist/colorAlpha.d.ts",
+        "import": "./dist/colorAlpha.js",
+        "default": "./dist/colorAlpha.js"
+      },
+      "./decisionEval": {
+        "types": "./dist/decisionEval.d.ts",
+        "import": "./dist/decisionEval.js",
+        "default": "./dist/decisionEval.js"
+      },
+      "./dropShadow": {
+        "types": "./dist/dropShadow.d.ts",
+        "import": "./dist/dropShadow.js",
+        "default": "./dist/dropShadow.js"
+      },
+      "./flowBuilderRules": {
+        "types": "./dist/flowBuilderRules.d.ts",
+        "import": "./dist/flowBuilderRules.js",
+        "default": "./dist/flowBuilderRules.js"
+      },
+      "./flowGraph": {
+        "types": "./dist/flowGraph.d.ts",
+        "import": "./dist/flowGraph.js",
+        "default": "./dist/flowGraph.js"
+      },
+      "./layerRotate": {
+        "types": "./dist/layerRotate.d.ts",
+        "import": "./dist/layerRotate.js",
+        "default": "./dist/layerRotate.js"
+      },
+      "./manifestBillingSlice": {
+        "types": "./dist/manifestBillingSlice.d.ts",
+        "import": "./dist/manifestBillingSlice.js",
+        "default": "./dist/manifestBillingSlice.js"
+      },
+      "./prepareAiGeneratedScreen": {
+        "types": "./dist/prepareAiGeneratedScreen.d.ts",
+        "import": "./dist/prepareAiGeneratedScreen.js",
+        "default": "./dist/prepareAiGeneratedScreen.js"
+      },
+      "./rheoAgentManifestMerge": {
+        "types": "./dist/rheoAgentManifestMerge.d.ts",
+        "import": "./dist/rheoAgentManifestMerge.js",
+        "default": "./dist/rheoAgentManifestMerge.js"
+      },
+      "./scaleInputStyle": {
+        "types": "./dist/scaleInputStyle.d.ts",
+        "import": "./dist/scaleInputStyle.js",
+        "default": "./dist/scaleInputStyle.js"
+      },
+      "./translationPlaceholders": {
+        "types": "./dist/translationPlaceholders.d.ts",
+        "import": "./dist/translationPlaceholders.js",
+        "default": "./dist/translationPlaceholders.js"
+      },
+      "./validation": {
+        "types": "./dist/validation.d.ts",
+        "import": "./dist/validation.js",
+        "default": "./dist/validation.js"
+      }
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts"
+  },
+  "homepage": "https://docs.getrheo.io/docs/developer-guide/sdk",
+  "description": "Rheo flow state machine and manifest runtime (transitive dependency).",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getrheo/rheo-js.git",
+    "directory": "packages/flow-runtime"
+  }
+}

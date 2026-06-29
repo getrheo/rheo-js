@@ -1,0 +1,29 @@
+name: Publish npm
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 8.15.9
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: |
+          pnpm --filter @getrheo/flow-runtime publish --access public --no-git-checks
+          pnpm --filter @getrheo/flow-ui-state publish --access public --no-git-checks
+          pnpm --filter @getrheo/renderer-core publish --access public --no-git-checks
+          pnpm --filter @getrheo/attribution publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

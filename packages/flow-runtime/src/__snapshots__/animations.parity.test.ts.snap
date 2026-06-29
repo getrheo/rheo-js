@@ -1,0 +1,116 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`animation parity (numeric) > exposes the same easing curves used by both runtimes 1`] = `
+{
+  "ease-in": [
+    0.42,
+    0,
+    1,
+    1,
+  ],
+  "ease-in-out": [
+    0.42,
+    0,
+    0.58,
+    1,
+  ],
+  "ease-out": [
+    0,
+    0,
+    0.58,
+    1,
+  ],
+  "emphasized": [
+    0.3,
+    0,
+    0,
+    1,
+  ],
+  "linear": [
+    0,
+    0,
+    1,
+    1,
+  ],
+  "standard": [
+    0.2,
+    0,
+    0,
+    1,
+  ],
+}
+`;
+
+exports[`animation parity (numeric) > samples the golden manifest deterministically 1`] = `
+[
+  {
+    "clipId": "clip_fade",
+    "sample": {
+      "opacity": 0,
+    },
+    "t": 0,
+  },
+  {
+    "clipId": "clip_fade",
+    "sample": {
+      "opacity": 0.8778336055382352,
+    },
+    "t": 200,
+  },
+  {
+    "clipId": "clip_fade",
+    "sample": {
+      "opacity": 1,
+    },
+    "t": 400,
+  },
+  {
+    "clipId": "clip_slide_up",
+    "sample": {
+      "opacity": 0,
+      "translateY": 16,
+    },
+    "t": 0,
+  },
+  {
+    "clipId": "clip_slide_up",
+    "sample": {
+      "opacity": 0.8079319708361083,
+      "translateY": 3.0730884666222664,
+    },
+    "t": 190,
+  },
+  {
+    "clipId": "clip_slide_up",
+    "sample": {
+      "opacity": 1,
+      "translateY": 0,
+    },
+    "t": 380,
+  },
+  {
+    "clipId": "clip_scale_in",
+    "sample": {
+      "opacity": 0,
+      "scale": 0.96,
+    },
+    "t": 0,
+  },
+  {
+    "clipId": "clip_scale_in",
+    "sample": {
+      "opacity": 0.6993224240065302,
+      "scale": 0.9879728969602612,
+    },
+    "t": 160,
+  },
+  {
+    "clipId": "clip_scale_in",
+    "sample": {
+      "opacity": 1,
+      "scale": 1,
+    },
+    "t": 320,
+  },
+]
+`;
