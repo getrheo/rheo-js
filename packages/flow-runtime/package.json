@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/flow-runtime",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -31,7 +31,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/contracts": "2.0.1"
+    "@getrheo/contracts": "2.0.2"
   },
   "devDependencies": {
     "@rheo/config": "workspace:*",
@@ -254,5 +254,8 @@
     "type": "git",
     "url": "git+https://github.com/getrheo/rheo-js.git",
     "directory": "packages/flow-runtime"
+  },
+  "bugs": {
+    "url": "https://github.com/getrheo/rheo-js/issues"
   }
 }

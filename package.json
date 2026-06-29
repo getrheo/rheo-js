@@ -11,7 +11,7 @@
     "test": "pnpm -r test",
     "build": "turbo run build --filter=@getrheo/flow-runtime --filter=@getrheo/flow-ui-state --filter=@getrheo/renderer-core --filter=@getrheo/attribution",
     "check:npm-publish-graph": "node scripts/check-npm-publish-graph-js.mjs",
-    "verify": "pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm check:npm-publish-graph"
+    "verify": "node scripts/check-no-platform-contracts.mjs && pnpm lint && pnpm typecheck && pnpm build && pnpm test && pnpm check:npm-publish-graph"
   },
   "devDependencies": {
     "turbo": "^2.9.6",
