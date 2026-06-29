@@ -1,0 +1,11 @@
+title = "Rheo OSS repos"
+
+[extend]
+useDefault = true
+
+[allowlist]
+paths = [
+  '''\.pnpm-store''',
+  '''pnpm-lock\.yaml''',
+  '''package-lock\.json''',
+]
