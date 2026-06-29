@@ -15,7 +15,8 @@ export const mergeAttributionSnapshots = (
     attribution: { ...base.attribution, ...overlay.attribution },
     acquisition: { ...base.acquisition, ...overlay.acquisition },
     link: {
-      entry: overlay.link.entry || base.link.entry,
+      ...base.link,
+      ...overlay.link,
       params: { ...base.link.params, ...overlay.link.params },
     },
   };
