@@ -8,4 +8,6 @@ paths = [
   '''\.pnpm-store''',
   '''pnpm-lock\.yaml''',
   '''package-lock\.json''',
+  '''ios/Pods/''',
+  '''android/\.gradle/''',
 ]
