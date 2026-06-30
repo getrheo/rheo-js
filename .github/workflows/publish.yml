@@ -27,3 +27,13 @@ jobs:
           pnpm --filter @getrheo/attribution publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Deprecate previous npm versions
+        run: |
+          VERSION=${GITHUB_REF_NAME#v}
+          MESSAGE="Deprecated: upgrade to ${VERSION} or later — https://docs.getrheo.io/docs/developer-guide/sdk"
+          for PKG in @getrheo/flow-runtime @getrheo/flow-ui-state @getrheo/renderer-core @getrheo/attribution; do
+            npm deprecate "${PKG}@<${VERSION}" "${MESSAGE}" || true
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
