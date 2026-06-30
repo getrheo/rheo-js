@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/flow-runtime",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -31,7 +31,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/contracts": "2.0.2"
+    "@getrheo/contracts": "2.0.3"
   },
   "devDependencies": {
     "@rheo/config": "workspace:*",

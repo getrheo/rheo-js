@@ -77,7 +77,13 @@ const collectExternals = () => {
     ...Object.keys(pkg.dependencies ?? {}),
     ...Object.keys(pkg.peerDependencies ?? {}),
   ]);
-  return [...names, /^@getrheo\//];
+  if (pkg.name === '@getrheo/react-native-core') {
+    for (const name of Object.keys(pkg.devDependencies ?? {})) {
+      if (name.startsWith('@types/') || name.startsWith('@rheo/')) continue;
+      names.add(name);
+    }
+  }
+  return [...names, /^@getrheo\//, /^react(\/|$)/, /^react-native(\/|$)/];
 };
 
 const fixEsmRelativeImports = (distDirectory) => {
@@ -107,7 +113,7 @@ const main = async () => {
 
   const isRnCore = pkg.name === '@getrheo/react-native-core';
   const hasJsx = usesJsx(entries);
-  const shouldBundle = !isRnCore && !hasJsx;
+  const shouldBundle = isRnCore || !hasJsx;
 
   await build({
     entry: entryRecord,
@@ -125,7 +131,7 @@ const main = async () => {
     treeshake: shouldBundle,
     esbuildOptions(options) {
       options.jsx = 'automatic';
-      if (!shouldBundle) {
+      if (!shouldBundle || isRnCore) {
         options.loader = { ...options.loader, '.js': 'jsx' };
       }
     },

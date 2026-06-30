@@ -11,9 +11,9 @@ Public home for Rheo's shared **TypeScript runtime** packages used by the mobile
 | [`@getrheo/renderer-core`](https://www.npmjs.com/package/%40getrheo%2Frenderer-core) | Cross-platform renderer primitives |
 | [`@getrheo/attribution`](https://www.npmjs.com/package/%40getrheo%2Fattribution) | Attribution facets |
 
-All four packages share the same semver (`2.0.2.x`) and depend on [`@getrheo/contracts`](https://www.npmjs.com/package/%40getrheo%2Fcontracts) from npm.
+All four packages share the same semver (`2.0.3.x`) and depend on [`@getrheo/contracts`](https://www.npmjs.com/package/%40getrheo%2Fcontracts) from npm.
 
-**Release:** push git tag `v2.0.2` on `main` → CI publishes all four packages.
+**Release:** push git tag `v2.0.3` on `main` → CI publishes all four packages.
 
 ## Install
 
