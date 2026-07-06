@@ -1,0 +1,1833 @@
+{
+  "flowId": "a1b2c3d4-e5f6-4789-a012-3456789abcde",
+  "schemaVersion": 7,
+  "version": 1,
+  "defaultLocale": "en",
+  "locales": [
+    "en"
+  ],
+  "entryScreenId": "scr_al_0",
+  "screens": [
+    {
+      "id": "scr_al_0",
+      "name": "AL · Entry (transition none)",
+      "regions": {
+        "body": {
+          "id": "lyr_al0_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al0_t",
+              "kind": "text",
+              "text": {
+                "default": "Animation lab — entry"
+              },
+              "style": {
+                "fontSize": 20,
+                "fontWeight": 700,
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al0_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al0_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_1"
+      },
+      "animations": [
+        {
+          "id": "c_al0",
+          "targetLayerId": "lyr_al0_t",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "standard"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scr_al_1",
+      "name": "AL · Slide left (linear)",
+      "regions": {
+        "body": {
+          "id": "lyr_al1_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al1_t",
+              "kind": "text",
+              "text": {
+                "default": "Outgoing transition: slide left"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al1_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al1_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_2"
+      },
+      "animations": [
+        {
+          "id": "c_al1a",
+          "targetLayerId": "lyr_al1_t",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "ease-in"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al1b",
+          "targetLayerId": "lyr_al1_go",
+          "trigger": "mount",
+          "durationMs": 400,
+          "delayMs": 60,
+          "tracks": [
+            {
+              "property": "scale",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0.92,
+                  "easing": "ease-out"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scr_al_2",
+      "name": "AL · Slide left",
+      "regions": {
+        "body": {
+          "id": "lyr_al2_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al2_t",
+              "kind": "text",
+              "text": {
+                "default": "Slide left"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al2_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al2_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_3"
+      },
+      "animations": [
+        {
+          "id": "c_al2",
+          "targetLayerId": "lyr_al2_t",
+          "trigger": "mount",
+          "durationMs": 420,
+          "tracks": [
+            {
+              "property": "translateX",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": -24,
+                  "easing": "standard"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scr_al_3",
+      "name": "AL · Slide right",
+      "regions": {
+        "body": {
+          "id": "lyr_al3_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al3_t",
+              "kind": "text",
+              "text": {
+                "default": "Slide right"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al3_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al3_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_4"
+      },
+      "animations": [
+        {
+          "id": "c_al3",
+          "targetLayerId": "lyr_al3_t",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "ease-out"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scr_al_4",
+      "name": "AL · Slide up",
+      "regions": {
+        "body": {
+          "id": "lyr_al4_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al4_t",
+              "kind": "text",
+              "text": {
+                "default": "Slide up"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al4_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al4_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_5"
+      },
+      "animations": [
+        {
+          "id": "c_al4",
+          "targetLayerId": "lyr_al4_go",
+          "trigger": "mount",
+          "durationMs": 360,
+          "delayMs": 40,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "linear"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scr_al_5",
+      "name": "AL · Stagger (slide left)",
+      "regions": {
+        "body": {
+          "id": "lyr_al5_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al5_t",
+              "kind": "text",
+              "text": {
+                "default": "Stagger + outgoing slide left"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al5_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al5_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_6"
+      },
+      "animations": [
+        {
+          "id": "c_al5a",
+          "targetLayerId": "lyr_al5_t",
+          "trigger": "stagger",
+          "staggerIndex": 0,
+          "durationMs": 320,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 18,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al5b",
+          "targetLayerId": "lyr_al5_go",
+          "trigger": "stagger",
+          "staggerIndex": 1,
+          "durationMs": 320,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 18,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "stagger": {
+        "stepMs": 72
+      }
+    },
+    {
+      "id": "scr_al_6",
+      "name": "AL · Stagger grid",
+      "regions": {
+        "body": {
+          "id": "lyr_al6_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al6_row",
+              "kind": "stack",
+              "direction": "horizontal",
+              "gap": 8,
+              "wrap": true,
+              "children": [
+                {
+                  "id": "lyr_al6_e0",
+                  "kind": "text",
+                  "text": {
+                    "default": "Ease demos"
+                  },
+                  "style": {
+                    "fontSize": 12,
+                    "color": {
+                      "light": "#000000",
+                      "dark": "#ffffff"
+                    }
+                  }
+                },
+                {
+                  "id": "lyr_al6_e1",
+                  "kind": "text",
+                  "text": {
+                    "default": "linear"
+                  },
+                  "style": {
+                    "fontSize": 12,
+                    "color": {
+                      "light": "#000000",
+                      "dark": "#ffffff"
+                    }
+                  }
+                },
+                {
+                  "id": "lyr_al6_e2",
+                  "kind": "text",
+                  "text": {
+                    "default": "ease-in"
+                  },
+                  "style": {
+                    "fontSize": 12,
+                    "color": {
+                      "light": "#000000",
+                      "dark": "#ffffff"
+                    }
+                  }
+                },
+                {
+                  "id": "lyr_al6_e3",
+                  "kind": "text",
+                  "text": {
+                    "default": "ease-out"
+                  },
+                  "style": {
+                    "fontSize": 12,
+                    "color": {
+                      "light": "#000000",
+                      "dark": "#ffffff"
+                    }
+                  }
+                },
+                {
+                  "id": "lyr_al6_e4",
+                  "kind": "text",
+                  "text": {
+                    "default": "in-out"
+                  },
+                  "style": {
+                    "fontSize": 12,
+                    "color": {
+                      "light": "#000000",
+                      "dark": "#ffffff"
+                    }
+                  }
+                },
+                {
+                  "id": "lyr_al6_e5",
+                  "kind": "text",
+                  "text": {
+                    "default": "std"
+                  },
+                  "style": {
+                    "fontSize": 12,
+                    "color": {
+                      "light": "#000000",
+                      "dark": "#ffffff"
+                    }
+                  }
+                },
+                {
+                  "id": "lyr_al6_e6",
+                  "kind": "text",
+                  "text": {
+                    "default": "emph"
+                  },
+                  "style": {
+                    "fontSize": 12,
+                    "color": {
+                      "light": "#000000",
+                      "dark": "#ffffff"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": "lyr_al6_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al6_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_7"
+      },
+      "animations": [
+        {
+          "id": "c_al6_0",
+          "targetLayerId": "lyr_al6_e0",
+          "trigger": "stagger",
+          "staggerIndex": 0,
+          "durationMs": 320,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 18,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al6_1",
+          "targetLayerId": "lyr_al6_e1",
+          "trigger": "stagger",
+          "staggerIndex": 1,
+          "durationMs": 320,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 18,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al6_2",
+          "targetLayerId": "lyr_al6_e2",
+          "trigger": "stagger",
+          "staggerIndex": 2,
+          "durationMs": 320,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 18,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al6_3",
+          "targetLayerId": "lyr_al6_e3",
+          "trigger": "stagger",
+          "staggerIndex": 3,
+          "durationMs": 320,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 18,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al6_4",
+          "targetLayerId": "lyr_al6_e4",
+          "trigger": "stagger",
+          "staggerIndex": 4,
+          "durationMs": 320,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 18,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al6_5",
+          "targetLayerId": "lyr_al6_e5",
+          "trigger": "stagger",
+          "staggerIndex": 5,
+          "durationMs": 320,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 18,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al6_6",
+          "targetLayerId": "lyr_al6_go",
+          "trigger": "stagger",
+          "staggerIndex": 6,
+          "durationMs": 320,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 18,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "stagger": {
+        "stepMs": 55
+      }
+    },
+    {
+      "id": "scr_al_7",
+      "name": "AL · Translate axes + unmount",
+      "regions": {
+        "body": {
+          "id": "lyr_al7_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al7_t1",
+              "kind": "text",
+              "text": {
+                "default": "TranslateX mount"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al7_t2",
+              "kind": "text",
+              "text": {
+                "default": "TranslateY mount"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al7_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al7_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_8"
+      },
+      "animations": [
+        {
+          "id": "c_al7x",
+          "targetLayerId": "lyr_al7_t1",
+          "trigger": "mount",
+          "durationMs": 400,
+          "tracks": [
+            {
+              "property": "translateX",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 40,
+                  "easing": "standard"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al7y",
+          "targetLayerId": "lyr_al7_t2",
+          "trigger": "mount",
+          "durationMs": 400,
+          "tracks": [
+            {
+              "property": "translateY",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": -20,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al7_u1",
+          "targetLayerId": "lyr_al7_t1",
+          "trigger": "unmount",
+          "durationMs": 280,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 1,
+                  "easing": "ease-in"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al7_u2",
+          "targetLayerId": "lyr_al7_t2",
+          "trigger": "unmount",
+          "durationMs": 280,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 1,
+                  "easing": "ease-in"
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scr_al_8",
+      "name": "AL · Dual clips one layer",
+      "regions": {
+        "body": {
+          "id": "lyr_al8_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al8_hero",
+              "kind": "text",
+              "text": {
+                "default": "Mount + unmount on same layer"
+              },
+              "style": {
+                "fontSize": 18,
+                "fontWeight": 600,
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al8_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al8_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_9"
+      },
+      "animations": [
+        {
+          "id": "c_al8_m",
+          "targetLayerId": "lyr_al8_hero",
+          "trigger": "mount",
+          "durationMs": 500,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "property": "scale",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0.85,
+                  "easing": "ease-in-out"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "c_al8_u",
+          "targetLayerId": "lyr_al8_hero",
+          "trigger": "unmount",
+          "durationMs": 340,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 1
+                },
+                {
+                  "t": 1,
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "property": "translateX",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "ease-in"
+                },
+                {
+                  "t": 1,
+                  "value": -12
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scr_al_9",
+      "name": "AL · Easing tokens",
+      "regions": {
+        "body": {
+          "id": "lyr_al9_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al9_l",
+              "kind": "text",
+              "text": {
+                "default": "linear"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al9_i",
+              "kind": "text",
+              "text": {
+                "default": "ease-in"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al9_o",
+              "kind": "text",
+              "text": {
+                "default": "ease-out"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al9_io",
+              "kind": "text",
+              "text": {
+                "default": "ease-in-out"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al9_s",
+              "kind": "text",
+              "text": {
+                "default": "standard"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al9_e",
+              "kind": "text",
+              "text": {
+                "default": "emphasized"
+              },
+              "style": {
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al9_go",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al9_go_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#ffffff",
+                      "dark": "#000000"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "direction": "horizontal",
+              "align": "center",
+              "distribution": "center"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_al_10"
+      },
+      "animations": [
+        {
+          "id": "ca9_l",
+          "targetLayerId": "lyr_al9_l",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "linear"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ca9_i",
+          "targetLayerId": "lyr_al9_i",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "ease-in"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ca9_o",
+          "targetLayerId": "lyr_al9_o",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "ease-out"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ca9_io",
+          "targetLayerId": "lyr_al9_io",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "ease-in-out"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ca9_s",
+          "targetLayerId": "lyr_al9_s",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "standard"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ca9_e",
+          "targetLayerId": "lyr_al9_e",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ca9_go",
+          "targetLayerId": "lyr_al9_go",
+          "trigger": "mount",
+          "durationMs": 360,
+          "delayMs": 24,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "standard"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scr_al_10",
+      "name": "AL · Done",
+      "regions": {
+        "body": {
+          "id": "lyr_al10_b",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 16,
+              "r": 16,
+              "b": 16,
+              "l": 16
+            }
+          },
+          "direction": "vertical",
+          "gap": 12,
+          "children": [
+            {
+              "id": "lyr_al10_t",
+              "kind": "text",
+              "text": {
+                "default": "Animation lab complete"
+              },
+              "style": {
+                "fontSize": 20,
+                "fontWeight": 700,
+                "color": {
+                  "light": "#000000",
+                  "dark": "#ffffff"
+                }
+              }
+            },
+            {
+              "id": "lyr_al10_end",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_al10_et",
+                  "kind": "text",
+                  "text": {
+                    "default": "End flow"
+                  },
+                  "style": {
+                    "color": {
+                      "light": "#000000",
+                      "dark": "#ffffff"
+                    }
+                  }
+                }
+              ],
+              "action": {
+                "kind": "end_flow"
+              },
+              "variant": "secondary",
+              "direction": "horizontal"
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": null
+      },
+      "animations": [
+        {
+          "id": "ca10",
+          "targetLayerId": "lyr_al10_t",
+          "trigger": "mount",
+          "durationMs": 360,
+          "tracks": [
+            {
+              "property": "opacity",
+              "keyframes": [
+                {
+                  "t": 0,
+                  "value": 0,
+                  "easing": "emphasized"
+                },
+                {
+                  "t": 1,
+                  "value": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "containerStyle": {
+        "padding": {
+          "t": 8
+        },
+        "backgroundFill": {
+          "kind": "color",
+          "color": {
+            "light": "#f4f4f5",
+            "dark": "#18181b"
+          }
+        }
+      }
+    }
+  ],
+  "decisionNodes": [],
+  "externalSurfaceNodes": [],
+  "sdkAttributeKeys": [],
+  "theme": {
+    "primary": "#4f46e5",
+    "background": "#fafafa",
+    "foreground": "#0a0a0a",
+    "borderRadius": 12
+  },
+  "builderMeta": {
+    "layout": {
+      "nodes": [
+        {
+          "id": "scr_al_0",
+          "kind": "screen",
+          "x": 40,
+          "y": 40
+        },
+        {
+          "id": "scr_al_1",
+          "kind": "screen",
+          "x": 260,
+          "y": 40
+        },
+        {
+          "id": "scr_al_2",
+          "kind": "screen",
+          "x": 480,
+          "y": 40
+        },
+        {
+          "id": "scr_al_3",
+          "kind": "screen",
+          "x": 700,
+          "y": 40
+        },
+        {
+          "id": "scr_al_4",
+          "kind": "screen",
+          "x": 40,
+          "y": 180
+        },
+        {
+          "id": "scr_al_5",
+          "kind": "screen",
+          "x": 260,
+          "y": 180
+        },
+        {
+          "id": "scr_al_6",
+          "kind": "screen",
+          "x": 480,
+          "y": 180
+        },
+        {
+          "id": "scr_al_7",
+          "kind": "screen",
+          "x": 700,
+          "y": 180
+        },
+        {
+          "id": "scr_al_8",
+          "kind": "screen",
+          "x": 40,
+          "y": 320
+        },
+        {
+          "id": "scr_al_9",
+          "kind": "screen",
+          "x": 260,
+          "y": 320
+        },
+        {
+          "id": "scr_al_10",
+          "kind": "screen",
+          "x": 480,
+          "y": 320
+        }
+      ],
+      "canvas": {
+        "zoom": 0.85,
+        "x": 0,
+        "y": 0
+      }
+    }
+  }
+}

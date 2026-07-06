@@ -10,24 +10,64 @@ const bodyStackChildrenLen = (screen: Screen): number => {
   return body.children.length;
 };
 
+const screenById = (manifest: FlowManifest): Map<string, Screen> =>
+  new Map(manifest.screens.map((screen) => [screen.id, screen]));
+
 export const isAiFlowPlaceholderManifest = (manifest: FlowManifest): boolean =>
   manifest.screens.length === 1 &&
   manifest.screens[0]?.id === AI_FLOW_PLACEHOLDER_SCREEN_ID &&
   bodyStackChildrenLen(manifest.screens[0]) === 0;
 
+const findEmptyPlaceholderScreen = (manifest: FlowManifest): Screen | undefined =>
+  manifest.screens.find(
+    (screen) =>
+      screen.id === AI_FLOW_PLACEHOLDER_SCREEN_ID && bodyStackChildrenLen(screen) === 0,
+  );
+
+/** Entry screen for default-path traversal; repairs stale entryScreenId when possible. */
+export const resolveDefaultPathEntryScreenId = (manifest: FlowManifest): string | undefined => {
+  const map = screenById(manifest);
+  if (manifest.entryScreenId && map.has(manifest.entryScreenId)) {
+    return manifest.entryScreenId;
+  }
+  return manifest.screens[0]?.id;
+};
+
+const pruneEmptyPlaceholderScreen = (manifest: FlowManifest): FlowManifest | undefined => {
+  const placeholder = findEmptyPlaceholderScreen(manifest);
+  if (!placeholder || manifest.screens.length <= 1) return undefined;
+
+  const screens = manifest.screens.filter((screen) => screen.id !== AI_FLOW_PLACEHOLDER_SCREEN_ID);
+  if (screens.length === manifest.screens.length) return undefined;
+
+  let entryScreenId = manifest.entryScreenId;
+  if (
+    entryScreenId === AI_FLOW_PLACEHOLDER_SCREEN_ID ||
+    (entryScreenId != null && !screens.some((screen) => screen.id === entryScreenId))
+  ) {
+    entryScreenId = screens[0]?.id ?? null;
+  }
+
+  return {
+    ...manifest,
+    screens,
+    entryScreenId,
+  };
+};
+
 /** Last screen on the default-next chain starting at entry (linear v1 assumption for AI expansion). */
 export const findDefaultPathTailScreen = (manifest: FlowManifest): Screen | undefined => {
-  const map = new Map(manifest.screens.map((s) => [s.id, s]));
-  const startId = manifest.entryScreenId ?? manifest.screens[0]?.id;
+  const map = screenById(manifest);
+  const startId = resolveDefaultPathEntryScreenId(manifest);
   let cur = startId ? map.get(startId) : undefined;
   const seen = new Set<string>();
   let last: Screen | undefined;
   while (cur && !seen.has(cur.id)) {
     seen.add(cur.id);
     last = cur;
-    const n = cur.next.default;
-    if (!n) break;
-    cur = map.get(n);
+    const nextId = cur.next.default;
+    if (!nextId) break;
+    cur = map.get(nextId);
   }
   return last;
 };
@@ -62,6 +102,20 @@ export const mergeAiGeneratedScreenIntoManifest = (
   manifest: FlowManifest,
   screen: Screen,
 ): FlowManifest => {
+  if (manifest.screens.length === 0) {
+    const merged: FlowManifest = {
+      ...manifest,
+      screens: [{ ...screen, next: { default: null } }],
+      entryScreenId: screen.id,
+    };
+    return ensureLayoutNodes(merged);
+  }
+
+  const pruned = pruneEmptyPlaceholderScreen(manifest);
+  if (pruned) {
+    return mergeAiGeneratedScreenIntoManifest(pruned, screen);
+  }
+
   if (isAiFlowPlaceholderManifest(manifest)) {
     const screens: Screen[] = [{ ...screen, next: { default: null } }];
     let builderMeta = manifest.builderMeta;
@@ -88,17 +142,32 @@ export const mergeAiGeneratedScreenIntoManifest = (
 
   const tail = findDefaultPathTailScreen(manifest);
   if (!tail) {
-    throw new Error('mergeAiGeneratedScreenIntoManifest: no tail on default path');
+    const repairedEntryId = manifest.screens[0]?.id;
+    if (!repairedEntryId) {
+      throw new Error('mergeAiGeneratedScreenIntoManifest: no tail on default path');
+    }
+    return mergeAiGeneratedScreenIntoManifest(
+      { ...manifest, entryScreenId: repairedEntryId },
+      screen,
+    );
   }
   if (tail.next.default !== null) {
-    throw new Error('mergeAiGeneratedScreenIntoManifest: tail must end the default path (next is null)');
+    const tailNextExists = screenById(manifest).has(tail.next.default);
+    if (tailNextExists) {
+      throw new Error('mergeAiGeneratedScreenIntoManifest: tail must end the default path (next is null)');
+    }
   }
 
   const screens: Screen[] = manifest.screens.map((s) =>
     s.id === tail.id ? { ...s, next: { default: screen.id } } : s,
   );
   screens.push({ ...screen, next: { default: null } });
-  const merged: FlowManifest = { ...manifest, screens };
+  const resolvedEntry = resolveDefaultPathEntryScreenId({ ...manifest, screens });
+  const merged: FlowManifest = {
+    ...manifest,
+    screens,
+    ...(resolvedEntry ? { entryScreenId: resolvedEntry } : {}),
+  };
   return ensureLayoutNodes(merged);
 };
 

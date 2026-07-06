@@ -9,6 +9,7 @@ import {
 import type { ReactNode } from 'react';
 import type { Screen } from '@getrheo/contracts/screens';
 import { findInputLayer } from '@getrheo/flow-runtime/layers';
+import { screenHasContinueButton } from '@getrheo/flow-runtime';
 import { snapScaleValue, scaleValueInRange, scaleValueIsOnStep } from '@getrheo/flow-runtime/scaleValidation';
 import { validateTextInputValue } from '@getrheo/flow-runtime/textInputValidation';
 import type { StepResponseCore } from '@getrheo/flow-runtime/stateMachine';
@@ -51,7 +52,16 @@ const ScreenInputDraftCtx = createContext<ScreenInputDraftCtxValue | null>(null)
 export const computeValidity = (screen: Screen, draft: InputDraft | null): InputValidity => {
   const input = findInputLayer(screen);
   if (!input) return { valid: true };
-  if (!draft) return { valid: false, reason: 'No input provided yet' };
+
+  const manualSubmit = screenHasContinueButton(screen);
+  if (!manualSubmit) return { valid: true };
+
+  if (!draft) {
+    if (input.kind === 'text_input' && input.required === false) {
+      return { valid: true };
+    }
+    return { valid: false, reason: 'No input provided yet' };
+  }
 
   switch (input.kind) {
     case 'text_input': {
@@ -99,8 +109,13 @@ export const draftToResponse = (
   screen: Screen,
   draft: InputDraft | null,
 ): StepResponseCore | null => {
-  if (!draft) return null;
   const input = findInputLayer(screen);
+  if (!draft) {
+    if (input?.kind === 'text_input' && input.required === false) {
+      return { kind: 'text', value: '', classification: input.classification };
+    }
+    return null;
+  }
   if (!input) return null;
 
   if (draft.kind === 'choice') return { kind: 'choice', choiceId: draft.choiceId };

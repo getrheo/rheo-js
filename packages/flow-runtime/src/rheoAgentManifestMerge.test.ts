@@ -131,4 +131,37 @@ describe('mergeRheoAgentPatchIntoDraft', () => {
     expect(changed.entryScreenId).toBe('scr_b');
     expect(changed.sdkAttributeKeys).toEqual(['plan']);
   });
+
+  it('repairs entryScreenId when the entry screen is removed', () => {
+    const draft = baseManifest();
+    const merged = mergeRheoAgentPatchIntoDraft(draft, {
+      removeScreenIds: ['scr_a'],
+    });
+    expect(merged.screens).toHaveLength(1);
+    expect(merged.entryScreenId).toBe('scr_b');
+  });
+
+  it('merges sdk keys from upserted decision nodes', () => {
+    const draft = baseManifest();
+    const merged = mergeRheoAgentPatchIntoDraft(draft, {
+      decisionNodes: [
+        {
+          id: 'dec_plan',
+          cases: [
+            {
+              id: 'case_paid',
+              expression: {
+                kind: 'predicate',
+                variable: { kind: 'sdk', key: 'plan' },
+                predicate: { type: 'string', pred: { op: 'eq', value: 'pro' } },
+              },
+              next: 'scr_b',
+            },
+          ],
+          elseNext: 'scr_a',
+        },
+      ],
+    });
+    expect(merged.sdkAttributeKeys).toContain('plan');
+  });
 });

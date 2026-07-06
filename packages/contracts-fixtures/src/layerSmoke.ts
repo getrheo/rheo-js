@@ -215,6 +215,40 @@ export const layerSmokeManifest = (): FlowManifest => ({
   ] as Screen[],
 });
 
+/** Nested stack sizing: hug vs fill chain for cross-SDK layout parity smokes. */
+export const layerSmokeStackSizingScreen = (): Screen => ({
+  id: 'scr_sm_stack_sizing',
+  name: 'Smoke · Stack sizing',
+  next: { default: null },
+  regions: {
+    body: {
+      id: 'lyr_sm_ss_body',
+      kind: 'stack',
+      direction: 'vertical',
+      gap: 12,
+      style: { width: 'full', height: 'fill', padding: { t: 16, r: 16, b: 16, l: 16 } },
+      children: [
+        {
+          id: 'lyr_sm_ss_hug',
+          kind: 'stack',
+          direction: 'vertical',
+          gap: 8,
+          style: { width: 'full', height: 'auto', background: { light: '#f4f4f5', dark: '#27272a' } },
+          children: [tx('lyr_sm_ss_hug_t', 'Hug card')],
+        },
+        {
+          id: 'lyr_sm_ss_fill',
+          kind: 'stack',
+          direction: 'vertical',
+          gap: 8,
+          style: { width: 'full', height: 'fill' },
+          children: [tx('lyr_sm_ss_fill_t', 'Fill region')],
+        },
+      ],
+    } as StackLayer,
+  },
+});
+
 export const layerSmokeScreen = (screenId: string): Screen => {
   const screen = layerSmokeManifest().screens.find((s) => s.id === screenId);
   if (!screen) throw new Error(`layerSmoke screen not found: ${screenId}`);

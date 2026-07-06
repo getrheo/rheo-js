@@ -1,0 +1,393 @@
+{
+  "version": 1,
+  "breakpoints": {
+    "buckets": [
+      {
+        "width": 390,
+        "bucket": "default",
+        "chain": []
+      },
+      {
+        "width": 640,
+        "bucket": "sm",
+        "chain": [
+          "sm"
+        ]
+      },
+      {
+        "width": 800,
+        "bucket": "md",
+        "chain": [
+          "sm",
+          "md"
+        ]
+      },
+      {
+        "width": 1024,
+        "bucket": "lg",
+        "chain": [
+          "sm",
+          "md",
+          "lg"
+        ]
+      },
+      {
+        "width": 1536,
+        "bucket": "2xl",
+        "chain": [
+          "sm",
+          "md",
+          "lg",
+          "xl",
+          "2xl"
+        ]
+      }
+    ]
+  },
+  "paddingDeepMerge": {
+    "base": {
+      "padding": {
+        "t": 4,
+        "r": 4,
+        "b": 4,
+        "l": 4
+      }
+    },
+    "breakpoints": {
+      "md": {
+        "padding": {
+          "t": 16
+        }
+      }
+    },
+    "width": 900,
+    "merged": {
+      "t": 16,
+      "r": 4,
+      "b": 4,
+      "l": 4
+    }
+  },
+  "fontSizeMobileFirst": {
+    "at700": 16,
+    "at900": 18
+  },
+  "deepMergeScalar": {
+    "opacity": 1
+  },
+  "easingBeziers": {
+    "linear": [
+      0,
+      0,
+      1,
+      1
+    ],
+    "ease-in": [
+      0.42,
+      0,
+      1,
+      1
+    ],
+    "ease-out": [
+      0,
+      0,
+      0.58,
+      1
+    ],
+    "ease-in-out": [
+      0.42,
+      0,
+      0.58,
+      1
+    ],
+    "standard": [
+      0.2,
+      0,
+      0,
+      1
+    ],
+    "emphasized": [
+      0.3,
+      0,
+      0,
+      1
+    ]
+  },
+  "clipSamples": [
+    {
+      "clipId": "clip_fade",
+      "t": 0,
+      "sample": {
+        "opacity": 0
+      }
+    },
+    {
+      "clipId": "clip_fade",
+      "t": 200,
+      "sample": {
+        "opacity": 0.8778336055382352
+      }
+    },
+    {
+      "clipId": "clip_fade",
+      "t": 400,
+      "sample": {
+        "opacity": 1
+      }
+    },
+    {
+      "clipId": "clip_slide_up",
+      "t": 0,
+      "sample": {
+        "opacity": 0,
+        "translateY": 16
+      }
+    },
+    {
+      "clipId": "clip_slide_up",
+      "t": 190,
+      "sample": {
+        "opacity": 0.8079319708361083,
+        "translateY": 3.0730884666222664
+      }
+    },
+    {
+      "clipId": "clip_slide_up",
+      "t": 380,
+      "sample": {
+        "opacity": 1,
+        "translateY": 0
+      }
+    },
+    {
+      "clipId": "clip_scale_in",
+      "t": 0,
+      "sample": {
+        "opacity": 0,
+        "scale": 0.96
+      }
+    },
+    {
+      "clipId": "clip_scale_in",
+      "t": 160,
+      "sample": {
+        "opacity": 0.6993224240065302,
+        "scale": 0.9879728969602612
+      }
+    },
+    {
+      "clipId": "clip_scale_in",
+      "t": 320,
+      "sample": {
+        "opacity": 1,
+        "scale": 1
+      }
+    }
+  ],
+  "layerAnimSamples": [
+    {
+      "t": 0,
+      "sample": {
+        "opacity": 0
+      }
+    },
+    {
+      "t": 500,
+      "sample": {
+        "opacity": 0
+      }
+    },
+    {
+      "t": 1000,
+      "sample": {
+        "opacity": 0
+      }
+    },
+    {
+      "t": 1200,
+      "sample": {
+        "opacity": 0.5
+      }
+    }
+  ],
+  "resolveLayerGap": {
+    "stack20": 20,
+    "stackDefault": 12,
+    "singleChoiceDefault": 8,
+    "hyperlinkDefault": 0,
+    "textDefault": 0
+  },
+  "feedbackScalars": {
+    "progress10": 10,
+    "progressDefault": 6,
+    "loaderLinearDefault": 6,
+    "loaderCircular64": 64,
+    "loaderCircularDefault": 48,
+    "loaderStroke2": 2,
+    "loaderStrokeDefault": 4
+  },
+  "stackLayoutBreakpoints": {
+    "gap": 24,
+    "direction": "horizontal"
+  },
+  "buttonLayoutBreakpoints": {
+    "gap": 16,
+    "direction": "horizontal"
+  },
+  "screenContainerShallowMerge": {
+    "t": 16,
+    "r": 16,
+    "b": 16,
+    "l": 16
+  },
+  "carouselSnapDuration": {
+    "zeroInterval": 280,
+    "oneInterval": 280,
+    "twoIntervalCap": 400
+  },
+  "carouselDecelerationRate": {
+    "reactNativeFast": 0.99
+  },
+  "gradientClipWidgetCoverage": {
+    "kinds": {
+      "stack": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "text": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "image": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "lottie": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "video": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "icon": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "button": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "back_button": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "progress": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "loader": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "counter": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "single_choice": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "multiple_choice": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "text_input": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "scale_input": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "oauth_provider": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "none"
+      },
+      "oauth_login": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "email_password_auth": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "email_password_field": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "none"
+      },
+      "email_password_submit": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "none"
+      },
+      "carousel": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "hyperlink": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      },
+      "checkbox": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "integration"
+      }
+    },
+    "totals": {
+      "kindCount": 23,
+      "rnTrue": 23,
+      "flutterTrue": 23,
+      "swiftuiIntegration": 20,
+      "swiftuiNone": 3
+    }
+  },
+  "flexDistribution": {
+    "justifyFor": {
+      "start": "flex-start",
+      "center": "center",
+      "end": "flex-end",
+      "between": "space-between",
+      "around": "space-around"
+    },
+    "parentAlignUsesCrossAxisStretch": {
+      "nil": true,
+      "stretch": true,
+      "center": false,
+      "start": false,
+      "end": false
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "description": "Minimal manifest snippet for buttonLayoutBreakpoints parity — md direction horizontal, gap 16 at 800px viewport.",
+  "viewportWidthPx": 800,
+  "screen": {
+    "id": "scr_btn_bp",
+    "name": "Button layout breakpoints",
+    "next": { "default": null },
+    "regions": {
+      "body": {
+        "id": "lyr_body",
+        "kind": "stack",
+        "direction": "vertical",
+        "children": [
+          {
+            "id": "lyr_btn",
+            "kind": "button",
+            "variant": "primary",
+            "action": { "kind": "continue" },
+            "direction": "vertical",
+            "gap": 8,
+            "buttonLayoutBreakpoints": {
+              "md": {
+                "direction": "horizontal",
+                "gap": 16
+              }
+            },
+            "children": [
+              {
+                "id": "lyr_btn_icon",
+                "kind": "icon",
+                "family": "ionicons",
+                "iconName": "arrow-forward",
+                "style": { "width": 20, "height": 20 }
+              },
+              {
+                "id": "lyr_btn_label",
+                "kind": "text",
+                "text": { "default": "Continue" },
+                "style": { "fontSize": 16, "fontWeight": 600 }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "expectedLayoutAtViewport": {
+    "gap": 16,
+    "direction": "horizontal"
+  }
+}

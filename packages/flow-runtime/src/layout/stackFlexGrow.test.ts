@@ -6,6 +6,7 @@ describe('stackMainAxisFillHeight', () => {
     expect(stackMainAxisFillHeight('fill')).toBe(true);
     expect(stackMainAxisFillHeight('full')).toBe(true);
     expect(stackMainAxisFillHeight('auto')).toBe(false);
+    expect(stackMainAxisFillHeight('1/2')).toBe(false);
     expect(stackMainAxisFillHeight(undefined)).toBe(false);
     expect(stackMainAxisFillHeight(120)).toBe(false);
   });

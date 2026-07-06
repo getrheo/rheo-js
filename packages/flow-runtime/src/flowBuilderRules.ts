@@ -22,9 +22,9 @@ export const BUILDER_RULES_AGENT_BULLETS: readonly string[] = [
   'Do not combine oauth_login or email_password_auth with other input layers on the same screen.',
   'Only one oauth_login and one email_password_auth per screen; never both on the same screen.',
   'fieldKey values must be unique snake_case across the flow.',
-  'Choice branch goTo and go_to_step screenId must reference existing screen ids.',
+  'Choice branch goTo and go_to_step screenId must reference screens, decisions, or integrations.',
   'request_app_review buttons require screen.next.default wired to a valid target.',
-  'request_os_permission outcomes must target existing screens, "continue", or "end".',
+  'request_os_permission outcomes must target screens, decisions, integrations, "continue", or "end".',
   'Lottie/video with autoPlay false needs a button with action.kind "play_media" targeting that layer (or screen background video id).',
   'play_media targetLayerIds must reference Lottie/video layers on the same screen or the screen background video playback id.',
 ];
@@ -184,18 +184,35 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
 
         if (l.kind === 'single_choice' || l.kind === 'multiple_choice') {
           for (const cond of l.branching.conditions) {
-            if (!screenIds.has(cond.goTo)) {
+            if (!jumpTargetIds.has(cond.goTo)) {
               issues.push(
-                `Screen "${label}" branches choice "${cond.choiceId}" to a missing screen "${cond.goTo}".`,
+                `Screen "${label}" branches choice "${cond.choiceId}" to a missing destination "${cond.goTo}".`,
               );
             }
           }
         }
       }
       if (l.kind === 'button' && l.action.kind === 'go_to_step') {
-        if (!screenIds.has(l.action.screenId)) {
+        if (!jumpTargetIds.has(l.action.screenId)) {
           issues.push(
-            `Button "${l.name || l.id}" on screen "${screen.name || screen.id}" targets a missing screen "${l.action.screenId}".`,
+            `Button "${l.name || l.id}" on screen "${screen.name || screen.id}" targets a missing destination "${l.action.screenId}".`,
+          );
+        }
+      }
+      if (l.kind === 'loader' && l.onComplete?.mode === 'screen') {
+        if (!jumpTargetIds.has(l.onComplete.screenId)) {
+          issues.push(
+            `Loader "${l.name || l.id}" on screen "${screen.name || screen.id}" onComplete targets a missing destination "${l.onComplete.screenId}".`,
+          );
+        }
+      }
+      if (
+        (l.kind === 'lottie' || l.kind === 'video') &&
+        l.onComplete?.mode === 'screen'
+      ) {
+        if (!jumpTargetIds.has(l.onComplete.screenId)) {
+          issues.push(
+            `${l.kind === 'video' ? 'Video' : 'Lottie'} "${l.name || l.id}" on screen "${screen.name || screen.id}" onComplete targets a missing destination "${l.onComplete.screenId}".`,
           );
         }
       }
@@ -223,16 +240,16 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
             if (def == null) {
               continue;
             }
-            if (!screenIds.has(def) && !manifest.decisionNodes?.some((d) => d.id === def)) {
+            if (!jumpTargetIds.has(def)) {
               issues.push(
                 `Button "${l.name || l.id}" on screen "${screen.name || screen.id}" (${slot}) continues to missing target "${def}".`,
               );
             }
             continue;
           }
-          if (!screenIds.has(sid)) {
+          if (!jumpTargetIds.has(sid)) {
             issues.push(
-              `Button "${l.name || l.id}" on screen "${screen.name || screen.id}" (${slot}) targets a missing screen "${sid}".`,
+              `Button "${l.name || l.id}" on screen "${screen.name || screen.id}" (${slot}) targets a missing destination "${sid}".`,
             );
           }
         }

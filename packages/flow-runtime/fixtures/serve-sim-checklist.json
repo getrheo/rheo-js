@@ -1,0 +1,144 @@
+{
+  "source": "docs/rendering/serve-sim-parity-matrix.md",
+  "viewports": [
+    "390px (default preview)",
+    "800px (md breakpoint spot checks)"
+  ],
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "channels": [
+    {
+      "name": "stress",
+      "source": "API seed (db:seed) — stress flow",
+      "purpose": "All 23 layer kinds in one flow"
+    },
+    {
+      "name": "animation-lab",
+      "source": "packages/flow-runtime/fixtures/animation-lab-screen.json",
+      "purpose": "Mount/stagger/unmount clips, easings"
+    },
+    {
+      "name": "welcome",
+      "source": "API seed — minimal welcome flow",
+      "purpose": "Typography, fill height, progress"
+    },
+    {
+      "name": "choice-heavy",
+      "source": "API seed — choice screens",
+      "purpose": "Option chrome, gap, wrap"
+    },
+    {
+      "name": "button-layout-bp",
+      "source": "packages/flow-runtime/fixtures/button-layout-breakpoints.json",
+      "purpose": "buttonLayoutBreakpoints.md at 800px"
+    }
+  ],
+  "sdks": [
+    {
+      "sdk": "Web",
+      "surface": "Dashboard flow preview / sim",
+      "how": "http://localhost:3000 builder preview"
+    },
+    {
+      "sdk": "React Native",
+      "surface": "Example Expo / bare",
+      "how": "pnpm dev:local:app:react-native"
+    },
+    {
+      "sdk": "Flutter",
+      "surface": "Example Flutter app",
+      "how": "pnpm dev:local:app:flutter"
+    },
+    {
+      "sdk": "SwiftUI",
+      "surface": "Example SwiftUI app",
+      "how": "pnpm dev:local:app:swiftui + serve-sim"
+    }
+  ],
+  "layers": [
+    {
+      "kind": "stack"
+    },
+    {
+      "kind": "text"
+    },
+    {
+      "kind": "icon"
+    },
+    {
+      "kind": "image"
+    },
+    {
+      "kind": "video"
+    },
+    {
+      "kind": "lottie"
+    },
+    {
+      "kind": "button"
+    },
+    {
+      "kind": "back_button"
+    },
+    {
+      "kind": "hyperlink"
+    },
+    {
+      "kind": "single_choice"
+    },
+    {
+      "kind": "multiple_choice"
+    },
+    {
+      "kind": "carousel"
+    },
+    {
+      "kind": "progress"
+    },
+    {
+      "kind": "loader"
+    },
+    {
+      "kind": "counter"
+    },
+    {
+      "kind": "text_input"
+    },
+    {
+      "kind": "scale_input"
+    },
+    {
+      "kind": "checkbox"
+    },
+    {
+      "kind": "oauth_login"
+    },
+    {
+      "kind": "oauth_provider"
+    },
+    {
+      "kind": "email_password_auth"
+    },
+    {
+      "kind": "email_password_submit"
+    },
+    {
+      "kind": "spacer"
+    }
+  ],
+  "scrubTimes": [
+    "t=0",
+    "200ms",
+    "500ms",
+    "1000ms (animation-lab)"
+  ],
+  "totals": {
+    "channelCount": 5,
+    "sdkCount": 4,
+    "viewportCount": 2,
+    "themeCount": 2,
+    "layerCount": 23
+  }
+}

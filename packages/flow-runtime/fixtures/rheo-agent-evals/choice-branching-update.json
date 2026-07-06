@@ -1,0 +1,145 @@
+{
+  "id": "choice-branching-update",
+  "draft": {
+    "schemaVersion": 7,
+    "flowId": "22222222-2222-4222-8222-222222222222",
+    "version": 1,
+    "defaultLocale": "en",
+    "locales": ["en"],
+    "entryScreenId": "scr_q",
+    "screens": [
+      {
+        "id": "scr_q",
+        "name": "Question",
+        "regions": {
+          "body": {
+            "id": "lyr_body",
+            "kind": "stack",
+            "direction": "vertical",
+            "gap": 12,
+            "children": [
+              {
+                "id": "lyr_choice",
+                "kind": "single_choice",
+                "fieldKey": "goal",
+                "children": [
+                  {
+                    "id": "lyr_a",
+                    "kind": "stack",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "id": "lyr_a_t",
+                        "kind": "text",
+                        "text": { "default": "A" },
+                        "style": { "color": { "light": "#0f172a", "dark": "#f8fafc" }, "width": "full", "height": "auto" }
+                      }
+                    ],
+                    "style": { "width": "full", "height": "auto" }
+                  },
+                  {
+                    "id": "lyr_b",
+                    "kind": "stack",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "id": "lyr_b_t",
+                        "kind": "text",
+                        "text": { "default": "B" },
+                        "style": { "color": { "light": "#0f172a", "dark": "#f8fafc" }, "width": "full", "height": "auto" }
+                      }
+                    ],
+                    "style": { "width": "full", "height": "auto" }
+                  }
+                ],
+                "optionBindings": [
+                  { "optionId": "a", "rootLayerId": "lyr_a" },
+                  { "optionId": "b", "rootLayerId": "lyr_b" }
+                ],
+                "branching": { "enabled": false, "conditions": [] },
+                "style": { "width": "full", "height": "auto" }
+              }
+            ],
+            "style": { "width": "full", "height": "fill" }
+          }
+        },
+        "next": { "default": null }
+      },
+      {
+        "id": "scr_a_path",
+        "name": "Path A",
+        "regions": {
+          "body": {
+            "id": "lyr_body_a",
+            "kind": "stack",
+            "direction": "vertical",
+            "children": [],
+            "style": { "width": "full", "height": "fill" }
+          }
+        },
+        "next": { "default": null }
+      }
+    ],
+    "decisionNodes": [],
+    "externalSurfaceNodes": [],
+    "sdkAttributeKeys": []
+  },
+  "toolSequence": [
+    {
+      "tool": "update_layer",
+      "input": {
+        "screenId": "scr_q",
+        "layerId": "lyr_choice",
+        "layer": {
+          "id": "lyr_choice",
+          "kind": "single_choice",
+          "fieldKey": "goal",
+          "children": [
+            {
+              "id": "lyr_a",
+              "kind": "stack",
+              "direction": "vertical",
+              "children": [
+                {
+                  "id": "lyr_a_t",
+                  "kind": "text",
+                  "text": { "default": "A" },
+                  "style": { "color": { "light": "#0f172a", "dark": "#f8fafc" }, "width": "full", "height": "auto" }
+                }
+              ],
+              "style": { "width": "full", "height": "auto" }
+            },
+            {
+              "id": "lyr_b",
+              "kind": "stack",
+              "direction": "vertical",
+              "children": [
+                {
+                  "id": "lyr_b_t",
+                  "kind": "text",
+                  "text": { "default": "B" },
+                  "style": { "color": { "light": "#0f172a", "dark": "#f8fafc" }, "width": "full", "height": "auto" }
+                }
+              ],
+              "style": { "width": "full", "height": "auto" }
+            }
+          ],
+          "optionBindings": [
+            { "optionId": "a", "rootLayerId": "lyr_a" },
+            { "optionId": "b", "rootLayerId": "lyr_b" }
+          ],
+          "branching": {
+            "enabled": true,
+            "conditions": [{ "choiceId": "a", "goTo": "scr_a_path" }]
+          },
+          "style": { "width": "full", "height": "auto" }
+        }
+      }
+    }
+  ],
+  "expect": {
+    "minAppliedSteps": 1,
+    "validationMustPass": true,
+    "textContains": ["scr_a_path", "\"enabled\":true"]
+  }
+}

@@ -4,3 +4,4 @@ export * from './layerResolve';
 export * from './screenContainerResolve';
 export * from './previewSafeAreaInsets';
 export * from './screenShellInsets';
+export * from './carouselSnap';

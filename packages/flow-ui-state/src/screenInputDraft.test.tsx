@@ -101,6 +101,33 @@ const singleChoiceScreen = (): Screen =>
     },
   ]);
 
+const withContinueButton = (screen: Screen): Screen => {
+  const body = screen.regions.body;
+  if (body.kind !== 'stack') return screen;
+  return {
+    ...screen,
+    regions: {
+      ...screen.regions,
+      body: {
+        ...body,
+        children: [
+          ...body.children,
+          {
+            id: 'lyr_continue',
+            kind: 'button',
+            variant: 'primary',
+            action: { kind: 'continue' },
+            direction: 'horizontal',
+            align: 'center',
+            distribution: 'center',
+            children: [{ id: 'lyr_continue_t', kind: 'text', text: { default: 'Continue' } }],
+          },
+        ],
+      },
+    },
+  } as Screen;
+};
+
 /** Render a probe component inside the provider that captures context state. */
 const Probe = ({
   init,
@@ -131,32 +158,23 @@ describe('ScreenInputDraftProvider', () => {
     expect(out.valid).toBe(true);
   });
 
-  it('text input: empty draft is invalid, non-empty is valid', () => {
-    const screen = textInputScreen();
-    const empty: { valid?: boolean } = {};
+  it('text input: empty draft is invalid when Continue is present', () => {
+    const screen = withContinueButton(textInputScreen());
+    const out: { valid?: boolean } = {};
     renderToStaticMarkup(
       <ScreenInputDraftProvider screen={screen}>
-        <Probe out={empty} />
+        <Probe out={out} />
       </ScreenInputDraftProvider>,
     );
-    expect(empty.valid).toBe(false);
-
-    // SSR can't carry state across renders, so instead verify with a draft
-    // seeded at first paint via the probe.
-    const filled: { valid?: boolean } = {};
-    renderToStaticMarkup(
-      <ScreenInputDraftProvider screen={screen}>
-        <Probe init={{ kind: 'text', value: 'hi' }} out={filled} />
-      </ScreenInputDraftProvider>,
-    );
-    // setDraft schedules an update we cannot observe in static markup, so
-    // assert the post-render captured value via the validity getter
-    // instead — re-render to flush.
-    expect(filled.valid).toBe(false); // first paint sees null draft
+    expect(out.valid).toBe(false);
   });
 
-  it('multiple_choice: respects minSelections', () => {
-    const screen = multiChoiceScreen({ minSelections: 2 });
+  it('text input: valid without draft when screen has no Continue button', () => {
+    expect(computeValidity(textInputScreen(), null).valid).toBe(true);
+  });
+
+  it('multiple_choice: respects minSelections when Continue is present', () => {
+    const screen = withContinueButton(multiChoiceScreen({ minSelections: 2 }));
     const out: { valid?: boolean } = {};
     renderToStaticMarkup(
       <ScreenInputDraftProvider screen={screen}>
@@ -167,16 +185,16 @@ describe('ScreenInputDraftProvider', () => {
     expect(out.valid).toBe(false);
   });
 
-  it('multiple_choice: respects maxSelections', () => {
-    const screen = multiChoiceScreen({ maxSelections: 1 });
+  it('multiple_choice: respects maxSelections when Continue is present', () => {
+    const screen = withContinueButton(multiChoiceScreen({ maxSelections: 1 }));
     expect(computeValidity(screen, { kind: 'multiChoice', choiceIds: ['opt_a', 'opt_b'] }).valid).toBe(
       false,
     );
     expect(computeValidity(screen, { kind: 'multiChoice', choiceIds: ['opt_a'] }).valid).toBe(true);
   });
 
-  it('single_choice: invalid until a draft is set', () => {
-    const screen = singleChoiceScreen();
+  it('single_choice: invalid until a draft is set when Continue is present', () => {
+    const screen = withContinueButton(singleChoiceScreen());
     const out: { valid?: boolean } = {};
     renderToStaticMarkup(
       <ScreenInputDraftProvider screen={screen}>
@@ -184,6 +202,11 @@ describe('ScreenInputDraftProvider', () => {
       </ScreenInputDraftProvider>,
     );
     expect(out.valid).toBe(false);
+  });
+
+  it('single_choice: valid without draft when screen auto-submits on tap', () => {
+    const screen = singleChoiceScreen();
+    expect(computeValidity(screen, null).valid).toBe(true);
   });
 
   it('scale_input: initial draft from layer defaults is valid', () => {
@@ -221,8 +244,27 @@ describe('draft -> StepResponse conversion', () => {
     expect(r).toEqual({ kind: 'multiChoice', choiceIds: ['opt_a'] });
   });
 
-  it('null draft yields null', () => {
-    expect(draftToResponse(textInputScreen(), null)).toBeNull();
+  it('null draft yields null for required text', () => {
+    expect(draftToResponse(withContinueButton(textInputScreen()), null)).toBeNull();
+  });
+
+  it('null draft yields empty text for optional text_input', () => {
+    const screen = withContinueButton(
+      buildScreen([
+        {
+          id: 'lyr_input',
+          kind: 'text_input',
+          fieldKey: 'note',
+          classification: 'safe',
+          required: false,
+        },
+      ]),
+    );
+    expect(draftToResponse(screen, null)).toEqual({
+      kind: 'text',
+      value: '',
+      classification: 'safe',
+    });
   });
 
   it('scale draft converts to scale StepResponse', () => {
@@ -233,70 +275,77 @@ describe('draft -> StepResponse conversion', () => {
 });
 
 describe('validity rules (direct)', () => {
-  it('text_input enforces maxLength', () => {
-    const screen = textInputScreen(3);
+  it('text_input enforces maxLength when Continue is present', () => {
+    const screen = withContinueButton(textInputScreen(3));
     expect(computeValidity(screen, { kind: 'text', value: 'too long' }).valid).toBe(false);
     expect(computeValidity(screen, { kind: 'text', value: 'ok' }).valid).toBe(true);
     expect(computeValidity(screen, { kind: 'text', value: '   ' }).valid).toBe(false);
   });
 
-  it('multi_choice defaults minSelections to 1', () => {
-    const screen = multiChoiceScreen();
+  it('multi_choice defaults minSelections to 1 when Continue is present', () => {
+    const screen = withContinueButton(multiChoiceScreen());
     expect(computeValidity(screen, { kind: 'multiChoice', choiceIds: [] }).valid).toBe(false);
     expect(
       computeValidity(screen, { kind: 'multiChoice', choiceIds: ['opt_a'] }).valid,
     ).toBe(true);
   });
 
-  it('mismatched draft kind is invalid', () => {
-    const screen = textInputScreen();
+  it('mismatched draft kind is invalid when Continue is present', () => {
+    const screen = withContinueButton(textInputScreen());
     expect(computeValidity(screen, { kind: 'choice', choiceId: 'x' }).valid).toBe(false);
   });
 
-  it('text_input email mode rejects invalid email', () => {
-    const screen = buildScreen([
-      {
-        id: 'lyr_input',
-        kind: 'text_input',
-        fieldKey: 'email',
-        classification: 'safe',
-        inputType: 'email',
-      },
-    ]);
+  it('text_input email mode rejects invalid email when Continue is present', () => {
+    const screen = withContinueButton(
+      buildScreen([
+        {
+          id: 'lyr_input',
+          kind: 'text_input',
+          fieldKey: 'email',
+          classification: 'safe',
+          inputType: 'email',
+        },
+      ]),
+    );
     expect(computeValidity(screen, { kind: 'text', value: 'not-an-email' }).valid).toBe(false);
     expect(computeValidity(screen, { kind: 'text', value: 'a@b.co' }).valid).toBe(true);
   });
 
-  it('text_input required false allows empty', () => {
-    const screen = buildScreen([
-      {
-        id: 'lyr_input',
-        kind: 'text_input',
-        fieldKey: 'note',
-        classification: 'safe',
-        required: false,
-      },
-    ]);
+  it('text_input required false allows empty when Continue is present', () => {
+    const screen = withContinueButton(
+      buildScreen([
+        {
+          id: 'lyr_input',
+          kind: 'text_input',
+          fieldKey: 'note',
+          classification: 'safe',
+          required: false,
+        },
+      ]),
+    );
+    expect(computeValidity(screen, null).valid).toBe(true);
     expect(computeValidity(screen, { kind: 'text', value: '' }).valid).toBe(true);
     expect(computeValidity(screen, { kind: 'text', value: '   ' }).valid).toBe(true);
   });
 
-  it('text_input minLength', () => {
-    const screen = buildScreen([
-      {
-        id: 'lyr_input',
-        kind: 'text_input',
-        fieldKey: 'code',
-        classification: 'safe',
-        minLength: 3,
-      },
-    ]);
+  it('text_input minLength when Continue is present', () => {
+    const screen = withContinueButton(
+      buildScreen([
+        {
+          id: 'lyr_input',
+          kind: 'text_input',
+          fieldKey: 'code',
+          classification: 'safe',
+          minLength: 3,
+        },
+      ]),
+    );
     expect(computeValidity(screen, { kind: 'text', value: 'ab' }).valid).toBe(false);
     expect(computeValidity(screen, { kind: 'text', value: 'abc' }).valid).toBe(true);
   });
 
-  it('scale_input validates range and step', () => {
-    const screen = scaleScreen({ min: 0, max: 10, step: 2, defaultValue: 4 });
+  it('scale_input validates range and step when Continue is present', () => {
+    const screen = withContinueButton(scaleScreen({ min: 0, max: 10, step: 2, defaultValue: 4 }));
     expect(computeValidity(screen, { kind: 'scale', value: 4 }).valid).toBe(true);
     expect(computeValidity(screen, { kind: 'scale', value: 5 }).valid).toBe(false);
     expect(computeValidity(screen, { kind: 'scale', value: 11 }).valid).toBe(false);
