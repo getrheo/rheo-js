@@ -1,6 +1,7 @@
 import type { FlowManifest } from '@getrheo/contracts/manifest';
 import type { Screen } from '@getrheo/contracts/screens';
 import type { DecisionNode } from '@getrheo/contracts/decisions';
+import { collectDecisionSdkKeysFromNode } from '@getrheo/contracts/decisions';
 import type { ExternalSurfaceNode } from '@getrheo/contracts/externalSurfaces';
 import { ensureLayoutNodes } from './aiFlowGenerationMerge';
 
@@ -47,8 +48,21 @@ export const mergeRheoAgentPatchIntoDraft = (
   const removeIds = new Set(patch.removeScreenIds ?? []);
 
   let screens = patch.screens ? upsertById(draft.screens, patch.screens) : draft.screens;
+  let entryScreenId = patch.entryScreenId !== undefined ? patch.entryScreenId : draft.entryScreenId;
+
   if (removeIds.size > 0) {
-    screens = screens.filter((screen) => !removeIds.has(screen.id));
+    screens = screens
+      .filter((screen) => !removeIds.has(screen.id))
+      .map((screen) => {
+        const nextDefault = screen.next.default;
+        if (nextDefault && removeIds.has(nextDefault)) {
+          return { ...screen, next: { ...screen.next, default: null } };
+        }
+        return screen;
+      });
+    if (entryScreenId && removeIds.has(entryScreenId)) {
+      entryScreenId = screens[0]?.id ?? null;
+    }
   }
 
   const decisionNodes = patch.decisionNodes
@@ -59,13 +73,22 @@ export const mergeRheoAgentPatchIntoDraft = (
     ? upsertById(draft.externalSurfaceNodes ?? [], patch.externalSurfaceNodes)
     : draft.externalSurfaceNodes;
 
+  let sdkAttributeKeys = patch.sdkAttributeKeys !== undefined ? patch.sdkAttributeKeys : draft.sdkAttributeKeys;
+  if (patch.decisionNodes?.length) {
+    const keys = new Set(sdkAttributeKeys ?? []);
+    for (const node of decisionNodes ?? []) {
+      for (const key of collectDecisionSdkKeysFromNode(node)) keys.add(key);
+    }
+    sdkAttributeKeys = [...keys];
+  }
+
   const merged: FlowManifest = {
     ...draft,
     screens,
     decisionNodes,
     externalSurfaceNodes,
-    ...(patch.entryScreenId !== undefined ? { entryScreenId: patch.entryScreenId } : {}),
-    ...(patch.sdkAttributeKeys !== undefined ? { sdkAttributeKeys: patch.sdkAttributeKeys } : {}),
+    entryScreenId,
+    sdkAttributeKeys,
     builderMeta: draft.builderMeta,
   };
 

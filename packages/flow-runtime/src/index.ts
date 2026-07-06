@@ -18,6 +18,8 @@ export * from './counterLayer';
 export * from './translationPlaceholders';
 export * from './aiFlowGenerationMerge';
 export * from './rheoAgentManifestMerge';
+export * from './rheoAgentLayerMerge';
+export * from './layerTreeOps';
 export * from './prepareAiGeneratedScreen';
 export * from './decisionEval';
 export * from './buttonVariantChrome';

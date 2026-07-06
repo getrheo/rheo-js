@@ -53,6 +53,17 @@ export const createBaselineSecurityHeaders = ({ isProduction = false, siteUrl } 
   return headers;
 };
 
+const GOOGLE_ANALYTICS_SCRIPT_SRC = 'https://www.googletagmanager.com';
+const GOOGLE_ANALYTICS_CONNECT_SRC = [
+  'https://www.google-analytics.com',
+  'https://*.google-analytics.com',
+  'https://analytics.google.com',
+  'https://*.analytics.google.com',
+  'https://www.googletagmanager.com',
+].join(' ');
+const GOOGLE_ANALYTICS_IMG_SRC =
+  'https://www.google-analytics.com https://www.googletagmanager.com';
+
 export const buildContentSecurityPolicy = ({
   profile = 'docs',
   reportOnly = true,
@@ -64,11 +75,11 @@ export const buildContentSecurityPolicy = ({
     "object-src 'none'",
     "frame-ancestors 'none'",
     "form-action 'self' mailto:",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+    `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${GOOGLE_ANALYTICS_SCRIPT_SRC}`,
     "style-src 'self' 'unsafe-inline'",
-    "img-src 'self' data: blob:",
+    `img-src 'self' data: blob: ${GOOGLE_ANALYTICS_IMG_SRC}`,
     "font-src 'self'",
-    "connect-src 'self'",
+    `connect-src 'self' ${GOOGLE_ANALYTICS_CONNECT_SRC}`,
     "worker-src 'self' blob:",
     "manifest-src 'self'",
   ];

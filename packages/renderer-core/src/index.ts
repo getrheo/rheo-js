@@ -26,3 +26,4 @@ export * from './inputModel';
 export * from './spacingModel';
 export * from './surfaceModel';
 export * from './typographyModel';
+export * from './dynamicTypeScale';

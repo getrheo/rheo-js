@@ -1,0 +1,130 @@
+{
+  "id": "update-decision-branch",
+  "draft": {
+    "schemaVersion": 7,
+    "flowId": "22222222-2222-4222-8222-222222222222",
+    "version": 1,
+    "defaultLocale": "en",
+    "locales": ["en"],
+    "entryScreenId": "scr_goal",
+    "screens": [
+      {
+        "id": "scr_goal",
+        "name": "Goal",
+        "regions": {
+          "body": {
+            "id": "lyr_body",
+            "kind": "stack",
+            "direction": "vertical",
+            "gap": 12,
+            "children": [
+              {
+                "id": "lyr_choice",
+                "kind": "single_choice",
+                "fieldKey": "primary_goal",
+                "children": [
+                  {
+                    "id": "lyr_opt_a",
+                    "kind": "stack",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "id": "lyr_opt_a_t",
+                        "kind": "text",
+                        "text": { "default": "Mindfulness" },
+                        "style": { "color": { "light": "#0f172a", "dark": "#f8fafc" }, "width": "full", "height": "auto" }
+                      }
+                    ],
+                    "style": { "width": "full", "height": "auto" }
+                  },
+                  {
+                    "id": "lyr_opt_b",
+                    "kind": "stack",
+                    "direction": "vertical",
+                    "children": [
+                      {
+                        "id": "lyr_opt_b_t",
+                        "kind": "text",
+                        "text": { "default": "Fitness" },
+                        "style": { "color": { "light": "#0f172a", "dark": "#f8fafc" }, "width": "full", "height": "auto" }
+                      }
+                    ],
+                    "style": { "width": "full", "height": "auto" }
+                  }
+                ],
+                "optionBindings": [
+                  { "optionId": "mindfulness", "rootLayerId": "lyr_opt_a" },
+                  { "optionId": "fitness", "rootLayerId": "lyr_opt_b" }
+                ],
+                "branching": { "enabled": false, "conditions": [] },
+                "style": { "width": "full", "height": "auto" }
+              }
+            ],
+            "style": { "width": "full", "height": "fill" }
+          }
+        },
+        "next": { "default": null }
+      },
+      {
+        "id": "scr_mindfulness",
+        "name": "Mindfulness path",
+        "regions": {
+          "body": {
+            "id": "lyr_body_m",
+            "kind": "stack",
+            "direction": "vertical",
+            "children": [],
+            "style": { "width": "full", "height": "fill" }
+          }
+        },
+        "next": { "default": null }
+      },
+      {
+        "id": "scr_default",
+        "name": "Default path",
+        "regions": {
+          "body": {
+            "id": "lyr_body_d",
+            "kind": "stack",
+            "direction": "vertical",
+            "children": [],
+            "style": { "width": "full", "height": "fill" }
+          }
+        },
+        "next": { "default": null }
+      }
+    ],
+    "decisionNodes": [],
+    "externalSurfaceNodes": [],
+    "sdkAttributeKeys": []
+  },
+  "toolSequence": [
+    {
+      "tool": "update_decision_node",
+      "input": {
+        "decisionNode": {
+          "id": "dec_goal_branch",
+          "name": "Goal branch",
+          "cases": [
+            {
+              "id": "case_mindfulness",
+              "name": "Mindfulness",
+              "expression": {
+                "kind": "predicate",
+                "variable": { "kind": "field", "fieldKey": "primary_goal" },
+                "predicate": { "type": "choice", "pred": { "op": "eq", "optionId": "mindfulness" } }
+              },
+              "next": "scr_mindfulness"
+            }
+          ],
+          "elseNext": "scr_default"
+        }
+      }
+    }
+  ],
+  "expect": {
+    "minAppliedSteps": 1,
+    "validationMustPass": true,
+    "textContains": ["dec_goal_branch", "mindfulness"]
+  }
+}

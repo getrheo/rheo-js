@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/flow-runtime",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -31,7 +31,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/contracts": "2.1.0"
+    "@getrheo/contracts": "2.2.0"
   },
   "devDependencies": {
     "@rheo/config": "workspace:*",
@@ -108,6 +108,11 @@
         "types": "./dist/responsive/breakpoints.d.ts",
         "import": "./dist/responsive/breakpoints.js",
         "default": "./dist/responsive/breakpoints.js"
+      },
+      "./responsive/carouselSnap": {
+        "types": "./dist/responsive/carouselSnap.d.ts",
+        "import": "./dist/responsive/carouselSnap.js",
+        "default": "./dist/responsive/carouselSnap.js"
       },
       "./responsive/layerResolve": {
         "types": "./dist/responsive/layerResolve.d.ts",
@@ -209,10 +214,20 @@
         "import": "./dist/flowGraph.js",
         "default": "./dist/flowGraph.js"
       },
+      "./gradientClipWidgetCoverage": {
+        "types": "./dist/gradientClipWidgetCoverage.d.ts",
+        "import": "./dist/gradientClipWidgetCoverage.js",
+        "default": "./dist/gradientClipWidgetCoverage.js"
+      },
       "./layerRotate": {
         "types": "./dist/layerRotate.d.ts",
         "import": "./dist/layerRotate.js",
         "default": "./dist/layerRotate.js"
+      },
+      "./layerTreeOps": {
+        "types": "./dist/layerTreeOps.d.ts",
+        "import": "./dist/layerTreeOps.js",
+        "default": "./dist/layerTreeOps.js"
       },
       "./manifestBillingSlice": {
         "types": "./dist/manifestBillingSlice.d.ts",
@@ -223,6 +238,11 @@
         "types": "./dist/prepareAiGeneratedScreen.d.ts",
         "import": "./dist/prepareAiGeneratedScreen.js",
         "default": "./dist/prepareAiGeneratedScreen.js"
+      },
+      "./rheoAgentLayerMerge": {
+        "types": "./dist/rheoAgentLayerMerge.d.ts",
+        "import": "./dist/rheoAgentLayerMerge.js",
+        "default": "./dist/rheoAgentLayerMerge.js"
       },
       "./rheoAgentManifestMerge": {
         "types": "./dist/rheoAgentManifestMerge.d.ts",
