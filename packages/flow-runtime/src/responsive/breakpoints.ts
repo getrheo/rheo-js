@@ -28,13 +28,8 @@ export const SCREEN_SIZE_BUCKET_ORDER: readonly ScreenSizeBucket[] = [
   '2xl',
 ] as const;
 
-/** Buckets shown in the flow builder inspector (xl / 2xl omitted from authoring UI). */
-export const BUILDER_INSPECTOR_BUCKET_ORDER: readonly ScreenSizeBucket[] = [
-  'default',
-  'sm',
-  'md',
-  'lg',
-] as const;
+/** Buckets shown in the flow builder inspector (full Tailwind screen set). */
+export const BUILDER_INSPECTOR_BUCKET_ORDER: readonly ScreenSizeBucket[] = SCREEN_SIZE_BUCKET_ORDER;
 
 /** Human-readable bucket titles; ranges lie between consecutive breakpoints. */
 export const SCREEN_SIZE_BUCKET_LABEL: Record<ScreenSizeBucket, string> = {

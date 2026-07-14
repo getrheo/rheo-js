@@ -330,7 +330,7 @@ export const applyStaggerIndicesFromTreeOrder = (screen: Screen): Screen => {
       l.children.forEach(visit);
       return;
     }
-    if (l.kind === 'text_input' || l.kind === 'scale_input') {
+    if (l.kind === 'text_input' || l.kind === 'scale_input' || l.kind === 'wheel_picker') {
       l.children?.forEach(visit);
       return;
     }

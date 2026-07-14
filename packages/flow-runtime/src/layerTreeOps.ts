@@ -13,7 +13,7 @@ export const childrenOf = (l: Layer): Layer[] => {
   if (l.kind === 'button' || l.kind === 'back_button') return l.children;
   if (l.kind === 'hyperlink') return l.children;
   if (l.kind === 'single_choice' || l.kind === 'multiple_choice') return l.children;
-  if (l.kind === 'text_input' || l.kind === 'scale_input') return l.children ?? [];
+  if (l.kind === 'text_input' || l.kind === 'scale_input' || l.kind === 'wheel_picker') return l.children ?? [];
   if (l.kind === 'oauth_login') return l.children;
   if (l.kind === 'oauth_provider' && l.variant === 'custom') return l.children;
   if (l.kind === 'email_password_auth') return l.children;
@@ -104,7 +104,7 @@ export const replaceLayerInTree = <T extends Layer>(
       children: root.children.map((c) => replaceLayerInTree(c, id, mutate) as StackLayer),
     } as T);
   }
-  if (root.kind === 'text_input' || root.kind === 'scale_input') {
+  if (root.kind === 'text_input' || root.kind === 'scale_input' || root.kind === 'wheel_picker') {
     if (!root.children) return root;
     return {
       ...root,
@@ -177,7 +177,7 @@ export const insertLayerInTree = <T extends Layer>(
       else next.splice(index, 0, layer);
       return withChoiceSync({ ...parent, children: next });
     }
-    if (parent.kind === 'text_input' || parent.kind === 'scale_input') {
+    if (parent.kind === 'text_input' || parent.kind === 'scale_input' || parent.kind === 'wheel_picker') {
       const existing = parent.children ?? [];
       const next = [...existing];
       if (index === undefined) next.push(layer);
@@ -222,7 +222,7 @@ export const removeLayerFromTree = <T extends Layer>(root: T, id: string): T => 
         .map((c) => removeLayerFromTree(c, id) as StackLayer),
     } as T);
   }
-  if (root.kind === 'text_input' || root.kind === 'scale_input') {
+  if (root.kind === 'text_input' || root.kind === 'scale_input' || root.kind === 'wheel_picker') {
     const kids = root.children;
     if (!kids) return root;
     const next = kids.filter((c) => c.id !== id).map((c) => removeLayerFromTree(c, id));

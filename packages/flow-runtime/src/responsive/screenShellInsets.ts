@@ -25,6 +25,6 @@ export const resolveEffectiveScreenShellPadding = (opts: {
   insetSafeArea?: boolean;
   safeAreaInsets: Padding;
 }): Padding | undefined => {
-  if (!opts.insetSafeArea) return opts.manual;
+  if (opts.insetSafeArea !== true) return opts.manual;
   return addPadding(opts.manual, opts.safeAreaInsets);
 };

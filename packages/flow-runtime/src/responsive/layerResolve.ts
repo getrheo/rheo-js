@@ -2,11 +2,17 @@ import type {
   BackButtonLayer,
   ButtonLayer,
   ButtonStyle,
+  CarouselLayer,
   CommonLayoutHeight,
   CommonStyle,
+  EmailPasswordAuthLayer,
+  HyperlinkLayer,
   IconStyle,
   ImageStyle,
   LayerKind,
+  MultipleChoiceLayer,
+  OAuthLoginLayer,
+  SingleChoiceLayer,
   StackLayer,
   TextLayer,
   TextStyle,
@@ -180,6 +186,119 @@ export const resolveButtonLayoutAtWidth = (
     widthPx,
   );
   return { gap: merged.gap, direction: merged.direction };
+};
+
+export const resolveHyperlinkLayoutAtWidth = (
+  layer: Pick<HyperlinkLayer, 'gap' | 'direction' | 'hyperlinkLayoutBreakpoints'>,
+  widthPx: number,
+): { gap: number | undefined; direction: HyperlinkLayer['direction'] } => {
+  const merged = mergeLayoutScalars(
+    { gap: layer.gap, direction: layer.direction },
+    layer.hyperlinkLayoutBreakpoints as
+      | Partial<
+          Record<
+            StyleBreakpointKey,
+            Partial<{ gap?: number; direction?: HyperlinkLayer['direction'] }>
+          >
+        >
+      | undefined,
+    widthPx,
+  );
+  return { gap: merged.gap, direction: merged.direction ?? layer.direction };
+};
+
+export const resolveAuthLayoutAtWidth = (
+  layer: Pick<
+    OAuthLoginLayer | EmailPasswordAuthLayer,
+    'gap' | 'align' | 'authLayoutBreakpoints'
+  >,
+  widthPx: number,
+): { gap: number | undefined; align: OAuthLoginLayer['align'] } => {
+  const merged = mergeLayoutScalars(
+    { gap: layer.gap, align: layer.align },
+    layer.authLayoutBreakpoints as
+      | Partial<
+          Record<
+            StyleBreakpointKey,
+            Partial<{ gap?: number; align?: OAuthLoginLayer['align'] }>
+          >
+        >
+      | undefined,
+    widthPx,
+  );
+  return { gap: merged.gap, align: merged.align ?? layer.align };
+};
+
+export const resolveChoiceLayoutAtWidth = (
+  layer: Pick<
+    SingleChoiceLayer | MultipleChoiceLayer,
+    'gap' | 'direction' | 'columns' | 'choiceLayoutBreakpoints'
+  >,
+  widthPx: number,
+): {
+  gap: number | undefined;
+  direction: SingleChoiceLayer['direction'];
+  columns: number | undefined;
+} => {
+  const merged = mergeLayoutScalars(
+    { gap: layer.gap, direction: layer.direction, columns: layer.columns },
+    layer.choiceLayoutBreakpoints as
+      | Partial<
+          Record<
+            StyleBreakpointKey,
+            Partial<{
+              gap?: number;
+              direction?: SingleChoiceLayer['direction'];
+              columns?: number;
+            }>
+          >
+        >
+      | undefined,
+    widthPx,
+  );
+  return {
+    gap: merged.gap,
+    direction: merged.direction ?? layer.direction,
+    columns: merged.columns ?? layer.columns,
+  };
+};
+
+export const resolveCarouselLayoutAtWidth = (
+  layer: Pick<
+    CarouselLayer,
+    'pageAlignment' | 'pageSpacing' | 'pagePeek' | 'carouselLayoutBreakpoints'
+  >,
+  widthPx: number,
+): {
+  pageAlignment: CarouselLayer['pageAlignment'];
+  pageSpacing: number | undefined;
+  pagePeek: number | undefined;
+} => {
+  const merged = mergeLayoutScalars(
+    {
+      pageAlignment: layer.pageAlignment,
+      pageSpacing: layer.pageSpacing,
+      pagePeek: layer.pagePeek,
+    },
+    layer.carouselLayoutBreakpoints as
+      | Partial<
+          Record<
+            StyleBreakpointKey,
+            Partial<{
+              pageAlignment?: CarouselLayer['pageAlignment'];
+              pageSpacing?: number;
+              pagePeek?: number;
+            }>
+          >
+        >
+      | undefined,
+    widthPx,
+  );
+  return {
+    pageAlignment: merged.pageAlignment ?? layer.pageAlignment,
+    pageSpacing: merged.pageSpacing ?? layer.pageSpacing,
+    pagePeek: merged.pagePeek ?? layer.pagePeek,
+  };
 };
 
 /** Effective styles for editor preview at the bucket implied by device width. */

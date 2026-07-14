@@ -5,7 +5,7 @@
     "sdkCount": 4,
     "viewportCount": 2,
     "themeCount": 2,
-    "layerCount": 23
+    "layerCount": 22
   },
   "cells": {
     "stress": {
@@ -31,8 +31,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "React Native": {
         "stack": "pending",
@@ -56,8 +55,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "Flutter": {
         "stack": "pending",
@@ -81,8 +79,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "SwiftUI": {
         "stack": "pending",
@@ -106,8 +103,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       }
     },
     "animation-lab": {
@@ -133,8 +129,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "React Native": {
         "stack": "pending",
@@ -158,8 +153,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "Flutter": {
         "stack": "pending",
@@ -183,8 +177,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "SwiftUI": {
         "stack": "pending",
@@ -208,8 +201,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       }
     },
     "welcome": {
@@ -235,8 +227,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "React Native": {
         "stack": "pending",
@@ -260,8 +251,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "Flutter": {
         "stack": "pending",
@@ -285,8 +275,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "SwiftUI": {
         "stack": "pending",
@@ -310,8 +299,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       }
     },
     "choice-heavy": {
@@ -337,8 +325,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "React Native": {
         "stack": "pending",
@@ -362,8 +349,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "Flutter": {
         "stack": "pending",
@@ -387,8 +373,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "SwiftUI": {
         "stack": "pending",
@@ -412,8 +397,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       }
     },
     "button-layout-bp": {
@@ -439,8 +423,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "React Native": {
         "stack": "pending",
@@ -464,8 +447,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "Flutter": {
         "stack": "pending",
@@ -489,8 +471,7 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       },
       "SwiftUI": {
         "stack": "pending",
@@ -514,19 +495,18 @@
         "oauth_login": "pending",
         "oauth_provider": "pending",
         "email_password_auth": "pending",
-        "email_password_submit": "pending",
-        "spacer": "pending"
+        "email_password_submit": "pending"
       }
     }
   },
   "summary": {
-    "total": 460,
+    "total": 440,
     "done": 0,
-    "pending": 460,
+    "pending": 440,
     "skipped": 0,
     "not_applicable": 0,
     "byStatus": {
-      "pending": 460,
+      "pending": 440,
       "match": 0,
       "minor": 0,
       "diverges": 0,

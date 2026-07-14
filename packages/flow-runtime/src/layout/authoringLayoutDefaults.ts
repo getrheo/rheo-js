@@ -39,7 +39,7 @@ export const defaultLayoutStyleForKind = (kind: LayerKind): AuthoringLayoutDefau
     case 'video':
       return LAYOUT_FULL_FIXED_H160;
     case 'icon':
-      return LAYOUT_HUG_HUG;
+      return { width: 24, height: 24 };
     case 'button':
     case 'back_button':
     case 'oauth_provider':
@@ -47,6 +47,7 @@ export const defaultLayoutStyleForKind = (kind: LayerKind): AuthoringLayoutDefau
       return LAYOUT_FULL_HUG;
     case 'text_input':
     case 'scale_input':
+    case 'wheel_picker':
     case 'email_password_auth':
     case 'email_password_field':
     case 'oauth_login':

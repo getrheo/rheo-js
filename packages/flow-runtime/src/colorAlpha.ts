@@ -54,3 +54,38 @@ export const multiplyColorAlpha = (
   const outA = Math.min(1, Math.max(0, a * factor));
   return `rgba(${r},${g},${b},${outA})`;
 };
+
+type CommonStyleOpacityInput = {
+  background?: unknown;
+  opacity?: number;
+  backgroundOpacity?: number;
+};
+
+/** Background fill opacity only (does not dim child content). */
+export const resolveCommonBackgroundOpacity = (
+  s: CommonStyleOpacityInput | undefined,
+): number | undefined => {
+  if (!s) return undefined;
+  if (s.backgroundOpacity !== undefined) return s.backgroundOpacity;
+  // Legacy: stack background editor stored fill opacity as `opacity`.
+  if (s.background !== undefined && s.opacity !== undefined) return s.opacity;
+  return undefined;
+};
+
+/**
+ * Whole-layer opacity (fades the layer and its descendants).
+ * Excludes legacy misfiled background-only opacity when `background` is set.
+ */
+export const resolveCommonLayerOpacity = (
+  s: CommonStyleOpacityInput | undefined,
+): number | undefined => {
+  if (s?.opacity === undefined) return undefined;
+  if (
+    s.backgroundOpacity === undefined &&
+    s.background !== undefined &&
+    s.opacity !== undefined
+  ) {
+    return undefined;
+  }
+  return s.opacity;
+};

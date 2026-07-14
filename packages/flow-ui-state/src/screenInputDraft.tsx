@@ -11,6 +11,7 @@ import type { Screen } from '@getrheo/contracts/screens';
 import { findInputLayer } from '@getrheo/flow-runtime/layers';
 import { screenHasContinueButton } from '@getrheo/flow-runtime';
 import { snapScaleValue, scaleValueInRange, scaleValueIsOnStep } from '@getrheo/flow-runtime/scaleValidation';
+import { defaultWheelPickerValue, wheelPickerValueIsValid } from '@getrheo/flow-runtime/wheelPickerItems';
 import { validateTextInputValue } from '@getrheo/flow-runtime/textInputValidation';
 import type { StepResponseCore } from '@getrheo/flow-runtime/stateMachine';
 
@@ -24,7 +25,8 @@ export type InputDraft =
   | { kind: 'choice'; choiceId: string }
   | { kind: 'multiChoice'; choiceIds: string[] }
   | { kind: 'text'; value: string }
-  | { kind: 'scale'; value: number };
+  | { kind: 'scale'; value: number }
+  | { kind: 'wheel'; value: string };
 
 export type InputValidity = { valid: boolean; reason?: string };
 
@@ -95,6 +97,13 @@ export const computeValidity = (screen: Screen, draft: InputDraft | null): Input
       if (draft.kind !== 'choice') return { valid: false, reason: 'Wrong draft kind' };
       return { valid: true };
     }
+    case 'wheel_picker': {
+      if (draft.kind !== 'wheel') return { valid: false, reason: 'Wrong draft kind' };
+      if (!wheelPickerValueIsValid(input, draft.value, 'en')) {
+        return { valid: false, reason: 'Invalid selection' };
+      }
+      return { valid: true };
+    }
   }
 };
 
@@ -128,6 +137,10 @@ export const draftToResponse = (
     if (input.kind !== 'scale_input') return null;
     return { kind: 'scale', value: draft.value };
   }
+  if (draft.kind === 'wheel') {
+    if (input.kind !== 'wheel_picker') return null;
+    return { kind: 'wheel', value: draft.value };
+  }
   return null;
 };
 
@@ -138,6 +151,10 @@ const initialDraftForScreen = (screen: Screen): InputDraft | null => {
       kind: 'scale',
       value: snapScaleValue(input, input.defaultValue ?? input.min),
     };
+  }
+  if (input?.kind === 'wheel_picker') {
+    const value = defaultWheelPickerValue(input);
+    return value ? { kind: 'wheel', value } : null;
   }
   return null;
 };

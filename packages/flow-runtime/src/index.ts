@@ -29,6 +29,8 @@ export * from './layerTypography';
 export * from './layerRotate';
 export * from './checkboxGlyphStyle';
 export * from './scaleInputStyle';
+export * from './textInputStyle';
 export * from './choiceOptionSelection';
+export * from './templatePreviewPath';
 export * from './layout/index';
 export * from './responsive/index';

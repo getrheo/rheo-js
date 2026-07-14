@@ -81,14 +81,17 @@ export const dropShadowToNativeStyle = (
   const ox = sh!.offsetX ?? 0;
   const oy = sh!.offsetY ?? 2;
   const blur = sh!.blur ?? 8;
+  const spread = sh!.spread ?? 0;
   const opacity = sh!.opacity ?? 0.25;
   const base = resolveThemedColor(theme, palette, sh!.color);
   const color = colorWithOpacity(base, opacity);
+  // RN has no CSS spread; approximate by inflating blur radius / elevation.
+  const radius = blur + Math.abs(spread);
   return {
     shadowOffset: { width: ox, height: oy },
     shadowOpacity: 1,
-    shadowRadius: blur,
+    shadowRadius: radius,
     shadowColor: color,
-    elevation: Math.min(24, Math.max(0, Math.round(blur / 2 + Math.abs(oy)))),
+    elevation: Math.min(24, Math.max(0, Math.round(radius / 2 + Math.abs(oy)))),
   };
 };
