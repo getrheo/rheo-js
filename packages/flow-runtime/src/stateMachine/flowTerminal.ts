@@ -54,6 +54,8 @@ export const stepResponseToCompletionValue = (
       return { value: r.value, classification: r.classification };
     case 'scale':
       return r.value;
+    case 'wheel':
+      return r.value;
     case 'checkbox':
       return r.value;
     case 'cta':

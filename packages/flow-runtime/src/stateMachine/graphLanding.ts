@@ -127,6 +127,7 @@ export const responseKeyFor = (screen: Screen, response: StepResponse): string =
     response.kind === 'choice' ||
     response.kind === 'multiChoice' ||
     response.kind === 'scale' ||
+    response.kind === 'wheel' ||
     response.kind === 'checkbox'
   ) {
     const input = findInputLayer(screen);

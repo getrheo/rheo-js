@@ -6,6 +6,12 @@ const EMAIL_RE =
 /** Phone: raw string as typed; allow common dial characters, length bounds. */
 const PHONE_RE = /^[\d\s+().-]{3,32}$/u;
 
+/** Number: digits only (0-9). */
+const NUMBERS_RE = /^\d+$/u;
+
+/** Strip non-digit characters while typing `number` inputType fields. */
+export const filterDigitsOnlyInput = (raw: string): string => raw.replace(/\D/g, '');
+
 const isProbablyUrl = (s: string): boolean => {
   try {
     const withProto = /^[a-z]+:/iu.test(s) ? s : `https://${s}`;
@@ -57,6 +63,10 @@ export const validateTextInputValue = (layer: TextInputLayer, raw: string): Text
         : { ok: false, reason: 'Enter a valid phone number (digits and common symbols only)' };
     case 'url':
       return isProbablyUrl(trimmed) ? { ok: true } : { ok: false, reason: 'Enter a valid URL' };
+    case 'number':
+      return NUMBERS_RE.test(trimmed)
+        ? { ok: true }
+        : { ok: false, reason: 'Enter numbers only' };
     default:
       return { ok: true };
   }

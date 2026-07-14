@@ -21,6 +21,10 @@ describe('defaultLayoutStyleForKind', () => {
     expect(defaultLayoutStyleForKind('image')).toEqual({ width: 'full', height: 160 });
   });
 
+  it('icon defaults to a 24×24 box', () => {
+    expect(defaultLayoutStyleForKind('icon')).toEqual({ width: 24, height: 24 });
+  });
+
   it('carousel has no layout default', () => {
     expect(defaultLayoutStyleForKind('carousel')).toBeNull();
   });

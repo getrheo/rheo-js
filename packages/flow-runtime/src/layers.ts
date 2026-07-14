@@ -16,6 +16,7 @@ import type {
   Layer,
   MultipleChoiceLayer,
   ScaleInputLayer,
+  WheelPickerLayer,
   SingleChoiceLayer,
   StackLayer,
   TextInputLayer,
@@ -36,7 +37,7 @@ export const walkLayers = (root: Layer, fn: (l: Layer, depth: number) => void): 
     else if (l.kind === 'hyperlink') l.children.forEach((c) => visit(c, depth + 1));
     else if (l.kind === 'single_choice' || l.kind === 'multiple_choice') {
       l.children.forEach((c) => visit(c, depth + 1));
-    } else if (l.kind === 'text_input' || l.kind === 'scale_input') {
+    } else if (l.kind === 'text_input' || l.kind === 'scale_input' || l.kind === 'wheel_picker') {
       l.children?.forEach((c) => visit(c, depth + 1));
     } else if (l.kind === 'oauth_login') {
       l.children.forEach((c) => visit(c, depth + 1));
@@ -72,10 +73,15 @@ export const findInputLayer = (screen: Screen): InputLayer | null => {
 /** Input kinds that use a screen draft and require an explicit Continue to submit. */
 export const findManualSubmitInputLayer = (
   screen: Screen,
-): MultipleChoiceLayer | TextInputLayer | ScaleInputLayer | null => {
+): MultipleChoiceLayer | TextInputLayer | ScaleInputLayer | WheelPickerLayer | null => {
   const input = findInputLayer(screen);
   if (!input) return null;
-  if (input.kind === 'multiple_choice' || input.kind === 'text_input' || input.kind === 'scale_input') {
+  if (
+    input.kind === 'multiple_choice' ||
+    input.kind === 'text_input' ||
+    input.kind === 'scale_input' ||
+    input.kind === 'wheel_picker'
+  ) {
     return input;
   }
   return null;
@@ -237,6 +243,7 @@ export const nativeBrandBackgroundFromThemedColor = (
   if (preset) {
     const lin = brandGradientNativeLinear(preset);
     if (lin) return { linear: lin };
+    // Radial brand presets have no RN LinearGradient equivalent — fall back to solid first stop.
     return { solid: brandGradientSolidFallback(preset) };
   }
   const bg = resolveThemedBackground(theme, branding, palette, value) as string | undefined;

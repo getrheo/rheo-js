@@ -17,8 +17,8 @@ import { findLayerById, walkScreen } from './layers';
 export const BUILDER_RULES_AGENT_BULLETS: readonly string[] = [
   'Connect flow entry on the canvas before publishing (entryScreenId must exist when screens are present).',
   'Every text and icon layer needs explicit style.color (including nested button label text — native does not inherit colors).',
-  'Screens with text_input, multiple_choice, or scale_input need a button with action.kind "continue".',
-  'At most one input layer per screen (single_choice, multiple_choice, text_input, scale_input).',
+  'Screens with text_input, multiple_choice, scale_input, or wheel_picker need a button with action.kind "continue".',
+  'At most one input layer per screen (single_choice, multiple_choice, text_input, scale_input, wheel_picker).',
   'Do not combine oauth_login or email_password_auth with other input layers on the same screen.',
   'Only one oauth_login and one email_password_auth per screen; never both on the same screen.',
   'fieldKey values must be unique snake_case across the flow.',
@@ -165,7 +165,12 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
       }
       if (isInputLayer(l)) {
         inputCount += 1;
-        if (l.kind === 'multiple_choice' || l.kind === 'text_input' || l.kind === 'scale_input') {
+        if (
+          l.kind === 'multiple_choice' ||
+          l.kind === 'text_input' ||
+          l.kind === 'scale_input' ||
+          l.kind === 'wheel_picker'
+        ) {
           needsManualSubmit = true;
         }
         const key = l.fieldKey;
@@ -366,7 +371,7 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
 
     if (needsManualSubmit && !hasContinueButton) {
       issues.push(
-        `Screen "${screen.name || screen.id}" has a multiple_choice, text_input, or scale_input but no Button with action "continue". Add a Continue button so users can submit.`,
+        `Screen "${screen.name || screen.id}" has a multiple_choice, text_input, scale_input, or wheel_picker but no Button with action "continue". Add a Continue button so users can submit.`,
       );
     }
   }

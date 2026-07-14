@@ -9,6 +9,7 @@ export type ResolvedScaleInputTextStyle = {
   color: string;
   textAlign: ScaleInputLabelStyle['align'];
   lineHeight: number | undefined;
+  letterSpacing: number | undefined;
   opacity: number;
 };
 
@@ -74,7 +75,7 @@ const resolveColor = (
 ): string =>
   (resolveThemedColor(theme, palette, color) as string | undefined) ?? fallback;
 
-const resolveTextStyle = (
+export const resolveInputTypographyStyle = (
   style: ScaleInputLabelStyle | undefined,
   theme: Theme | undefined,
   palette: 'light' | 'dark',
@@ -92,6 +93,7 @@ const resolveTextStyle = (
   color: resolveColor(theme, palette, style?.color, defaults.color),
   textAlign: style?.align ?? defaults.textAlign,
   lineHeight: style?.lineHeight,
+  letterSpacing: style?.letterSpacing,
   opacity: style?.opacity ?? defaults.opacity,
 });
 
@@ -121,12 +123,12 @@ export const resolveScaleInputSliderForRender = (
     fillColor: resolveColor(theme, palette, layer.fillColor, fillFallback),
     thumbSizePx: layer.thumbSize ?? 16,
     thumbColor: resolveColor(theme, palette, layer.thumbColor, fillFallback),
-    label: resolveTextStyle(layer.labelStyle, theme, palette, {
+    label: resolveInputTypographyStyle(layer.labelStyle, theme, palette, {
       fontSizePx: 11,
       color: defaultLabelColor(palette),
       opacity: 0.75,
     }),
-    value: resolveTextStyle(layer.valueStyle, theme, palette, {
+    value: resolveInputTypographyStyle(layer.valueStyle, theme, palette, {
       fontSizePx: 14,
       fontWeight: 600,
       color: defaultValueColor(palette),

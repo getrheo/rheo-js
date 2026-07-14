@@ -18,21 +18,21 @@ const hasMonorepoSdkSources = existsSync(
 describe('buildGradientClipWidgetCoverage', () => {
   const coverage = buildGradientClipWidgetCoverage(repoRoot);
 
-  it('includes all 23 layer kinds from contracts', () => {
+  it('includes all 24 layer kinds from contracts', () => {
     expect(Object.keys(coverage.kinds).sort()).toEqual([...LAYER_KINDS].sort());
-    expect(coverage.totals.kindCount).toBe(23);
+    expect(coverage.totals.kindCount).toBe(24);
   });
 
   describe.skipIf(!hasMonorepoSdkSources)('monorepo SDK widget scans', () => {
-    it('marks RN widget coverage true for all 23 kinds', () => {
-      expect(coverage.totals.rnTrue).toBe(23);
+    it('marks RN widget coverage true for all 24 kinds', () => {
+      expect(coverage.totals.rnTrue).toBe(24);
       for (const kind of LAYER_KINDS) {
         expect(coverage.kinds[kind].rn, kind).toBe(true);
       }
     });
 
-    it('marks Flutter widget coverage true for all 23 kinds', () => {
-      expect(coverage.totals.flutterTrue).toBe(23);
+    it('marks Flutter widget coverage true for all 24 kinds', () => {
+      expect(coverage.totals.flutterTrue).toBe(24);
       for (const kind of LAYER_KINDS) {
         expect(coverage.kinds[kind].flutter, kind).toBe(true);
       }
@@ -67,7 +67,7 @@ describe('buildGradientClipWidgetCoverage', () => {
         ].sort(),
       );
       expect(coverage.totals.swiftuiIntegration).toBe(20);
-      expect(coverage.totals.swiftuiNone).toBe(3);
+      expect(coverage.totals.swiftuiNone).toBe(4);
     });
   });
 

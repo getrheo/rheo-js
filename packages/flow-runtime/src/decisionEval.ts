@@ -56,6 +56,8 @@ const normalizeResponseValue = (r: unknown): unknown => {
       return typeof o.value === 'string' ? o.value : undefined;
     case 'scale':
       return typeof o.value === 'number' ? o.value : undefined;
+    case 'wheel':
+      return typeof o.value === 'string' ? o.value : undefined;
     case 'checkbox':
       return typeof o.value === 'boolean' ? o.value : undefined;
     default:

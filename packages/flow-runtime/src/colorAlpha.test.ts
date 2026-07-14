@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { multiplyColorAlpha } from './colorAlpha';
+import { multiplyColorAlpha, resolveCommonBackgroundOpacity, resolveCommonLayerOpacity } from './colorAlpha';
 
 describe('multiplyColorAlpha', () => {
   it('returns undefined for undefined color', () => {
@@ -32,5 +32,23 @@ describe('multiplyColorAlpha', () => {
 
   it('returns transparent when factor is 0', () => {
     expect(multiplyColorAlpha('#00ff00', 0)).toBe('rgba(0,0,0,0)');
+  });
+});
+
+describe('resolveCommonBackgroundOpacity', () => {
+  it('prefers backgroundOpacity and falls back to legacy opacity with background', () => {
+    expect(resolveCommonBackgroundOpacity({ backgroundOpacity: 0.4 })).toBe(0.4);
+    expect(resolveCommonBackgroundOpacity({ background: '#fff', opacity: 0.5 })).toBe(0.5);
+    expect(resolveCommonBackgroundOpacity({ opacity: 0.5 })).toBeUndefined();
+  });
+});
+
+describe('resolveCommonLayerOpacity', () => {
+  it('skips legacy misfiled background opacity', () => {
+    expect(resolveCommonLayerOpacity({ background: '#fff', opacity: 0.5 })).toBeUndefined();
+    expect(resolveCommonLayerOpacity({ opacity: 0.5 })).toBe(0.5);
+    expect(
+      resolveCommonLayerOpacity({ background: '#fff', backgroundOpacity: 0.4, opacity: 0.8 }),
+    ).toBe(0.8);
   });
 });

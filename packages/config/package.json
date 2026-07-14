@@ -8,14 +8,16 @@
     "./tsconfig.lib.json": "./tsconfig.lib.json",
     "./tsconfig.next.json": "./tsconfig.next.json",
     "./eslint.js": "./eslint.js",
-    "./security-headers.mjs": "./security-headers.mjs"
+    "./security-headers.mjs": "./security-headers.mjs",
+    "./site-icons.mjs": "./site-icons.mjs"
   },
   "files": [
     "tsconfig.base.json",
     "tsconfig.lib.json",
     "tsconfig.next.json",
     "eslint.js",
-    "security-headers.mjs"
+    "security-headers.mjs",
+    "site-icons.mjs"
   ],
   "dependencies": {
     "eslint-plugin-unused-imports": "^4.4.1"

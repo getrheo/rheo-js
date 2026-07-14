@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import type { IconLayer, StackLayer } from '@getrheo/contracts/layers';
+import type { IconLayer, StackLayer, TextLayer } from '@getrheo/contracts/layers';
 import { applyChoiceOptionSelectionToStack } from './choiceOptionSelection';
 
 const optionStack = (): StackLayer => ({
@@ -58,5 +58,29 @@ describe('applyChoiceOptionSelectionToStack', () => {
     expect(unselIcon?.kind).toBe('icon');
     expect(unselIcon?.style?.opacity).toBe(0);
     expect(selIcon?.style?.opacity).toBe(1);
+  });
+
+  it('merges nested text selectedStyle when selected', () => {
+    const stack: StackLayer = {
+      id: 'opt',
+      kind: 'stack',
+      direction: 'horizontal',
+      children: [
+        {
+          id: 'opt_label',
+          kind: 'text',
+          text: { default: 'Fun' },
+          style: { color: '#111111' },
+          selectedStyle: { color: '#1899D6', fontWeight: 600 },
+        },
+      ],
+    };
+    const unselected = applyChoiceOptionSelectionToStack(stack, false, 390);
+    const selected = applyChoiceOptionSelectionToStack(stack, true, 390);
+    const unselLabel = unselected.children?.[0] as TextLayer;
+    const selLabel = selected.children?.[0] as TextLayer;
+    expect(unselLabel.style?.color).toBe('#111111');
+    expect(selLabel.style?.color).toBe('#1899D6');
+    expect(selLabel.style?.fontWeight).toBe(600);
   });
 });

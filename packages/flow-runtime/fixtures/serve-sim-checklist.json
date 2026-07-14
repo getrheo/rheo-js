@@ -12,7 +12,7 @@
     {
       "name": "stress",
       "source": "API seed (db:seed) — stress flow",
-      "purpose": "All 23 layer kinds in one flow"
+      "purpose": "All 22 layer kinds in one flow"
     },
     {
       "name": "animation-lab",
@@ -123,9 +123,6 @@
     },
     {
       "kind": "email_password_submit"
-    },
-    {
-      "kind": "spacer"
     }
   ],
   "scrubTimes": [
@@ -139,6 +136,6 @@
     "sdkCount": 4,
     "viewportCount": 2,
     "themeCount": 2,
-    "layerCount": 23
+    "layerCount": 22
   }
 }

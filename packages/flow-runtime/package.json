@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/flow-runtime",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -31,7 +31,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/contracts": "2.2.0"
+    "@getrheo/contracts": "2.3.0"
   },
   "devDependencies": {
     "@rheo/config": "workspace:*",
@@ -254,6 +254,16 @@
         "import": "./dist/scaleInputStyle.js",
         "default": "./dist/scaleInputStyle.js"
       },
+      "./templatePreviewPath": {
+        "types": "./dist/templatePreviewPath.d.ts",
+        "import": "./dist/templatePreviewPath.js",
+        "default": "./dist/templatePreviewPath.js"
+      },
+      "./textInputStyle": {
+        "types": "./dist/textInputStyle.d.ts",
+        "import": "./dist/textInputStyle.js",
+        "default": "./dist/textInputStyle.js"
+      },
       "./translationPlaceholders": {
         "types": "./dist/translationPlaceholders.d.ts",
         "import": "./dist/translationPlaceholders.js",
@@ -263,6 +273,16 @@
         "types": "./dist/validation.d.ts",
         "import": "./dist/validation.js",
         "default": "./dist/validation.js"
+      },
+      "./wheelPickerItems": {
+        "types": "./dist/wheelPickerItems.d.ts",
+        "import": "./dist/wheelPickerItems.js",
+        "default": "./dist/wheelPickerItems.js"
+      },
+      "./wheelPickerStyle": {
+        "types": "./dist/wheelPickerStyle.d.ts",
+        "import": "./dist/wheelPickerStyle.js",
+        "default": "./dist/wheelPickerStyle.js"
       }
     },
     "main": "./dist/index.js",

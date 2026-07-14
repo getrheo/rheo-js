@@ -109,7 +109,7 @@ export const remapReplacedScreenLayerCollisionsInManifest = (
     else if (layer.kind === 'hyperlink') layer.children.forEach(fix);
     else if (layer.kind === 'single_choice' || layer.kind === 'multiple_choice') {
       layer.children.forEach(fix);
-    } else if (layer.kind === 'text_input' || layer.kind === 'scale_input') {
+    } else if (layer.kind === 'text_input' || layer.kind === 'scale_input' || layer.kind === 'wheel_picker') {
       layer.children?.forEach(fix);
     } else if (layer.kind === 'oauth_login') layer.children.forEach(fix);
     else if (layer.kind === 'oauth_provider' && layer.variant === 'custom') layer.children.forEach(fix);

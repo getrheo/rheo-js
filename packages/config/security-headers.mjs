@@ -63,12 +63,21 @@ const GOOGLE_ANALYTICS_CONNECT_SRC = [
 ].join(' ');
 const GOOGLE_ANALYTICS_IMG_SRC =
   'https://www.google-analytics.com https://www.googletagmanager.com';
+const PRODUCT_HUNT_IMG_SRC = 'https://api.producthunt.com';
 
 export const buildContentSecurityPolicy = ({
   profile = 'docs',
   reportOnly = true,
   siteUrl,
 } = {}) => {
+  const imgSrc = [
+    "'self'",
+    'data:',
+    'blob:',
+    GOOGLE_ANALYTICS_IMG_SRC,
+    ...(profile === 'marketing' ? [PRODUCT_HUNT_IMG_SRC] : []),
+  ].join(' ');
+
   const directives = [
     "default-src 'self'",
     "base-uri 'self'",
@@ -77,7 +86,7 @@ export const buildContentSecurityPolicy = ({
     "form-action 'self' mailto:",
     `script-src 'self' 'unsafe-inline' 'unsafe-eval' ${GOOGLE_ANALYTICS_SCRIPT_SRC}`,
     "style-src 'self' 'unsafe-inline'",
-    `img-src 'self' data: blob: ${GOOGLE_ANALYTICS_IMG_SRC}`,
+    `img-src ${imgSrc}`,
     "font-src 'self'",
     `connect-src 'self' ${GOOGLE_ANALYTICS_CONNECT_SRC}`,
     "worker-src 'self' blob:",

@@ -126,6 +126,8 @@ const responseToDisplayString = (
       return mode === 'id' ? '' : response.value;
     case 'scale':
       return mode === 'id' ? '' : String(response.value);
+    case 'wheel':
+      return mode === 'id' ? '' : response.value;
     case 'choice':
       if (mode === 'id') return response.choiceId;
       return choiceLabelFor(manifest, fieldKey, response.choiceId, locale);

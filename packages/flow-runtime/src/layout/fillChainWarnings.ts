@@ -98,7 +98,7 @@ const visitLayerChildren = (layer: Layer, visit: (child: Layer) => void): void =
   else if (layer.kind === 'hyperlink') layer.children.forEach(visit);
   else if (layer.kind === 'single_choice' || layer.kind === 'multiple_choice') {
     layer.children.forEach(visit);
-  } else if (layer.kind === 'text_input' || layer.kind === 'scale_input') {
+  } else if (layer.kind === 'text_input' || layer.kind === 'scale_input' || layer.kind === 'wheel_picker') {
     layer.children?.forEach(visit);
   } else if (layer.kind === 'oauth_login') layer.children.forEach(visit);
   else if (layer.kind === 'oauth_provider' && layer.variant === 'custom') {

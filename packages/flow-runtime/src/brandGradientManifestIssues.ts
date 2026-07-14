@@ -281,6 +281,28 @@ const scanLayer = (issues: ManifestValidationIssue[], screen: Screen, layer: Lay
       checkThemed(issues, stepId, id, 'fillColor', layer.fillColor, false, branding);
       checkThemed(issues, stepId, id, 'thumbColor', layer.thumbColor, false, branding);
       return;
+    case 'wheel_picker':
+      walkCommonBreakpoints(issues, stepId, id, layer.style, undefined, branding);
+      checkThemed(
+        issues,
+        stepId,
+        id,
+        'selectionBackgroundColor',
+        layer.selectionBackgroundColor,
+        false,
+        branding,
+      );
+      checkThemed(issues, stepId, id, 'itemStyle.color', layer.itemStyle?.color, false, branding);
+      checkThemed(
+        issues,
+        stepId,
+        id,
+        'selectedItemStyle.color',
+        layer.selectedItemStyle?.color,
+        false,
+        branding,
+      );
+      return;
     case 'oauth_login':
       walkCommonBreakpoints(issues, stepId, id, layer.style, layer.styleBreakpoints, branding);
       return;

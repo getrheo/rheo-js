@@ -18,6 +18,7 @@ export type RendererTypographyModel = {
   color: string | undefined;
   align: TextStyle['align'];
   lineHeight: number | undefined;
+  letterSpacing: number | undefined;
 };
 
 export const rendererTypographyModel = ({
@@ -29,7 +30,7 @@ export const rendererTypographyModel = ({
 }: {
   style: Pick<
     TextStyle,
-    'fontFamily' | 'fontSize' | 'fontWeight' | 'color' | 'align' | 'lineHeight'
+    'fontFamily' | 'fontSize' | 'fontWeight' | 'color' | 'align' | 'lineHeight' | 'letterSpacing'
   > | undefined;
   theme: Theme | undefined;
   palette: RendererPalette;
@@ -46,5 +47,6 @@ export const rendererTypographyModel = ({
     color,
     align: style?.align,
     lineHeight: style?.lineHeight,
+    letterSpacing: style?.letterSpacing,
   };
 };

@@ -23,6 +23,7 @@ export type ConsumedDraftPayload =
   | { kind: 'multiChoice'; choiceIds: string[] }
   | { kind: 'text'; value: string; classification: 'safe' | 'sensitive' }
   | { kind: 'scale'; value: number }
+  | { kind: 'wheel'; value: string }
   | { kind: 'cta'; action: 'primary' | 'secondary' }
   | { kind: 'carousel' };
 
@@ -32,6 +33,7 @@ export type StepResponseCore =
   | { kind: 'multiChoice'; choiceIds: string[] }
   | { kind: 'text'; value: string; classification: 'safe' | 'sensitive' }
   | { kind: 'scale'; value: number }
+  | { kind: 'wheel'; value: string }
   | { kind: 'checkbox'; fieldKey: string; value: boolean }
   | { kind: 'cta'; action: 'primary' | 'secondary' }
   | { kind: 'carousel' }
@@ -97,6 +99,7 @@ export const isEligibleConsumedDraft = (r: StepResponse): r is ConsumedDraftPayl
     case 'choice':
     case 'multiChoice':
     case 'scale':
+    case 'wheel':
     case 'cta':
     case 'carousel':
       return true;
