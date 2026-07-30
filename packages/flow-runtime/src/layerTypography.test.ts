@@ -99,4 +99,31 @@ describe('layerTypography', () => {
     });
     expect(buildBrandingFontLoadMap(null)).toEqual({});
   });
+
+  it('buildBrandingFontLoadMap prefers mediaMap over stale style.url', () => {
+    const sid = '00000000-0000-4000-8000-000000000099';
+    const mid = '00000000-0000-4000-8000-000000000088';
+    const branding: Branding = {
+      colorPresets: [],
+      gradientPresets: [],
+      fontFamilies: [
+        {
+          id: '00000000-0000-4000-8000-000000000001',
+          name: 'Demo',
+          styles: [
+            {
+              id: sid,
+              weight: 400,
+              italic: false,
+              mediaAssetId: mid,
+              url: 'https://expired.example/old.ttf',
+            },
+          ],
+        },
+      ],
+    };
+    expect(buildBrandingFontLoadMap(branding, { [mid]: 'https://fresh.example/new.ttf' })).toEqual({
+      [nativeFontRegistrationNameForStyle(sid)]: 'https://fresh.example/new.ttf',
+    });
+  });
 });

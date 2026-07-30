@@ -64,18 +64,21 @@ export const brandingWebFontFacesCss = (branding: Branding | undefined): string 
 export const nativeFontRegistrationNameForStyle = (styleId: string): string => `RheoFont__${styleId}`;
 
 /**
- * Map of **native font registration name → font file URL** for every branding style that has a `url`.
+ * Map of **native font registration name → font file URL** for every branding style that has a `url`
+ * (or a `mediaAssetId` present in optional `mediaMap`).
  * Pass the result to your host runtime’s font loader (e.g. `expo-font`’s `loadAsync`, a bare-RN native
  * module, or pre-linked assets). Keys match {@link resolveNativeTextFontFamilyName} after fonts are registered.
  */
 export const buildBrandingFontLoadMap = (
   branding: Branding | null | undefined,
+  mediaMap?: Record<string, string> | null,
 ): Record<string, string> => {
   const map: Record<string, string> = {};
   if (!branding?.fontFamilies?.length) return map;
   for (const fam of branding.fontFamilies) {
     for (const st of fam.styles) {
-      const u = st.url?.trim();
+      const fromMap = st.mediaAssetId ? mediaMap?.[st.mediaAssetId]?.trim() : undefined;
+      const u = fromMap || st.url?.trim();
       if (!u) continue;
       map[nativeFontRegistrationNameForStyle(st.id)] = u;
     }

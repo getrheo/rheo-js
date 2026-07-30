@@ -10,6 +10,9 @@ type ChoiceLayer = SingleChoiceLayer | MultipleChoiceLayer;
 export const childrenOf = (l: Layer): Layer[] => {
   if (l.kind === 'stack') return l.children;
   if (l.kind === 'carousel') return l.slides;
+  // Structural children: every branch stack. Use `resolveConditionalBranch` for
+  // the active branch only.
+  if (l.kind === 'conditional') return l.children;
   if (l.kind === 'button' || l.kind === 'back_button') return l.children;
   if (l.kind === 'hyperlink') return l.children;
   if (l.kind === 'single_choice' || l.kind === 'multiple_choice') return l.children;
@@ -84,6 +87,12 @@ export const replaceLayerInTree = <T extends Layer>(
     return {
       ...root,
       slides: root.slides.map((s) => replaceLayerInTree(s, id, mutate) as StackLayer),
+    } as T;
+  }
+  if (root.kind === 'conditional') {
+    return {
+      ...root,
+      children: root.children.map((c) => replaceLayerInTree(c, id, mutate) as StackLayer),
     } as T;
   }
   if (root.kind === 'button' || root.kind === 'back_button') {

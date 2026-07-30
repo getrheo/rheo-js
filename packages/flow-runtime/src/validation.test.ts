@@ -120,4 +120,22 @@ describe('validatePublishable', () => {
     expect(result.ok).toBe(true);
     expect(result.issues.some((i) => i.code === 'flow.no_completion_path')).toBe(false);
   });
+
+  it('blocks publish on a conditional branch without rules', () => {
+    const m: FlowManifest = validFlow();
+    const welcome = m.screens.find((s) => s.id === 'scr_welcome')!;
+    welcome.regions.body.children.push({
+      id: 'lyr_cond',
+      kind: 'conditional',
+      cases: [{ id: 'case_1', expression: { kind: 'empty' }, rootLayerId: 'lyr_cond_case_1' }],
+      elseRootLayerId: 'lyr_cond_else',
+      children: [
+        { id: 'lyr_cond_case_1', kind: 'stack', direction: 'vertical', children: [] },
+        { id: 'lyr_cond_else', kind: 'stack', direction: 'vertical', children: [] },
+      ],
+    });
+    const result = validatePublishable(m);
+    expect(result.ok).toBe(false);
+    expect(result.issues.some((i) => i.code === 'conditional.incomplete_cases')).toBe(true);
+  });
 });

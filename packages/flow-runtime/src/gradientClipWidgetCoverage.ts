@@ -30,6 +30,11 @@ export const GRADIENT_CLIP_PARENT_RENDERED_KINDS: readonly LayerKind[] = [
 
 const parentRenderedSet = new Set<LayerKind>(GRADIENT_CLIP_PARENT_RENDERED_KINDS);
 
+/** Control-flow kinds with no chrome of their own — they render a branch stack. */
+export const GRADIENT_CLIP_CONTROL_FLOW_KINDS: readonly LayerKind[] = ['conditional'];
+
+const controlFlowSet = new Set<LayerKind>(GRADIENT_CLIP_CONTROL_FLOW_KINDS);
+
 const RN_VIEW_TO_KIND: Record<string, LayerKind> = {
   StackView: 'stack',
   TextView: 'text',
@@ -186,7 +191,7 @@ export const buildGradientClipWidgetCoverage = (
   const kinds = {} as Record<LayerKind, GradientClipKindCoverage>;
 
   for (const kind of LAYER_KINDS) {
-    const parentRendered = parentRenderedSet.has(kind);
+    const parentRendered = parentRenderedSet.has(kind) || controlFlowSet.has(kind);
     kinds[kind] = {
       rn: parentRendered || rnFound.has(kind),
       flutter: parentRendered || flutterFound.has(kind),

@@ -1,4 +1,4 @@
-import type { CarouselLayer } from '@getrheo/contracts/layers';
+import type { CarouselAdvanceOnLast, CarouselLayer } from '@getrheo/contracts/layers';
 import type { Theme } from '@getrheo/contracts/manifest';
 import { resolveThemedColor } from '@getrheo/flow-runtime';
 import { boxEdges, boxEdgesOrUndefined, type RendererBoxEdges } from './spacingModel';
@@ -173,4 +173,25 @@ export const rendererCarouselAdvanceIndex = (
 ): number => {
   if (index + 1 < slideCount) return index + 1;
   return loop ? 0 : index;
+};
+
+/**
+ * `advance_carousel` tapped while already parked on the last slide: only `onLast: 'complete'`
+ * finishes the carousel, and looping or single-slide carousels never complete through paging
+ * (same rule as the swipe path in {@link rendererCarouselShouldEmitComplete}).
+ */
+export const rendererCarouselShouldCompleteOnAdvanceTap = ({
+  index,
+  slideCount,
+  loop,
+  onLast,
+}: {
+  index: number;
+  slideCount: number;
+  loop: boolean;
+  onLast: CarouselAdvanceOnLast | undefined;
+}): boolean => {
+  if ((onLast ?? 'noop') !== 'complete') return false;
+  if (loop || slideCount <= 1) return false;
+  return index >= slideCount - 1;
 };

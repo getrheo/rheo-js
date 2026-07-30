@@ -32,12 +32,15 @@ export const digestDecisionExpression = (expr: DecisionExpr): string => {
   return `d${(h >>> 0).toString(16)}`;
 };
 
-type EvalCtx = {
+/** Variables available to decision and conditional expressions. */
+export type DecisionEvalCtx = {
   locale: string;
   platform: string;
   sdkAttributes: Record<string, unknown>;
   responses: Record<string, unknown>;
 };
+
+type EvalCtx = DecisionEvalCtx;
 
 const responseForField = (
   fieldKey: string,

@@ -2,7 +2,19 @@ import { describe, expect, it } from 'vitest';
 import { PRIMARY_FILLED_LABEL } from '@getrheo/contracts/layers';
 import type { FlowManifest } from '@getrheo/contracts/manifest';
 import { screenBackgroundPlaybackId } from '@getrheo/contracts';
-import { collectFlowBuilderIssues } from './flowBuilderRules';
+import { collectAdvanceCarouselWarnings, collectFlowBuilderIssues } from './flowBuilderRules';
+
+const carouselChild = (slideCount: number, loop?: boolean): Record<string, unknown> => ({
+  id: 'lyr_car',
+  kind: 'carousel',
+  ...(loop === undefined ? {} : { loop }),
+  slides: Array.from({ length: slideCount }, (_, i) => ({
+    id: `lyr_slide_${i}`,
+    kind: 'stack',
+    direction: 'vertical',
+    children: [],
+  })),
+});
 
 const minimalManifest = (): FlowManifest =>
   ({
@@ -171,5 +183,75 @@ describe('collectFlowBuilderIssues', () => {
     });
     const issues = collectFlowBuilderIssues(m);
     expect(issues.some((i) => i.includes('lyr_bad') && i.includes('style.color'))).toBe(true);
+  });
+
+  it('flags advance_carousel targets that are not a carousel on the same screen', () => {
+    const m = minimalManifest();
+    const body = m.screens[0]!.regions.body;
+    (body.children as Array<Record<string, unknown>>).push({
+      id: 'lyr_btn',
+      kind: 'button',
+      variant: 'primary',
+      action: { kind: 'advance_carousel', targetLayerId: 'lyr_in' },
+      children: [],
+    });
+    const issues = collectFlowBuilderIssues(m);
+    expect(issues.some((i) => i.includes('advance-carousel target'))).toBe(true);
+  });
+
+  it('passes when advance_carousel targets a carousel on the same screen', () => {
+    const m = minimalManifest();
+    const body = m.screens[0]!.regions.body;
+    (body.children as Array<Record<string, unknown>>).push(carouselChild(2), {
+      id: 'lyr_btn',
+      kind: 'button',
+      variant: 'primary',
+      action: { kind: 'advance_carousel', targetLayerId: 'lyr_car' },
+      children: [],
+    });
+    const issues = collectFlowBuilderIssues(m);
+    expect(issues.filter((i) => i.includes('advance-carousel'))).toEqual([]);
+  });
+});
+
+describe('collectAdvanceCarouselWarnings', () => {
+  const withAdvanceButton = (
+    slideCount: number,
+    extra: { loop?: boolean; onLast?: 'noop' | 'complete' } = {},
+  ): FlowManifest => {
+    const m = minimalManifest();
+    const body = m.screens[0]!.regions.body;
+    (body.children as Array<Record<string, unknown>>).push(
+      carouselChild(slideCount, extra.loop),
+      {
+        id: 'lyr_btn',
+        kind: 'button',
+        variant: 'primary',
+        action: {
+          kind: 'advance_carousel',
+          targetLayerId: 'lyr_car',
+          ...(extra.onLast ? { onLast: extra.onLast } : {}),
+        },
+        children: [],
+      },
+    );
+    return m;
+  };
+
+  it('warns when the target carousel has a single slide', () => {
+    const warnings = collectAdvanceCarouselWarnings(withAdvanceButton(1));
+    expect(warnings.some((w) => w.includes('single-slide carousel'))).toBe(true);
+  });
+
+  it('warns when Finish carousel is set on a looping carousel', () => {
+    const warnings = collectAdvanceCarouselWarnings(
+      withAdvanceButton(3, { loop: true, onLast: 'complete' }),
+    );
+    expect(warnings.some((w) => w.includes('never finishes through paging'))).toBe(true);
+  });
+
+  it('stays quiet for a multi-slide non-looping carousel', () => {
+    expect(collectAdvanceCarouselWarnings(withAdvanceButton(3, { onLast: 'complete' }))).toEqual([]);
+    expect(collectAdvanceCarouselWarnings(withAdvanceButton(3, { loop: true }))).toEqual([]);
   });
 });
