@@ -325,6 +325,11 @@
         "flutter": true,
         "swiftui": "integration"
       },
+      "wheel_picker": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "none"
+      },
       "oauth_provider": {
         "rn": true,
         "flutter": true,
@@ -364,14 +369,19 @@
         "rn": true,
         "flutter": true,
         "swiftui": "integration"
+      },
+      "conditional": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "none"
       }
     },
     "totals": {
-      "kindCount": 23,
-      "rnTrue": 23,
-      "flutterTrue": 23,
+      "kindCount": 25,
+      "rnTrue": 25,
+      "flutterTrue": 25,
       "swiftuiIntegration": 20,
-      "swiftuiNone": 3
+      "swiftuiNone": 5
     }
   },
   "flexDistribution": {

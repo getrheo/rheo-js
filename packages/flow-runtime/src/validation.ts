@@ -3,7 +3,7 @@ import { FlowManifestSchema, migrateLegacyManifest } from '@getrheo/contracts';
 import type { FlowManifest } from '@getrheo/contracts';
 import type { Screen } from '@getrheo/contracts/screens';
 import { OS_PERMISSION_OUTCOME_CONTINUE, OS_PERMISSION_OUTCOME_END } from '@getrheo/contracts/layers';
-import { EXTERNAL_SURFACE_NO_NEXT } from '@getrheo/contracts/decisions';
+import { EXTERNAL_SURFACE_NO_NEXT, decisionExprHasPredicate } from '@getrheo/contracts/decisions';
 import { findInputLayer, walkScreen } from './layers';
 
 export type ManifestValidationIssue = {
@@ -196,6 +196,18 @@ export const validatePublishable = (manifest: FlowManifest): ValidatePublishable
         code: 'screen.unreachable',
       });
     }
+    walkScreen(screen as unknown as Screen, (l) => {
+      if (l.kind !== 'conditional') return;
+      for (const c of l.cases) {
+        if (decisionExprHasPredicate(c.expression)) continue;
+        issues.push({
+          stepId: screen.id,
+          path: ['screens', screen.id, 'layers', l.id, 'cases', c.id],
+          message: `conditional "${l.name ?? l.id}" branch "${c.name ?? c.id}" needs at least one rule before publishing`,
+          code: 'conditional.incomplete_cases',
+        });
+      }
+    });
   }
 
   for (const sn of manifest.externalSurfaceNodes ?? []) {

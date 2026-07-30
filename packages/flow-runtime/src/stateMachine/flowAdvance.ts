@@ -3,11 +3,11 @@ import {
   oauthLoginResponseKey,
 } from '@getrheo/contracts/layers';
 
-
-
-
-
 import { EXTERNAL_SURFACE_NO_NEXT } from '@getrheo/contracts/decisions';
+import {
+  pruneVacatedConditionalResponses,
+  resolveScreenConditionals,
+} from '../conditionalBranch.js';
 import { findManualSubmitInputLayer } from '../layers.js';
 import type { DecisionEvaluationTelemetry } from '../decisionEval.js';
 import type { FlowState, FlowSessionContext, SubmitResponseOptions } from './flowSession.js';
@@ -147,18 +147,44 @@ export const submitResponse = (
   }
 
   if (!state.currentScreenId) return state;
-  const screen = findScreen(state.manifest, state.currentScreenId);
-  if (!screen) return state;
+  const authoredScreen = findScreen(state.manifest, state.currentScreenId);
+  if (!authoredScreen) return state;
+  const evalCtxFor = (responses: Record<string, StepResponse>) => ({
+    locale: state.session.locale,
+    platform: state.session.platform,
+    sdkAttributes: state.session.sdkAttributes,
+    responses: responses as Record<string, unknown>,
+  });
+  // Conditional layers make part of the screen structurally absent. Resolve the
+  // active branches so input lookup, response keys, and branching only consider
+  // layers the user actually saw.
+  const screen = resolveScreenConditionals(authoredScreen, evalCtxFor(state.responses));
 
   if (response.kind === 'screen_commit') {
     const mergedResponses = { ...state.responses };
     for (const [fk, value] of Object.entries(response.checkboxValues)) {
       mergedResponses[fk] = { kind: 'checkbox', fieldKey: fk, value };
     }
+    const committedScreen = resolveScreenConditionals(
+      authoredScreen,
+      evalCtxFor(mergedResponses),
+    );
     if (response.capturedDraft) {
-      mergedResponses[responseKeyFor(screen, response.capturedDraft)] = response.capturedDraft;
+      mergedResponses[responseKeyFor(committedScreen, response.capturedDraft)] =
+        response.capturedDraft;
     }
-    return submitResponse({ ...state, responses: mergedResponses }, response.primary, opts);
+    return submitResponse(
+      {
+        ...state,
+        responses: pruneVacatedConditionalResponses(
+          authoredScreen,
+          evalCtxFor(mergedResponses),
+          mergedResponses,
+        ),
+      },
+      response.primary,
+      opts,
+    );
   }
 
   if (response.kind === 'go_back') {

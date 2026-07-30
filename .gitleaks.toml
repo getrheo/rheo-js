@@ -10,4 +10,7 @@ paths = [
   '''package-lock\.json''',
   '''ios/Pods/''',
   '''android/\.gradle/''',
+  '''.*\.test\.ts$''',
+  '''.*\.test\.tsx$''',
+  '''.*\.spec\.ts$''',
 ]

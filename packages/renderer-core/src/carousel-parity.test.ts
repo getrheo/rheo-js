@@ -7,6 +7,7 @@ import {
   rendererCarouselLayoutModel,
   rendererCarouselPageDotsModel,
   rendererCarouselScrollOffset,
+  rendererCarouselShouldCompleteOnAdvanceTap,
   rendererCarouselSlideIndex,
   rendererCarouselSlideWidth,
 } from './carouselModel';
@@ -86,6 +87,68 @@ describe('renderer-core carousel parity', () => {
 
     it('stays on last index when loop is disabled', () => {
       expect(rendererCarouselAdvanceIndex(2, 3, false)).toBe(2);
+    });
+  });
+
+  describe('rendererCarouselShouldCompleteOnAdvanceTap', () => {
+    it('completes when parked on the last slide with onLast complete', () => {
+      expect(
+        rendererCarouselShouldCompleteOnAdvanceTap({
+          index: 2,
+          slideCount: 3,
+          loop: false,
+          onLast: 'complete',
+        }),
+      ).toBe(true);
+    });
+
+    it('does nothing before the last slide', () => {
+      expect(
+        rendererCarouselShouldCompleteOnAdvanceTap({
+          index: 1,
+          slideCount: 3,
+          loop: false,
+          onLast: 'complete',
+        }),
+      ).toBe(false);
+    });
+
+    it('defaults to noop when onLast is omitted', () => {
+      expect(
+        rendererCarouselShouldCompleteOnAdvanceTap({
+          index: 2,
+          slideCount: 3,
+          loop: false,
+          onLast: undefined,
+        }),
+      ).toBe(false);
+      expect(
+        rendererCarouselShouldCompleteOnAdvanceTap({
+          index: 2,
+          slideCount: 3,
+          loop: false,
+          onLast: 'noop',
+        }),
+      ).toBe(false);
+    });
+
+    it('never completes looping or single-slide carousels', () => {
+      expect(
+        rendererCarouselShouldCompleteOnAdvanceTap({
+          index: 2,
+          slideCount: 3,
+          loop: true,
+          onLast: 'complete',
+        }),
+      ).toBe(false);
+      expect(
+        rendererCarouselShouldCompleteOnAdvanceTap({
+          index: 0,
+          slideCount: 1,
+          loop: false,
+          onLast: 'complete',
+        }),
+      ).toBe(false);
     });
   });
 

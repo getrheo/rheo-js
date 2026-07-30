@@ -4,6 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { LAYER_KINDS } from '@getrheo/contracts/layers';
 import {
+  GRADIENT_CLIP_CONTROL_FLOW_KINDS,
   GRADIENT_CLIP_PARENT_RENDERED_KINDS,
   buildGradientClipWidgetCoverage,
 } from './gradientClipWidgetCoverage';
@@ -18,21 +19,21 @@ const hasMonorepoSdkSources = existsSync(
 describe('buildGradientClipWidgetCoverage', () => {
   const coverage = buildGradientClipWidgetCoverage(repoRoot);
 
-  it('includes all 24 layer kinds from contracts', () => {
+  it('includes all 25 layer kinds from contracts', () => {
     expect(Object.keys(coverage.kinds).sort()).toEqual([...LAYER_KINDS].sort());
-    expect(coverage.totals.kindCount).toBe(24);
+    expect(coverage.totals.kindCount).toBe(25);
   });
 
   describe.skipIf(!hasMonorepoSdkSources)('monorepo SDK widget scans', () => {
-    it('marks RN widget coverage true for all 24 kinds', () => {
-      expect(coverage.totals.rnTrue).toBe(24);
+    it('marks RN widget coverage true for all 25 kinds', () => {
+      expect(coverage.totals.rnTrue).toBe(25);
       for (const kind of LAYER_KINDS) {
         expect(coverage.kinds[kind].rn, kind).toBe(true);
       }
     });
 
-    it('marks Flutter widget coverage true for all 24 kinds', () => {
-      expect(coverage.totals.flutterTrue).toBe(24);
+    it('marks Flutter widget coverage true for all 25 kinds', () => {
+      expect(coverage.totals.flutterTrue).toBe(25);
       for (const kind of LAYER_KINDS) {
         expect(coverage.kinds[kind].flutter, kind).toBe(true);
       }
@@ -67,8 +68,16 @@ describe('buildGradientClipWidgetCoverage', () => {
         ].sort(),
       );
       expect(coverage.totals.swiftuiIntegration).toBe(20);
-      expect(coverage.totals.swiftuiNone).toBe(4);
+      expect(coverage.totals.swiftuiNone).toBe(5);
     });
+  });
+
+  it('treats control-flow kinds as covered without dedicated widget tests', () => {
+    for (const kind of GRADIENT_CLIP_CONTROL_FLOW_KINDS) {
+      expect(coverage.kinds[kind].rn, `${kind} rn`).toBe(true);
+      expect(coverage.kinds[kind].flutter, `${kind} flutter`).toBe(true);
+      expect(coverage.kinds[kind].swiftui, `${kind} swiftui`).toBe('none');
+    }
   });
 
   it('treats parent-rendered auth child kinds as covered without dedicated widget tests', () => {

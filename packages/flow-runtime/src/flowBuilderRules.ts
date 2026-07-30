@@ -6,6 +6,7 @@ import {
   OS_PERMISSION_OUTCOME_CONTINUE,
   OS_PERMISSION_OUTCOME_END,
   type ButtonLayer,
+  type CarouselLayer,
   type IconLayer,
   type LottieLayer,
   type TextLayer,
@@ -27,6 +28,7 @@ export const BUILDER_RULES_AGENT_BULLETS: readonly string[] = [
   'request_os_permission outcomes must target screens, decisions, integrations, "continue", or "end".',
   'Lottie/video with autoPlay false needs a button with action.kind "play_media" targeting that layer (or screen background video id).',
   'play_media targetLayerIds must reference Lottie/video layers on the same screen or the screen background video playback id.',
+  'advance_carousel targetLayerId must reference a carousel layer on the same screen.',
 ];
 
 const FIELD_KEY_RE = /^[a-z][a-z0-9_]*$/;
@@ -94,6 +96,7 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
     const screenLabel = screen.name || screen.id;
     const mediaLayerIds = new Set<string>();
     const buttonLayerIds = new Set<string>();
+    const carouselLayerIds = new Set<string>();
     const shellPlaybackId = screenBackgroundPlaybackId(screen.id);
     const shellFill = screen.containerStyle?.backgroundFill;
     const shellVideoFill =
@@ -101,6 +104,7 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
 
     walkScreen(screen, (l) => {
       if (l.kind === 'button') buttonLayerIds.add(l.id);
+      if (l.kind === 'carousel') carouselLayerIds.add(l.id);
     });
 
     if (shellFill?.kind === 'image' || shellFill?.kind === 'video') {
@@ -331,6 +335,13 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
           }
         }
       }
+      if (l.kind === 'button' && l.action.kind === 'advance_carousel') {
+        if (!carouselLayerIds.has(l.action.targetLayerId)) {
+          issues.push(
+            `Button "${l.name || l.id}" on screen "${screenLabel}" advance-carousel target "${l.action.targetLayerId}" must be a carousel layer on this screen.`,
+          );
+        }
+      }
     });
 
     if (oauthLoginLayerCount > 0 && inputCount > 0) {
@@ -399,4 +410,36 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
   }
 
   return issues;
+};
+
+/**
+ * Non-blocking warnings for `advance_carousel` buttons whose target can never page or complete.
+ * Authoring stays valid — the button simply does nothing at runtime.
+ */
+export const collectAdvanceCarouselWarnings = (manifest: FlowManifest): string[] => {
+  const out: string[] = [];
+  for (const screen of manifest.screens as unknown as Screen[]) {
+    const carousels = new Map<string, CarouselLayer>();
+    walkScreen(screen, (l) => {
+      if (l.kind === 'carousel') carousels.set(l.id, l);
+    });
+    walkScreen(screen, (l) => {
+      if (l.kind !== 'button' || l.action.kind !== 'advance_carousel') return;
+      const target = carousels.get(l.action.targetLayerId);
+      if (!target) return;
+      const label = `Screen "${screen.name || screen.id}": button "${l.name || l.id}"`;
+      if (target.slides.length < 2) {
+        out.push(
+          `${label} advances a single-slide carousel, so tapping it does nothing. Use a Continue button to move the flow forward.`,
+        );
+        return;
+      }
+      if (target.loop === true && l.action.onLast === 'complete') {
+        out.push(
+          `${label} sets "Finish carousel" on a looping carousel, which never finishes through paging — the last slide wraps to the first instead.`,
+        );
+      }
+    });
+  }
+  return out;
 };

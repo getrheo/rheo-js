@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/flow-runtime",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -31,7 +31,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/contracts": "2.3.0"
+    "@getrheo/contracts": "2.4.0"
   },
   "devDependencies": {
     "@rheo/config": "workspace:*",
@@ -193,6 +193,11 @@
         "types": "./dist/colorAlpha.d.ts",
         "import": "./dist/colorAlpha.js",
         "default": "./dist/colorAlpha.js"
+      },
+      "./conditionalBranch": {
+        "types": "./dist/conditionalBranch.d.ts",
+        "import": "./dist/conditionalBranch.js",
+        "default": "./dist/conditionalBranch.js"
       },
       "./decisionEval": {
         "types": "./dist/decisionEval.d.ts",

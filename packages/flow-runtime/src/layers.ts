@@ -32,6 +32,7 @@ export const walkLayers = (root: Layer, fn: (l: Layer, depth: number) => void): 
     fn(l, depth);
     if (l.kind === 'stack') l.children.forEach((c) => visit(c, depth + 1));
     else if (l.kind === 'carousel') l.slides.forEach((c) => visit(c, depth + 1));
+    else if (l.kind === 'conditional') l.children.forEach((c) => visit(c, depth + 1));
     else if (l.kind === 'button') l.children.forEach((c) => visit(c, depth + 1));
     else if (l.kind === 'back_button') l.children.forEach((c) => visit(c, depth + 1));
     else if (l.kind === 'hyperlink') l.children.forEach((c) => visit(c, depth + 1));
