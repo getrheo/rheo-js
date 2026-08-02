@@ -752,6 +752,48 @@ describe('flow state machine', () => {
       expect(stateB.currentScreenId).toBe('scr_goal');
     });
 
+    it('advances headless surfaces on completed and back outcomes', () => {
+      const base = validFlow();
+      const manifest: FlowManifest = {
+        ...base,
+        screens: base.screens.map((s) =>
+          s.id === 'scr_welcome' ? { ...s, next: { default: 'surf_custom' } } : s,
+        ),
+        externalSurfaceNodes: [
+          {
+            id: 'surf_custom',
+            name: 'Custom UI',
+            config: { provider: 'headless' },
+            outcomes: {
+              completed: 'scr_done',
+              back: 'scr_welcome',
+              dismissed: 'scr_goal',
+            },
+            fallback: 'scr_goal',
+          },
+        ],
+      };
+
+      let completed = startFlow(initFlowState(manifest));
+      completed = submitResponse(completed, { kind: 'cta', action: 'primary' });
+      expect(completed.pendingExternalSurface).toEqual({ nodeId: 'surf_custom' });
+      completed = submitResponse(completed, {
+        kind: 'external_surface_outcome',
+        nodeId: 'surf_custom',
+        outcome: 'completed',
+      });
+      expect(completed.currentScreenId).toBe('scr_done');
+
+      let back = startFlow(initFlowState(manifest));
+      back = submitResponse(back, { kind: 'cta', action: 'primary' });
+      back = submitResponse(back, {
+        kind: 'external_surface_outcome',
+        nodeId: 'surf_custom',
+        outcome: 'back',
+      });
+      expect(back.currentScreenId).toBe('scr_welcome');
+    });
+
     it('completes the flow when a branch targets the terminal no-next sentinel', () => {
       const manifest = flowWithMidPaywall();
       const withNoop = {
