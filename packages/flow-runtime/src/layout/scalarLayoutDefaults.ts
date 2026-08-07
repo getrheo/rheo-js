@@ -22,6 +22,8 @@ const GAP_BY_KIND: Partial<Record<LayerKind, number>> = {
   oauth_login: 8,
   email_password_auth: 8,
   email_password_submit: 8,
+  number_stepper: 12,
+  address_input: 8,
   button: 8,
   back_button: 8,
   oauth_provider: 8,

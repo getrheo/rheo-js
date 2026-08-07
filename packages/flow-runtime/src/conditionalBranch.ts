@@ -81,15 +81,20 @@ const withChildren = (layer: Layer, next: Layer[]): Layer => {
     case 'back_button':
     case 'hyperlink':
     case 'email_password_submit':
+    case 'number_stepper_button':
     case 'text_input':
     case 'scale_input':
     case 'wheel_picker':
+    case 'date_time_input':
+    case 'phone_input':
+    case 'address_input':
     case 'email_password_field':
       return { ...layer, children: next };
-    // Children are narrowed to auth-only kinds; conditionals can't nest here.
+    // Children are narrowed to auth/stepper-only kinds; conditionals can't nest here.
     case 'oauth_login':
     case 'oauth_provider':
     case 'email_password_auth':
+    case 'number_stepper':
     default:
       return layer;
   }
@@ -159,6 +164,10 @@ const answerFieldKeyOf = (l: Layer): string | null => {
     l.kind === 'text_input' ||
     l.kind === 'scale_input' ||
     l.kind === 'wheel_picker' ||
+    l.kind === 'date_time_input' ||
+    l.kind === 'number_stepper' ||
+    l.kind === 'phone_input' ||
+    l.kind === 'address_input' ||
     l.kind === 'checkbox' ||
     l.kind === 'email_password_auth'
   ) {

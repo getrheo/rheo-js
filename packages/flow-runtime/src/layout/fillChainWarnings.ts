@@ -18,6 +18,8 @@ export type FillChainWarning = {
   screenId: string;
   layerId: string;
   axis: LayoutAxis;
+  /** Nearest Hug ancestor blocking the Fill chain. */
+  blockerLayerId: string;
   message: string;
 };
 
@@ -76,20 +78,35 @@ const axisLabel = (axis: LayoutAxis): string => (axis === 'width' ? 'Width' : 'H
 const bodyRootSatisfiesHeight = (ctx: AncestorContext): boolean =>
   ctx.isRegionRoot && ctx.regionKind === 'body';
 
+/**
+ * Hug ancestors between a Fill layer and the next bounded ancestor (or body
+ * root for height). Nearest blocker is first.
+ */
+const collectHugBlockers = (
+  layer: Layer,
+  ancestors: AncestorContext[],
+  axis: LayoutAxis,
+): AncestorContext[] => {
+  if (classifyAxisValue(axisValue(layer, axis)) !== 'fill') return [];
+
+  const blockers: AncestorContext[] = [];
+  for (let i = ancestors.length - 1; i >= 0; i--) {
+    const anc = ancestors[i]!;
+    if (axis === 'height' && bodyRootSatisfiesHeight(anc)) break;
+    if (!providesBoundedAxisSpace(classifyAxisValue(axisValue(anc.layer, axis)))) {
+      blockers.push(anc);
+      continue;
+    }
+    break;
+  }
+  return blockers;
+};
+
 const findBrokenAncestor = (
   layer: Layer,
   ancestors: AncestorContext[],
   axis: LayoutAxis,
-): AncestorContext | null => {
-  if (classifyAxisValue(axisValue(layer, axis)) !== 'fill') return null;
-
-  for (let i = ancestors.length - 1; i >= 0; i--) {
-    const anc = ancestors[i]!;
-    if (axis === 'height' && bodyRootSatisfiesHeight(anc)) return null;
-    if (!providesBoundedAxisSpace(classifyAxisValue(axisValue(anc.layer, axis)))) return anc;
-  }
-  return null;
-};
+): AncestorContext | null => collectHugBlockers(layer, ancestors, axis)[0] ?? null;
 
 const visitLayerChildren = (layer: Layer, visit: (child: Layer) => void): void => {
   if (layer.kind === 'stack') layer.children.forEach(visit);
@@ -98,7 +115,7 @@ const visitLayerChildren = (layer: Layer, visit: (child: Layer) => void): void =
   else if (layer.kind === 'hyperlink') layer.children.forEach(visit);
   else if (layer.kind === 'single_choice' || layer.kind === 'multiple_choice') {
     layer.children.forEach(visit);
-  } else if (layer.kind === 'text_input' || layer.kind === 'scale_input' || layer.kind === 'wheel_picker') {
+  } else if (layer.kind === 'text_input' || layer.kind === 'scale_input' || layer.kind === 'wheel_picker' || layer.kind === 'date_time_input' || layer.kind === 'phone_input' || layer.kind === 'address_input') {
     layer.children?.forEach(visit);
   } else if (layer.kind === 'oauth_login') layer.children.forEach(visit);
   else if (layer.kind === 'oauth_provider' && layer.variant === 'custom') {
@@ -106,6 +123,8 @@ const visitLayerChildren = (layer: Layer, visit: (child: Layer) => void): void =
   } else if (layer.kind === 'email_password_auth') layer.children.forEach(visit);
   else if (layer.kind === 'email_password_field') layer.children?.forEach(visit);
   else if (layer.kind === 'email_password_submit') layer.children.forEach(visit);
+  else if (layer.kind === 'number_stepper') layer.children.forEach(visit);
+  else if (layer.kind === 'number_stepper_button') layer.children?.forEach(visit);
 };
 
 const walkLayerTree = (
@@ -155,6 +174,7 @@ export const collectFillChainWarningsForScreen = (screen: Screen): FillChainWarn
           screenId: screen.id,
           layerId: layer.id,
           axis,
+          blockerLayerId: blocker.layer.id,
           message: warningMessage(screen, layer, axis, blocker),
         });
       }
@@ -174,6 +194,30 @@ export const fillChainWarningForLayer = (
   axis: LayoutAxis,
 ): FillChainWarning | undefined =>
   warnings.find((w) => w.screenId === screenId && w.layerId === layerId && w.axis === axis);
+
+/** All Hug ancestor ids that must become Fill/fraction/fixed to repair the chain. */
+export const collectFillChainBlockerIdsForLayer = (
+  screen: Screen,
+  layerId: string,
+  axis: LayoutAxis,
+): string[] => {
+  const regions: { kind: RegionKind; root?: StackLayer }[] = [
+    { kind: 'header', root: screen.regions.header },
+    { kind: 'body', root: screen.regions.body },
+    { kind: 'footer', root: screen.regions.footer },
+  ];
+
+  for (const { kind, root } of regions) {
+    if (!root) continue;
+    let found: string[] | null = null;
+    walkLayerTree(root, kind, true, (layer, ancestors) => {
+      if (found || layer.id !== layerId) return;
+      found = collectHugBlockers(layer, ancestors, axis).map((b) => b.layer.id);
+    });
+    if (found) return found;
+  }
+  return [];
+};
 
 export const formatFillChainWarningsForPublish = (warnings: FillChainWarning[]): string[] =>
   warnings.map((w) => `Warning: ${w.message}`);

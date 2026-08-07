@@ -59,6 +59,7 @@ describe('collectFillChainWarnings', () => {
     expect(warnings).toHaveLength(1);
     expect(warnings[0]?.layerId).toBe('lyr_fill_child');
     expect(warnings[0]?.axis).toBe('height');
+    expect(warnings[0]?.blockerLayerId).toBe('lyr_hug_parent');
     expect(warnings[0]?.message).toContain('Hug');
   });
 

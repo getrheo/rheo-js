@@ -83,7 +83,7 @@ describe('renderer-core auth parity', () => {
   });
 
   describe('rendererEmailPasswordAuthModel', () => {
-    const layer: Pick<EmailPasswordAuthLayer, 'mode' | 'minPasswordLength'> = {
+    const layer: Pick<EmailPasswordAuthLayer, 'mode' | 'minPasswordLength' | 'passwordRules'> = {
       mode: 'sign_up',
       minPasswordLength: 8,
     };
@@ -99,6 +99,7 @@ describe('renderer-core auth parity', () => {
       if (!model.validation.ok) {
         expect(model.validation.message).toContain('valid email');
       }
+      expect(model.fieldErrors.email).toContain('valid email');
     });
 
     it('rejects short password', () => {
@@ -108,6 +109,20 @@ describe('renderer-core auth parity', () => {
         confirm: 'short',
       });
       expect(model.canSubmit).toBe(false);
+      expect(model.fieldErrors.password).toMatch(/at least/i);
+    });
+
+    it('rejects missing composition rules', () => {
+      const model = rendererEmailPasswordAuthModel(
+        { ...layer, passwordRules: { requireUppercase: true, requireDigit: true } },
+        {
+          email: 'a@example.com',
+          password: 'password',
+          confirm: 'password',
+        },
+      );
+      expect(model.canSubmit).toBe(false);
+      expect(model.iosPasswordRules).toContain('required: upper');
     });
 
     it('rejects sign_up password mismatch', () => {
@@ -120,6 +135,7 @@ describe('renderer-core auth parity', () => {
       if (!model.validation.ok) {
         expect(model.validation.message).toContain('match');
       }
+      expect(model.fieldErrors.confirm).toContain('match');
     });
 
     it('accepts valid sign_up payload', () => {
@@ -130,6 +146,7 @@ describe('renderer-core auth parity', () => {
       });
       expect(model.canSubmit).toBe(true);
       expect(model.validation.ok).toBe(true);
+      expect(model.fieldErrors).toEqual({});
     });
   });
 

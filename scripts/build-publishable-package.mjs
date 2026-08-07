@@ -82,8 +82,25 @@ const collectExternals = () => {
       if (name.startsWith('@types/') || name.startsWith('@rheo/')) continue;
       names.add(name);
     }
+    // Optional host integrations — dynamic require() only; never bundle.
+    for (const name of [
+      '@superwall/react-native-superwall',
+      'expo-superwall',
+      'react-native-purchases',
+      'react-native-purchases-ui',
+      'react-native-appsflyer',
+    ]) {
+      names.add(name);
+    }
   }
-  return [...names, /^@getrheo\//, /^react(\/|$)/, /^react-native(\/|$)/];
+  return [
+    ...names,
+    /^@getrheo\//,
+    /^react(\/|$)/,
+    /^react-native(\/|$)/,
+    /^@superwall\//,
+    /^expo-superwall(\/|$)/,
+  ];
 };
 
 const fixEsmRelativeImports = (distDirectory) => {
@@ -114,6 +131,7 @@ const main = async () => {
   const isRnCore = pkg.name === '@getrheo/react-native-core';
   const hasJsx = usesJsx(entries);
   const shouldBundle = isRnCore || !hasJsx;
+  const externals = shouldBundle ? collectExternals() : undefined;
 
   await build({
     entry: entryRecord,
@@ -127,12 +145,28 @@ const main = async () => {
     platform: isRnCore || hasJsx ? 'neutral' : 'node',
     target: 'es2022',
     jsx: hasJsx ? 'automatic' : undefined,
-    external: shouldBundle ? collectExternals() : undefined,
+    external: externals,
     treeshake: shouldBundle,
     esbuildOptions(options) {
       options.jsx = 'automatic';
       if (!shouldBundle || isRnCore) {
         options.loader = { ...options.loader, '.js': 'jsx' };
+      }
+      if (isRnCore) {
+        // Host-only optional integrations must stay unbundled even when present in
+        // the monorepo node_modules (example apps). esbuild otherwise follows
+        // require() and can fail on broken package-relative JSON imports.
+        const prev = options.external;
+        const prevList = Array.isArray(prev) ? prev : prev ? [prev] : [];
+        options.external = [
+          ...prevList,
+          '@superwall/react-native-superwall',
+          'expo-superwall',
+          'expo-superwall/compat',
+          'react-native-purchases',
+          'react-native-purchases-ui',
+          'react-native-appsflyer',
+        ];
       }
     },
   });

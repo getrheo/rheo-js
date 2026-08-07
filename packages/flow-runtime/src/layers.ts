@@ -17,14 +17,22 @@ import type {
   MultipleChoiceLayer,
   ScaleInputLayer,
   WheelPickerLayer,
+  DateTimeInputLayer,
+  NumberStepperLayer,
+  PhoneInputLayer,
+  AddressInputLayer,
   SingleChoiceLayer,
   StackLayer,
   TextInputLayer,
   ThemedColor,
+  ManualSubmitInputKind,
 } from '@getrheo/contracts/layers';
 import type { LocalizedText } from '@getrheo/contracts/localized';
 import { resolveLocalizedText } from '@getrheo/contracts/localized';
-import { isInputLayer } from '@getrheo/contracts/layers';
+import { isInputLayer, MANUAL_SUBMIT_INPUT_KINDS } from '@getrheo/contracts/layers';
+
+const isManualSubmitInputKind = (kind: Layer['kind']): kind is ManualSubmitInputKind =>
+  (MANUAL_SUBMIT_INPUT_KINDS as readonly string[]).includes(kind);
 
 /** Walk a layer tree depth-first. */
 export const walkLayers = (root: Layer, fn: (l: Layer, depth: number) => void): void => {
@@ -38,7 +46,14 @@ export const walkLayers = (root: Layer, fn: (l: Layer, depth: number) => void): 
     else if (l.kind === 'hyperlink') l.children.forEach((c) => visit(c, depth + 1));
     else if (l.kind === 'single_choice' || l.kind === 'multiple_choice') {
       l.children.forEach((c) => visit(c, depth + 1));
-    } else if (l.kind === 'text_input' || l.kind === 'scale_input' || l.kind === 'wheel_picker') {
+    } else if (
+      l.kind === 'text_input' ||
+      l.kind === 'scale_input' ||
+      l.kind === 'wheel_picker' ||
+      l.kind === 'date_time_input' ||
+      l.kind === 'phone_input' ||
+      l.kind === 'address_input'
+    ) {
       l.children?.forEach((c) => visit(c, depth + 1));
     } else if (l.kind === 'oauth_login') {
       l.children.forEach((c) => visit(c, depth + 1));
@@ -50,6 +65,10 @@ export const walkLayers = (root: Layer, fn: (l: Layer, depth: number) => void): 
       l.children?.forEach((c) => visit(c, depth + 1));
     } else if (l.kind === 'email_password_submit') {
       l.children.forEach((c) => visit(c, depth + 1));
+    } else if (l.kind === 'number_stepper') {
+      l.children.forEach((c) => visit(c, depth + 1));
+    } else if (l.kind === 'number_stepper_button') {
+      l.children?.forEach((c) => visit(c, depth + 1));
     }
   };
   visit(root, 0);
@@ -72,18 +91,21 @@ export const findInputLayer = (screen: Screen): InputLayer | null => {
 };
 
 /** Input kinds that use a screen draft and require an explicit Continue to submit. */
-export const findManualSubmitInputLayer = (
-  screen: Screen,
-): MultipleChoiceLayer | TextInputLayer | ScaleInputLayer | WheelPickerLayer | null => {
+export type ManualSubmitInputLayer =
+  | MultipleChoiceLayer
+  | TextInputLayer
+  | ScaleInputLayer
+  | WheelPickerLayer
+  | DateTimeInputLayer
+  | NumberStepperLayer
+  | PhoneInputLayer
+  | AddressInputLayer;
+
+export const findManualSubmitInputLayer = (screen: Screen): ManualSubmitInputLayer | null => {
   const input = findInputLayer(screen);
   if (!input) return null;
-  if (
-    input.kind === 'multiple_choice' ||
-    input.kind === 'text_input' ||
-    input.kind === 'scale_input' ||
-    input.kind === 'wheel_picker'
-  ) {
-    return input;
+  if (isManualSubmitInputKind(input.kind)) {
+    return input as ManualSubmitInputLayer;
   }
   return null;
 };

@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/flow-runtime",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -31,7 +31,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/contracts": "2.5.0"
+    "@getrheo/contracts": "2.6.0"
   },
   "devDependencies": {
     "@rheo/config": "workspace:*",
@@ -159,6 +159,11 @@
         "import": "./dist/textInputValidation.js",
         "default": "./dist/textInputValidation.js"
       },
+      "./addressInputValidation": {
+        "types": "./dist/addressInputValidation.d.ts",
+        "import": "./dist/addressInputValidation.js",
+        "default": "./dist/addressInputValidation.js"
+      },
       "./aiFlowGenerationMerge": {
         "types": "./dist/aiFlowGenerationMerge.d.ts",
         "import": "./dist/aiFlowGenerationMerge.js",
@@ -198,6 +203,16 @@
         "types": "./dist/conditionalBranch.d.ts",
         "import": "./dist/conditionalBranch.js",
         "default": "./dist/conditionalBranch.js"
+      },
+      "./countryDialCodes": {
+        "types": "./dist/countryDialCodes.d.ts",
+        "import": "./dist/countryDialCodes.js",
+        "default": "./dist/countryDialCodes.js"
+      },
+      "./dateTimeInputValidation": {
+        "types": "./dist/dateTimeInputValidation.d.ts",
+        "import": "./dist/dateTimeInputValidation.js",
+        "default": "./dist/dateTimeInputValidation.js"
       },
       "./decisionEval": {
         "types": "./dist/decisionEval.d.ts",
@@ -239,6 +254,21 @@
         "import": "./dist/manifestBillingSlice.js",
         "default": "./dist/manifestBillingSlice.js"
       },
+      "./numberStepperValidation": {
+        "types": "./dist/numberStepperValidation.d.ts",
+        "import": "./dist/numberStepperValidation.js",
+        "default": "./dist/numberStepperValidation.js"
+      },
+      "./passwordRules": {
+        "types": "./dist/passwordRules.d.ts",
+        "import": "./dist/passwordRules.js",
+        "default": "./dist/passwordRules.js"
+      },
+      "./phoneInputValidation": {
+        "types": "./dist/phoneInputValidation.d.ts",
+        "import": "./dist/phoneInputValidation.js",
+        "default": "./dist/phoneInputValidation.js"
+      },
       "./prepareAiGeneratedScreen": {
         "types": "./dist/prepareAiGeneratedScreen.d.ts",
         "import": "./dist/prepareAiGeneratedScreen.js",
@@ -258,6 +288,11 @@
         "types": "./dist/scaleInputStyle.d.ts",
         "import": "./dist/scaleInputStyle.js",
         "default": "./dist/scaleInputStyle.js"
+      },
+      "./scrubDeletedJumpTargets": {
+        "types": "./dist/scrubDeletedJumpTargets.d.ts",
+        "import": "./dist/scrubDeletedJumpTargets.js",
+        "default": "./dist/scrubDeletedJumpTargets.js"
       },
       "./templatePreviewPath": {
         "types": "./dist/templatePreviewPath.d.ts",

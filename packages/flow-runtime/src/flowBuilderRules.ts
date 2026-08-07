@@ -3,6 +3,7 @@ import type { Screen, ScreenBackgroundVideoFill } from '@getrheo/contracts';
 import { isScreenBackgroundPlaybackId, screenBackgroundPlaybackId } from '@getrheo/contracts';
 import {
   isInputLayer,
+  MANUAL_SUBMIT_INPUT_KINDS,
   OS_PERMISSION_OUTCOME_CONTINUE,
   OS_PERMISSION_OUTCOME_END,
   type ButtonLayer,
@@ -14,12 +15,15 @@ import {
 } from '@getrheo/contracts/layers';
 import { findLayerById, walkScreen } from './layers';
 
+const isManualSubmitKind = (kind: string): boolean =>
+  (MANUAL_SUBMIT_INPUT_KINDS as readonly string[]).includes(kind);
+
 /** Agent-facing bullets for rules enforced by {@link collectFlowBuilderIssues}. Keep in sync with checks below. */
 export const BUILDER_RULES_AGENT_BULLETS: readonly string[] = [
   'Connect flow entry on the canvas before publishing (entryScreenId must exist when screens are present).',
   'Every text and icon layer needs explicit style.color (including nested button label text — native does not inherit colors).',
-  'Screens with text_input, multiple_choice, scale_input, or wheel_picker need a button with action.kind "continue".',
-  'At most one input layer per screen (single_choice, multiple_choice, text_input, scale_input, wheel_picker).',
+  'Screens with text_input, multiple_choice, scale_input, wheel_picker, date_time_input, number_stepper, phone_input, or address_input need a button with action.kind "continue".',
+  'At most one input layer per screen (single_choice, multiple_choice, text_input, scale_input, wheel_picker, date_time_input, number_stepper, phone_input, address_input).',
   'Do not combine oauth_login or email_password_auth with other input layers on the same screen.',
   'Only one oauth_login and one email_password_auth per screen; never both on the same screen.',
   'fieldKey values must be unique snake_case across the flow.',
@@ -169,12 +173,7 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
       }
       if (isInputLayer(l)) {
         inputCount += 1;
-        if (
-          l.kind === 'multiple_choice' ||
-          l.kind === 'text_input' ||
-          l.kind === 'scale_input' ||
-          l.kind === 'wheel_picker'
-        ) {
+        if (isManualSubmitKind(l.kind)) {
           needsManualSubmit = true;
         }
         const key = l.fieldKey;
@@ -382,7 +381,7 @@ export const collectFlowBuilderIssues = (manifest: FlowManifest): string[] => {
 
     if (needsManualSubmit && !hasContinueButton) {
       issues.push(
-        `Screen "${screen.name || screen.id}" has a multiple_choice, text_input, scale_input, or wheel_picker but no Button with action "continue". Add a Continue button so users can submit.`,
+        `Screen "${screen.name || screen.id}" has a manual-submit input (text, scale, wheel, date/time, stepper, phone, address, or multiple choice) but no Button with action "continue". Add a Continue button so users can submit.`,
       );
     }
   }

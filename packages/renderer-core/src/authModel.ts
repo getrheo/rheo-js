@@ -4,11 +4,16 @@ import type {
   EmailPasswordSlot,
   OAuthLoginLayer,
   OAuthLoginPreset,
+  PasswordRules,
 } from '@getrheo/contracts/layers';
 import {
+  iosPasswordRulesDescriptor,
+  resolvePasswordRules,
   validateEmailPasswordAuthFields,
+  type EmailPasswordAuthFieldErrors,
+  type ResolvedPasswordRules,
   type ValidateEmailPasswordAuthResult,
-} from '@getrheo/flow-runtime/emailPasswordAuthValidation';
+} from '@getrheo/flow-runtime';
 import type { RendererPalette } from './typographyModel';
 
 const OAUTH_BODY_FONT =
@@ -142,28 +147,38 @@ export type RendererEmailPasswordValues = {
 export type RendererEmailPasswordAuthModel = {
   mode: EmailPasswordAuthMode;
   minPasswordLength: number;
+  passwordRules: ResolvedPasswordRules;
+  iosPasswordRules: string;
   values: RendererEmailPasswordValues;
   validation: ValidateEmailPasswordAuthResult;
+  fieldErrors: EmailPasswordAuthFieldErrors;
   canSubmit: boolean;
 };
 
 export const rendererEmailPasswordAuthModel = (
-  layer: Pick<EmailPasswordAuthLayer, 'mode' | 'minPasswordLength'>,
+  layer: Pick<EmailPasswordAuthLayer, 'mode' | 'minPasswordLength' | 'passwordRules'>,
   values: RendererEmailPasswordValues,
 ): RendererEmailPasswordAuthModel => {
-  const minPasswordLength = layer.minPasswordLength ?? 8;
+  const passwordRules = resolvePasswordRules({
+    passwordRules: layer.passwordRules as PasswordRules | undefined,
+    minPasswordLength: layer.minPasswordLength,
+  });
   const validation = validateEmailPasswordAuthFields({
     mode: layer.mode,
     email: values.email,
     password: values.password,
     confirmPassword: values.confirm,
-    minPasswordLength,
+    minPasswordLength: layer.minPasswordLength,
+    passwordRules: layer.passwordRules,
   });
   return {
     mode: layer.mode,
-    minPasswordLength,
+    minPasswordLength: passwordRules.minLength,
+    passwordRules,
+    iosPasswordRules: iosPasswordRulesDescriptor(passwordRules),
     values,
     validation,
+    fieldErrors: validation.ok ? {} : validation.fields,
     canSubmit: validation.ok,
   };
 };
@@ -187,3 +202,28 @@ export const rendererEmailPasswordSimInputColors = (
   background: theme === 'dark' ? '#18181b' : '#fafafa',
   border: theme === 'dark' ? '#27272a' : '#e4e4e7',
 });
+
+/** Shared form field / banner error chrome for auth + text inputs. */
+export type RendererFormErrorChrome = {
+  textColor: string;
+  backgroundColor: string;
+  borderColor: string;
+  fieldBorderColor: string;
+};
+
+export const rendererFormErrorChrome = (
+  theme: RendererPalette,
+): RendererFormErrorChrome =>
+  theme === 'dark'
+    ? {
+        textColor: '#fca5a5',
+        backgroundColor: 'rgba(248, 113, 113, 0.12)',
+        borderColor: 'rgba(248, 113, 113, 0.35)',
+        fieldBorderColor: '#f87171',
+      }
+    : {
+        textColor: '#b91c1c',
+        backgroundColor: 'rgba(220, 38, 38, 0.08)',
+        borderColor: 'rgba(185, 28, 28, 0.22)',
+        fieldBorderColor: '#dc2626',
+      };

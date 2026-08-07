@@ -303,6 +303,20 @@ const scanLayer = (issues: ManifestValidationIssue[], screen: Screen, layer: Lay
         branding,
       );
       return;
+    case 'date_time_input':
+    case 'phone_input':
+    case 'address_input':
+      walkCommonBreakpoints(issues, stepId, id, layer.style, undefined, branding);
+      return;
+    case 'number_stepper':
+      walkCommonBreakpoints(issues, stepId, id, layer.style, layer.styleBreakpoints, branding);
+      return;
+    case 'number_stepper_button':
+      walkCommonBreakpoints(issues, stepId, id, layer.style, layer.styleBreakpoints, branding);
+      return;
+    case 'number_stepper_value':
+      walkTextBreakpoints(issues, stepId, id, layer.style, layer.styleBreakpoints, branding);
+      return;
     case 'oauth_login':
       walkCommonBreakpoints(issues, stepId, id, layer.style, layer.styleBreakpoints, branding);
       return;

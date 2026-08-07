@@ -16,12 +16,14 @@ export const childrenOf = (l: Layer): Layer[] => {
   if (l.kind === 'button' || l.kind === 'back_button') return l.children;
   if (l.kind === 'hyperlink') return l.children;
   if (l.kind === 'single_choice' || l.kind === 'multiple_choice') return l.children;
-  if (l.kind === 'text_input' || l.kind === 'scale_input' || l.kind === 'wheel_picker') return l.children ?? [];
+  if (l.kind === 'text_input' || l.kind === 'scale_input' || l.kind === 'wheel_picker' || l.kind === 'date_time_input' || l.kind === 'phone_input' || l.kind === 'address_input') return l.children ?? [];
   if (l.kind === 'oauth_login') return l.children;
   if (l.kind === 'oauth_provider' && l.variant === 'custom') return l.children;
   if (l.kind === 'email_password_auth') return l.children;
   if (l.kind === 'email_password_field') return l.children ?? [];
   if (l.kind === 'email_password_submit') return l.children;
+  if (l.kind === 'number_stepper') return l.children;
+  if (l.kind === 'number_stepper_button') return l.children ?? [];
   return [];
 };
 
@@ -113,7 +115,7 @@ export const replaceLayerInTree = <T extends Layer>(
       children: root.children.map((c) => replaceLayerInTree(c, id, mutate) as StackLayer),
     } as T);
   }
-  if (root.kind === 'text_input' || root.kind === 'scale_input' || root.kind === 'wheel_picker') {
+  if (root.kind === 'text_input' || root.kind === 'scale_input' || root.kind === 'wheel_picker' || root.kind === 'date_time_input' || root.kind === 'phone_input' || root.kind === 'address_input') {
     if (!root.children) return root;
     return {
       ...root,
@@ -146,6 +148,19 @@ export const replaceLayerInTree = <T extends Layer>(
     } as T;
   }
   if (root.kind === 'email_password_submit') {
+    return {
+      ...root,
+      children: root.children.map((c) => replaceLayerInTree(c, id, mutate)),
+    } as T;
+  }
+  if (root.kind === 'number_stepper') {
+    return {
+      ...root,
+      children: root.children.map((c) => replaceLayerInTree(c, id, mutate)),
+    } as T;
+  }
+  if (root.kind === 'number_stepper_button') {
+    if (!root.children) return root;
     return {
       ...root,
       children: root.children.map((c) => replaceLayerInTree(c, id, mutate)),
@@ -186,7 +201,23 @@ export const insertLayerInTree = <T extends Layer>(
       else next.splice(index, 0, layer);
       return withChoiceSync({ ...parent, children: next });
     }
-    if (parent.kind === 'text_input' || parent.kind === 'scale_input' || parent.kind === 'wheel_picker') {
+    if (parent.kind === 'text_input' || parent.kind === 'scale_input' || parent.kind === 'wheel_picker' || parent.kind === 'date_time_input' || parent.kind === 'phone_input' || parent.kind === 'address_input') {
+      const existing = parent.children ?? [];
+      const next = [...existing];
+      if (index === undefined) next.push(layer);
+      else next.splice(index, 0, layer);
+      return { ...parent, children: next };
+    }
+    if (parent.kind === 'number_stepper') {
+      if (layer.kind !== 'number_stepper_button' && layer.kind !== 'number_stepper_value') {
+        return parent;
+      }
+      const next = [...parent.children];
+      if (index === undefined) next.push(layer);
+      else next.splice(index, 0, layer);
+      return { ...parent, children: next };
+    }
+    if (parent.kind === 'number_stepper_button') {
       const existing = parent.children ?? [];
       const next = [...existing];
       if (index === undefined) next.push(layer);
@@ -231,7 +262,18 @@ export const removeLayerFromTree = <T extends Layer>(root: T, id: string): T => 
         .map((c) => removeLayerFromTree(c, id) as StackLayer),
     } as T);
   }
-  if (root.kind === 'text_input' || root.kind === 'scale_input' || root.kind === 'wheel_picker') {
+  if (root.kind === 'text_input' || root.kind === 'scale_input' || root.kind === 'wheel_picker' || root.kind === 'date_time_input' || root.kind === 'phone_input' || root.kind === 'address_input') {
+    const kids = root.children;
+    if (!kids) return root;
+    const next = kids.filter((c) => c.id !== id).map((c) => removeLayerFromTree(c, id));
+    return { ...root, children: next.length > 0 ? next : undefined } as T;
+  }
+  if (root.kind === 'number_stepper') {
+    const nextKids = root.children.filter((c) => c.id !== id).map((c) => removeLayerFromTree(c, id));
+    if (nextKids.length === 0) return root;
+    return { ...root, children: nextKids } as T;
+  }
+  if (root.kind === 'number_stepper_button') {
     const kids = root.children;
     if (!kids) return root;
     const next = kids.filter((c) => c.id !== id).map((c) => removeLayerFromTree(c, id));

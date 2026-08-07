@@ -21,11 +21,21 @@ export type GradientClipWidgetCoverage = {
   };
 };
 
-/** Auth child layers — rendered by parent; no independent outer-chrome widget test. */
+/** Auth / compound child layers — rendered by parent; no independent outer-chrome widget test. */
 export const GRADIENT_CLIP_PARENT_RENDERED_KINDS: readonly LayerKind[] = [
   'oauth_provider',
   'email_password_field',
   'email_password_submit',
+  'number_stepper_button',
+  'number_stepper_value',
+];
+
+/** New input layer kinds whose RN / Flutter / SwiftUI widget implementations are pending. */
+export const GRADIENT_CLIP_PENDING_SDK_KINDS: readonly LayerKind[] = [
+  'date_time_input',
+  'number_stepper',
+  'phone_input',
+  'address_input',
 ];
 
 const parentRenderedSet = new Set<LayerKind>(GRADIENT_CLIP_PARENT_RENDERED_KINDS);
@@ -51,6 +61,10 @@ const RN_VIEW_TO_KIND: Record<string, LayerKind> = {
   TextInputView: 'text_input',
   ScaleInputView: 'scale_input',
   WheelPickerView: 'wheel_picker',
+  DateTimeInputView: 'date_time_input',
+  NumberStepperView: 'number_stepper',
+  PhoneInputView: 'phone_input',
+  AddressInputView: 'address_input',
   ImageView: 'image',
   IconView: 'icon',
   LottieLayerView: 'lottie',
@@ -75,6 +89,10 @@ const SWIFTUI_MARK_TO_KINDS: Record<string, LayerKind[]> = {
   TextInputLayerView: ['text_input'],
   ScaleInputLayerView: ['scale_input'],
   WheelPickerLayerView: ['wheel_picker'],
+  DateTimeInputLayerView: ['date_time_input'],
+  NumberStepperLayerView: ['number_stepper'],
+  PhoneInputLayerView: ['phone_input'],
+  AddressInputLayerView: ['address_input'],
   CheckboxLayerView: ['checkbox'],
   VideoLayerView: ['video'],
   IconLayerView: ['icon'],

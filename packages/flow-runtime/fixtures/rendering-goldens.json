@@ -330,6 +330,36 @@
         "flutter": true,
         "swiftui": "none"
       },
+      "date_time_input": {
+        "rn": false,
+        "flutter": false,
+        "swiftui": "none"
+      },
+      "number_stepper": {
+        "rn": false,
+        "flutter": false,
+        "swiftui": "none"
+      },
+      "number_stepper_button": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "none"
+      },
+      "number_stepper_value": {
+        "rn": true,
+        "flutter": true,
+        "swiftui": "none"
+      },
+      "phone_input": {
+        "rn": false,
+        "flutter": false,
+        "swiftui": "none"
+      },
+      "address_input": {
+        "rn": false,
+        "flutter": false,
+        "swiftui": "none"
+      },
       "oauth_provider": {
         "rn": true,
         "flutter": true,
@@ -377,11 +407,11 @@
       }
     },
     "totals": {
-      "kindCount": 25,
-      "rnTrue": 25,
-      "flutterTrue": 25,
+      "kindCount": 31,
+      "rnTrue": 27,
+      "flutterTrue": 27,
       "swiftuiIntegration": 20,
-      "swiftuiNone": 5
+      "swiftuiNone": 11
     }
   },
   "flexDistribution": {

@@ -24,6 +24,27 @@ export type ConsumedDraftPayload =
   | { kind: 'text'; value: string; classification: 'safe' | 'sensitive' }
   | { kind: 'scale'; value: number }
   | { kind: 'wheel'; value: string }
+  | { kind: 'date_time'; value: string; classification: 'safe' | 'sensitive' }
+  | { kind: 'number_stepper'; value: number }
+  | {
+      kind: 'phone';
+      value: string;
+      countryCode: string;
+      nationalNumber: string;
+      classification: 'safe' | 'sensitive';
+    }
+  | {
+      kind: 'address';
+      value: {
+        line1: string;
+        line2?: string;
+        city: string;
+        region?: string;
+        postalCode: string;
+        country: string;
+      };
+      classification: 'safe' | 'sensitive';
+    }
   | { kind: 'cta'; action: 'primary' | 'secondary' }
   | { kind: 'carousel' };
 
@@ -34,6 +55,27 @@ export type StepResponseCore =
   | { kind: 'text'; value: string; classification: 'safe' | 'sensitive' }
   | { kind: 'scale'; value: number }
   | { kind: 'wheel'; value: string }
+  | { kind: 'date_time'; value: string; classification: 'safe' | 'sensitive' }
+  | { kind: 'number_stepper'; value: number }
+  | {
+      kind: 'phone';
+      value: string;
+      countryCode: string;
+      nationalNumber: string;
+      classification: 'safe' | 'sensitive';
+    }
+  | {
+      kind: 'address';
+      value: {
+        line1: string;
+        line2?: string;
+        city: string;
+        region?: string;
+        postalCode: string;
+        country: string;
+      };
+      classification: 'safe' | 'sensitive';
+    }
   | { kind: 'checkbox'; fieldKey: string; value: boolean }
   | { kind: 'cta'; action: 'primary' | 'secondary' }
   | { kind: 'carousel' }
@@ -100,6 +142,10 @@ export const isEligibleConsumedDraft = (r: StepResponse): r is ConsumedDraftPayl
     case 'multiChoice':
     case 'scale':
     case 'wheel':
+    case 'date_time':
+    case 'number_stepper':
+    case 'phone':
+    case 'address':
     case 'cta':
     case 'carousel':
       return true;

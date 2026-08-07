@@ -330,7 +330,7 @@ export const applyStaggerIndicesFromTreeOrder = (screen: Screen): Screen => {
       l.children.forEach(visit);
       return;
     }
-    if (l.kind === 'text_input' || l.kind === 'scale_input' || l.kind === 'wheel_picker') {
+    if (l.kind === 'text_input' || l.kind === 'scale_input' || l.kind === 'wheel_picker' || l.kind === 'date_time_input' || l.kind === 'phone_input' || l.kind === 'address_input') {
       l.children?.forEach(visit);
       return;
     }
@@ -352,6 +352,14 @@ export const applyStaggerIndicesFromTreeOrder = (screen: Screen): Screen => {
     }
     if (l.kind === 'email_password_submit') {
       l.children.forEach(visit);
+      return;
+    }
+    if (l.kind === 'number_stepper') {
+      l.children.forEach(visit);
+      return;
+    }
+    if (l.kind === 'number_stepper_button') {
+      l.children?.forEach(visit);
       return;
     }
   };
