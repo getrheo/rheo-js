@@ -64,6 +64,37 @@ const previewResponseForInput = (input: InputLayer): StepResponse | null => {
       const value = defaultWheelPickerValue(input);
       return value ? { kind: 'wheel', value } : null;
     }
+    case 'date_time_input':
+      return {
+        kind: 'date_time',
+        value: input.defaultValue ?? (input.mode === 'time' ? '12:00' : input.mode === 'datetime' ? '2000-01-15T12:00' : '2000-01-15'),
+        classification: input.classification,
+      };
+    case 'number_stepper':
+      return {
+        kind: 'number_stepper',
+        value: input.defaultValue ?? input.min,
+      };
+    case 'phone_input':
+      return {
+        kind: 'phone',
+        value: '+15550100',
+        countryCode: input.defaultCountryCode ?? 'US',
+        nationalNumber: '5550100',
+        classification: input.classification,
+      };
+    case 'address_input':
+      return {
+        kind: 'address',
+        value: {
+          line1: '123 Main St',
+          city: 'San Francisco',
+          region: 'CA',
+          postalCode: '94105',
+          country: input.defaultCountryCode ?? 'US',
+        },
+        classification: input.classification,
+      };
     default:
       return null;
   }

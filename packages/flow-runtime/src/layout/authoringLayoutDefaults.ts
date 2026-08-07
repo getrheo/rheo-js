@@ -45,13 +45,21 @@ export const defaultLayoutStyleForKind = (kind: LayerKind): AuthoringLayoutDefau
     case 'oauth_provider':
     case 'email_password_submit':
       return LAYOUT_FULL_HUG;
+    case 'number_stepper_button':
+      return LAYOUT_HUG_HUG;
     case 'text_input':
     case 'scale_input':
     case 'wheel_picker':
+    case 'date_time_input':
+    case 'number_stepper':
+    case 'phone_input':
+    case 'address_input':
     case 'email_password_auth':
     case 'email_password_field':
     case 'oauth_login':
       return LAYOUT_FULL_FILL;
+    case 'number_stepper_value':
+      return LAYOUT_FULL_HUG;
     case 'progress':
       return LAYOUT_PROGRESS;
     case 'loader':

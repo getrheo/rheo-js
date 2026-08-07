@@ -27,6 +27,23 @@ export type FlowTerminalAnswerEntryValue =
   | string[]
   | number
   | { value: string; classification: string }
+  | {
+      value: string;
+      countryCode: string;
+      nationalNumber: string;
+      classification: string;
+    }
+  | {
+      value: {
+        line1: string;
+        line2?: string;
+        city: string;
+        region?: string;
+        postalCode: string;
+        country: string;
+      };
+      classification: string;
+    }
   | { success: boolean; customerExternalId?: string; provider: OAuthLoginProvider }
   | { success: boolean; mode: EmailPasswordAuthMode; email: string }
   | { bypassed: true; via: 'skip' | 'go_to_screen' }
@@ -56,6 +73,19 @@ export const stepResponseToCompletionValue = (
       return r.value;
     case 'wheel':
       return r.value;
+    case 'date_time':
+      return { value: r.value, classification: r.classification };
+    case 'number_stepper':
+      return r.value;
+    case 'phone':
+      return {
+        value: r.value,
+        countryCode: r.countryCode,
+        nationalNumber: r.nationalNumber,
+        classification: r.classification,
+      };
+    case 'address':
+      return { value: r.value, classification: r.classification };
     case 'checkbox':
       return r.value;
     case 'cta':

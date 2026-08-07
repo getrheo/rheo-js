@@ -8,11 +8,31 @@ import {
 } from 'react';
 import type { ReactNode } from 'react';
 import type { Screen } from '@getrheo/contracts/screens';
+import type { AddressValue } from '@getrheo/contracts/layers';
 import { findInputLayer } from '@getrheo/flow-runtime/layers';
 import { screenHasContinueButton } from '@getrheo/flow-runtime';
 import { snapScaleValue, scaleValueInRange, scaleValueIsOnStep } from '@getrheo/flow-runtime/scaleValidation';
 import { defaultWheelPickerValue, wheelPickerValueIsValid } from '@getrheo/flow-runtime/wheelPickerItems';
 import { validateTextInputValue } from '@getrheo/flow-runtime/textInputValidation';
+import {
+  defaultDateTimeInputValue,
+  validateDateTimeInputValue,
+} from '@getrheo/flow-runtime/dateTimeInputValidation';
+import {
+  defaultNumberStepperValue,
+  numberStepperValueInRange,
+  numberStepperValueIsOnStep,
+} from '@getrheo/flow-runtime/numberStepperValidation';
+import {
+  defaultPhoneCountryCode,
+  validatePhoneInputValue,
+  phoneDraftToE164,
+} from '@getrheo/flow-runtime/phoneInputValidation';
+import {
+  emptyAddressValue,
+  normalizeAddressValue,
+  validateAddressInputValue,
+} from '@getrheo/flow-runtime/addressInputValidation';
 import type { StepResponseCore } from '@getrheo/flow-runtime/stateMachine';
 
 /**
@@ -26,7 +46,11 @@ export type InputDraft =
   | { kind: 'multiChoice'; choiceIds: string[] }
   | { kind: 'text'; value: string }
   | { kind: 'scale'; value: number }
-  | { kind: 'wheel'; value: string };
+  | { kind: 'wheel'; value: string }
+  | { kind: 'date_time'; value: string }
+  | { kind: 'number_stepper'; value: number }
+  | { kind: 'phone'; countryCode: string; nationalNumber: string }
+  | { kind: 'address'; value: AddressValue };
 
 export type InputValidity = { valid: boolean; reason?: string };
 
@@ -59,7 +83,12 @@ export const computeValidity = (screen: Screen, draft: InputDraft | null): Input
   if (!manualSubmit) return { valid: true };
 
   if (!draft) {
-    if (input.kind === 'text_input' && input.required === false) {
+    if (
+      (input.kind === 'text_input' ||
+        input.kind === 'date_time_input' ||
+        input.kind === 'phone_input') &&
+      input.required === false
+    ) {
       return { valid: true };
     }
     return { valid: false, reason: 'No input provided yet' };
@@ -104,6 +133,31 @@ export const computeValidity = (screen: Screen, draft: InputDraft | null): Input
       }
       return { valid: true };
     }
+    case 'date_time_input': {
+      if (draft.kind !== 'date_time') return { valid: false, reason: 'Wrong draft kind' };
+      const v = validateDateTimeInputValue(input, draft.value);
+      return v.ok ? { valid: true } : { valid: false, reason: v.reason };
+    }
+    case 'number_stepper': {
+      if (draft.kind !== 'number_stepper') return { valid: false, reason: 'Wrong draft kind' };
+      if (!numberStepperValueInRange(input, draft.value)) {
+        return { valid: false, reason: 'Value out of range' };
+      }
+      if (!numberStepperValueIsOnStep(input, draft.value)) {
+        return { valid: false, reason: 'Value does not align with step' };
+      }
+      return { valid: true };
+    }
+    case 'phone_input': {
+      if (draft.kind !== 'phone') return { valid: false, reason: 'Wrong draft kind' };
+      const v = validatePhoneInputValue(input, draft);
+      return v.ok ? { valid: true } : { valid: false, reason: v.reason };
+    }
+    case 'address_input': {
+      if (draft.kind !== 'address') return { valid: false, reason: 'Wrong draft kind' };
+      const v = validateAddressInputValue(input, draft.value);
+      return v.ok ? { valid: true } : { valid: false, reason: v.reason };
+    }
   }
 };
 
@@ -123,6 +177,18 @@ export const draftToResponse = (
     if (input?.kind === 'text_input' && input.required === false) {
       return { kind: 'text', value: '', classification: input.classification };
     }
+    if (input?.kind === 'date_time_input' && input.required === false) {
+      return { kind: 'date_time', value: '', classification: input.classification };
+    }
+    if (input?.kind === 'phone_input' && input.required === false) {
+      return {
+        kind: 'phone',
+        value: '',
+        countryCode: defaultPhoneCountryCode(input),
+        nationalNumber: '',
+        classification: input.classification,
+      };
+    }
     return null;
   }
   if (!input) return null;
@@ -141,6 +207,32 @@ export const draftToResponse = (
     if (input.kind !== 'wheel_picker') return null;
     return { kind: 'wheel', value: draft.value };
   }
+  if (draft.kind === 'date_time') {
+    if (input.kind !== 'date_time_input') return null;
+    return { kind: 'date_time', value: draft.value, classification: input.classification };
+  }
+  if (draft.kind === 'number_stepper') {
+    if (input.kind !== 'number_stepper') return null;
+    return { kind: 'number_stepper', value: draft.value };
+  }
+  if (draft.kind === 'phone') {
+    if (input.kind !== 'phone_input') return null;
+    return {
+      kind: 'phone',
+      value: phoneDraftToE164(draft),
+      countryCode: draft.countryCode,
+      nationalNumber: draft.nationalNumber,
+      classification: input.classification,
+    };
+  }
+  if (draft.kind === 'address') {
+    if (input.kind !== 'address_input') return null;
+    return {
+      kind: 'address',
+      value: normalizeAddressValue(input, draft.value),
+      classification: input.classification,
+    };
+  }
   return null;
 };
 
@@ -155,6 +247,23 @@ const initialDraftForScreen = (screen: Screen): InputDraft | null => {
   if (input?.kind === 'wheel_picker') {
     const value = defaultWheelPickerValue(input);
     return value ? { kind: 'wheel', value } : null;
+  }
+  if (input?.kind === 'date_time_input') {
+    const value = defaultDateTimeInputValue(input);
+    return value ? { kind: 'date_time', value } : null;
+  }
+  if (input?.kind === 'number_stepper') {
+    return { kind: 'number_stepper', value: defaultNumberStepperValue(input) };
+  }
+  if (input?.kind === 'phone_input') {
+    return {
+      kind: 'phone',
+      countryCode: defaultPhoneCountryCode(input),
+      nationalNumber: '',
+    };
+  }
+  if (input?.kind === 'address_input') {
+    return { kind: 'address', value: emptyAddressValue(input) };
   }
   return null;
 };
@@ -198,6 +307,6 @@ export const useScreenInputDraft = (): ScreenInputDraftCtxValue | null =>
  * never block submission.
  */
 export const useScreenInputValidity = (): InputValidity => {
-  const ctx = useContext(ScreenInputDraftCtx);
+  const ctx = useScreenInputDraft();
   return ctx?.validity ?? { valid: true };
 };

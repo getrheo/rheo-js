@@ -9,8 +9,9 @@ import {
 } from './scalarLayoutDefaults';
 
 describe('defaultGapForLayerKind', () => {
-  it('returns 12 for stacks', () => {
+  it('returns 12 for stacks and number steppers', () => {
     expect(defaultGapForLayerKind('stack')).toBe(12);
+    expect(defaultGapForLayerKind('number_stepper')).toBe(12);
   });
 
   it('returns 8 for choice, auth, and button containers', () => {

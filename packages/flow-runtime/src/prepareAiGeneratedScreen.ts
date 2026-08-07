@@ -109,13 +109,15 @@ export const remapReplacedScreenLayerCollisionsInManifest = (
     else if (layer.kind === 'hyperlink') layer.children.forEach(fix);
     else if (layer.kind === 'single_choice' || layer.kind === 'multiple_choice') {
       layer.children.forEach(fix);
-    } else if (layer.kind === 'text_input' || layer.kind === 'scale_input' || layer.kind === 'wheel_picker') {
+    } else if (layer.kind === 'text_input' || layer.kind === 'scale_input' || layer.kind === 'wheel_picker' || layer.kind === 'date_time_input' || layer.kind === 'phone_input' || layer.kind === 'address_input') {
       layer.children?.forEach(fix);
     } else if (layer.kind === 'oauth_login') layer.children.forEach(fix);
     else if (layer.kind === 'oauth_provider' && layer.variant === 'custom') layer.children.forEach(fix);
     else if (layer.kind === 'email_password_auth') layer.children.forEach(fix);
     else if (layer.kind === 'email_password_field') layer.children?.forEach(fix);
     else if (layer.kind === 'email_password_submit') layer.children.forEach(fix);
+    else if (layer.kind === 'number_stepper') layer.children.forEach(fix);
+    else if (layer.kind === 'number_stepper_button') layer.children?.forEach(fix);
   };
 
   if (next.regions.header) fix(next.regions.header);

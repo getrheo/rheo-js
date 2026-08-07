@@ -6,6 +6,7 @@ import { LAYER_KINDS } from '@getrheo/contracts/layers';
 import {
   GRADIENT_CLIP_CONTROL_FLOW_KINDS,
   GRADIENT_CLIP_PARENT_RENDERED_KINDS,
+  GRADIENT_CLIP_PENDING_SDK_KINDS,
   buildGradientClipWidgetCoverage,
 } from './gradientClipWidgetCoverage';
 
@@ -16,26 +17,37 @@ const hasMonorepoSdkSources = existsSync(
   path.join(repoRoot, 'packages/sdks/react-native-core/src/ui/layers'),
 );
 
+const pendingSdkSet = new Set(GRADIENT_CLIP_PENDING_SDK_KINDS);
+const coveredKindCount = LAYER_KINDS.length - GRADIENT_CLIP_PENDING_SDK_KINDS.length;
+
 describe('buildGradientClipWidgetCoverage', () => {
   const coverage = buildGradientClipWidgetCoverage(repoRoot);
 
-  it('includes all 25 layer kinds from contracts', () => {
+  it('includes all layer kinds from contracts', () => {
     expect(Object.keys(coverage.kinds).sort()).toEqual([...LAYER_KINDS].sort());
-    expect(coverage.totals.kindCount).toBe(25);
+    expect(coverage.totals.kindCount).toBe(LAYER_KINDS.length);
   });
 
   describe.skipIf(!hasMonorepoSdkSources)('monorepo SDK widget scans', () => {
-    it('marks RN widget coverage true for all 25 kinds', () => {
-      expect(coverage.totals.rnTrue).toBe(25);
+    it('marks RN widget coverage true for all established kinds', () => {
+      expect(coverage.totals.rnTrue).toBe(coveredKindCount);
       for (const kind of LAYER_KINDS) {
-        expect(coverage.kinds[kind].rn, kind).toBe(true);
+        if (pendingSdkSet.has(kind)) {
+          expect(coverage.kinds[kind].rn, `${kind} pending RN SDK`).toBe(false);
+        } else {
+          expect(coverage.kinds[kind].rn, kind).toBe(true);
+        }
       }
     });
 
-    it('marks Flutter widget coverage true for all 25 kinds', () => {
-      expect(coverage.totals.flutterTrue).toBe(25);
+    it('marks Flutter widget coverage true for all established kinds', () => {
+      expect(coverage.totals.flutterTrue).toBe(coveredKindCount);
       for (const kind of LAYER_KINDS) {
-        expect(coverage.kinds[kind].flutter, kind).toBe(true);
+        if (pendingSdkSet.has(kind)) {
+          expect(coverage.kinds[kind].flutter, `${kind} pending Flutter SDK`).toBe(false);
+        } else {
+          expect(coverage.kinds[kind].flutter, kind).toBe(true);
+        }
       }
     });
 
@@ -68,7 +80,9 @@ describe('buildGradientClipWidgetCoverage', () => {
         ].sort(),
       );
       expect(coverage.totals.swiftuiIntegration).toBe(20);
-      expect(coverage.totals.swiftuiNone).toBe(5);
+      expect(coverage.totals.swiftuiNone).toBe(
+        LAYER_KINDS.length - 20,
+      );
     });
   });
 
@@ -85,6 +99,14 @@ describe('buildGradientClipWidgetCoverage', () => {
       expect(coverage.kinds[kind].rn, `${kind} rn`).toBe(true);
       expect(coverage.kinds[kind].flutter, `${kind} flutter`).toBe(true);
       expect(coverage.kinds[kind].swiftui, `${kind} swiftui`).toBe('none');
+    }
+  });
+
+  it('documents pending SDK kinds without coverage', () => {
+    for (const kind of GRADIENT_CLIP_PENDING_SDK_KINDS) {
+      expect(coverage.kinds[kind].rn, `${kind} rn pending`).toBe(false);
+      expect(coverage.kinds[kind].flutter, `${kind} flutter pending`).toBe(false);
+      expect(coverage.kinds[kind].swiftui, `${kind} swiftui pending`).toBe('none');
     }
   });
 });

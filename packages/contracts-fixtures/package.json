@@ -9,7 +9,7 @@
     "./agentGraphExamples": "./src/agentGraphExamples.ts"
   },
   "dependencies": {
-    "@getrheo/contracts": "2.5.0"
+    "@getrheo/contracts": "2.6.0"
   },
   "devDependencies": {
     "@rheo/config": "workspace:*",

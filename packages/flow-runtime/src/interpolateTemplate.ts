@@ -128,6 +128,18 @@ const responseToDisplayString = (
       return mode === 'id' ? '' : String(response.value);
     case 'wheel':
       return mode === 'id' ? '' : response.value;
+    case 'date_time':
+      return mode === 'id' ? '' : response.value;
+    case 'number_stepper':
+      return mode === 'id' ? '' : String(response.value);
+    case 'phone':
+      return mode === 'id' ? '' : response.value;
+    case 'address':
+      return mode === 'id'
+        ? ''
+        : [response.value.line1, response.value.city, response.value.postalCode, response.value.country]
+            .filter(Boolean)
+            .join(', ');
     case 'choice':
       if (mode === 'id') return response.choiceId;
       return choiceLabelFor(manifest, fieldKey, response.choiceId, locale);
