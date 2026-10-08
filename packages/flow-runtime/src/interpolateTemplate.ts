@@ -38,11 +38,27 @@ export const extractLiquidTemplateBodies = (s: string): string[] => {
 
 const FIELD_KEY_SOURCE = FIELD_KEY_RE.source.replace(/^\^|\$$/g, '');
 
+const QUOTED_PIPE_RE = /^(.*?)\s*\|\s*"((?:\\.|[^"\\])*)"\s*$/;
+
+const unescapeQuotedFallback = (raw: string): string =>
+  raw.replace(/\\"/g, '"').replace(/\\\\/g, '\\');
+
+const parseQuotedPipeFallback = (
+  inner: string,
+): { exprPart: string; defaultValue: string } | null => {
+  const quoted = inner.match(QUOTED_PIPE_RE);
+  const exprPart = quoted?.[1]?.trim();
+  if (!quoted || quoted[2] === undefined || !exprPart) return null;
+  return { exprPart, defaultValue: unescapeQuotedFallback(quoted[2]) };
+};
+
 const parseDefaultFilter = (
   inner: string,
 ): { exprPart: string; defaultValue?: string } => {
   const m = inner.match(/\s*\|\s*default\s*:/i);
-  if (!m || m.index === undefined) return { exprPart: inner.trim() };
+  if (!m || m.index === undefined) {
+    return parseQuotedPipeFallback(inner) ?? { exprPart: inner.trim() };
+  }
 
   const exprPart = inner.slice(0, m.index).trim();
   let tail = inner.slice(m.index + m[0].length).trim();
@@ -180,7 +196,7 @@ const evalParsed = (
 
 /**
  * Interpolate `{{ … }}` segments in a plain string (already localized).
- * Supports `custom.key`, `field_key`, `field_key.id`, and `| default: …`.
+ * Supports `custom.key`, `field_key`, `field_key.id`, `| default: …`, and `| "…"`.
  */
 export const interpolateTemplateString = (
   template: string,
