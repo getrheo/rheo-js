@@ -272,6 +272,17 @@ describe('interpolateTemplateString', () => {
     expect(s).toBe('Free tier');
   });
 
+  it('applies a quoted pipe fallback the same way as default:', () => {
+    expect(interpolateTemplateString('{{ custom.plan | "free" }}', ctxBase)).toBe('free');
+    expect(
+      interpolateTemplateString('{{ custom.plan | "free" }}', {
+        ...ctxBase,
+        customProperties: { plan: 'pro' },
+      }),
+    ).toBe('pro');
+    expect(interpolateTemplateString('{{ custom.plan | "say \\"hi\\"" }}', ctxBase)).toBe('say "hi"');
+  });
+
   it('allows spaces inside token', () => {
     const s = interpolateTemplateString('{{  first_name  }}', {
       ...ctxBase,

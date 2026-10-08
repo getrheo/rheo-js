@@ -12,6 +12,8 @@ const PUBLISH_PACKAGES = [
   { name: '@getrheo/flow-ui-state', dir: 'packages/flow-ui-state', expectsDist: true },
   { name: '@getrheo/renderer-core', dir: 'packages/renderer-core', expectsDist: true },
   { name: '@getrheo/attribution', dir: 'packages/attribution', expectsDist: true },
+  { name: '@getrheo/renderer-web', dir: 'packages/renderer-web', expectsDist: true },
+  { name: '@getrheo/react', dir: 'packages/react', expectsDist: true },
 ];
 
 const errors = [];

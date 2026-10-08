@@ -1,0 +1,75 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`motionPlayback parity > maps flow-runtime samples to CSS transform and opacity 1`] = `
+[
+  {
+    "clipId": "clip_fade",
+    "css": {
+      "opacity": 0,
+    },
+    "t": 0,
+  },
+  {
+    "clipId": "clip_fade",
+    "css": {
+      "opacity": 0.8778336055382352,
+    },
+    "t": 200,
+  },
+  {
+    "clipId": "clip_fade",
+    "css": {
+      "opacity": 1,
+    },
+    "t": 400,
+  },
+  {
+    "clipId": "clip_slide_up",
+    "css": {
+      "opacity": 0,
+      "transform": "translateY(16px)",
+    },
+    "t": 0,
+  },
+  {
+    "clipId": "clip_slide_up",
+    "css": {
+      "opacity": 0.8079319708361083,
+      "transform": "translateY(3.0730884666222664px)",
+    },
+    "t": 190,
+  },
+  {
+    "clipId": "clip_slide_up",
+    "css": {
+      "opacity": 1,
+      "transform": "translateY(0px)",
+    },
+    "t": 380,
+  },
+  {
+    "clipId": "clip_scale_in",
+    "css": {
+      "opacity": 0,
+      "transform": "scale(0.96)",
+    },
+    "t": 0,
+  },
+  {
+    "clipId": "clip_scale_in",
+    "css": {
+      "opacity": 0.6993224240065302,
+      "transform": "scale(0.9879728969602612)",
+    },
+    "t": 160,
+  },
+  {
+    "clipId": "clip_scale_in",
+    "css": {
+      "opacity": 1,
+      "transform": "scale(1)",
+    },
+    "t": 320,
+  },
+]
+`;

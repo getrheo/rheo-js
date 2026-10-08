@@ -1,0 +1,1226 @@
+{
+  "flowId": "7dd6c19a-07c6-4c26-8896-735e85613e8c",
+  "schemaVersion": 7,
+  "version": 1,
+  "defaultLocale": "en",
+  "locales": [
+    "en"
+  ],
+  "entryScreenId": "scr_welcome",
+  "screens": [
+    {
+      "id": "scr_welcome",
+      "name": "Welcome",
+      "regions": {
+        "body": {
+          "id": "lyr_body",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_title",
+              "kind": "text",
+              "text": {
+                "default": "Welcome to Pied Piper"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 32,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_sub",
+              "kind": "text",
+              "text": {
+                "default": "Decentralized storage, simplified. Let's get you set up."
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 18,
+                "fontWeight": 400,
+                "color": "#10b981",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_next",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_next_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Get Started"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_education_1"
+      }
+    },
+    {
+      "id": "scr_education_1",
+      "name": "Education 1",
+      "regions": {
+        "body": {
+          "id": "lyr_edu_body",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_edu_title",
+              "kind": "text",
+              "text": {
+                "default": "How Pied Piper Works"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 28,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_edu_sub",
+              "kind": "text",
+              "text": {
+                "default": "We use decentralized nodes to ensure your data is encrypted, private, and always accessible."
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 16,
+                "fontWeight": 400,
+                "color": "#10b981",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_edu_next",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_edu_next_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Continue"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_education_2"
+      }
+    },
+    {
+      "id": "scr_education_2",
+      "name": "Education 2",
+      "regions": {
+        "body": {
+          "id": "lyr_edu2_body",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_edu2_title",
+              "kind": "text",
+              "text": {
+                "default": "Your Data, Your Control"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 28,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_edu2_sub",
+              "kind": "text",
+              "text": {
+                "default": "Unlike traditional cloud storage, Pied Piper gives you full ownership of your encryption keys. No one can access your files but you."
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 16,
+                "fontWeight": 400,
+                "color": "#10b981",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_edu2_next",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_edu2_next_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Continue"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_questionnaire"
+      }
+    },
+    {
+      "id": "scr_questionnaire",
+      "name": "Questionnaire",
+      "regions": {
+        "body": {
+          "id": "lyr_q_body",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_q_title",
+              "kind": "text",
+              "text": {
+                "default": "How will you use Pied Piper?"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 24,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_q_choice",
+              "kind": "single_choice",
+              "fieldKey": "use_case",
+              "children": [
+                {
+                  "id": "lyr_opt_personal",
+                  "kind": "stack",
+                  "style": {
+                    "padding": {
+                      "t": 16,
+                      "r": 16,
+                      "b": 16,
+                      "l": 16
+                    },
+                    "background": "#f1f5f9",
+                    "width": "full",
+                    "height": "auto"
+                  },
+                  "direction": "horizontal",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "id": "lyr_opt_personal_t",
+                      "kind": "text",
+                      "text": {
+                        "default": "Personal use"
+                      },
+                      "style": {
+                        "width": "auto",
+                        "height": "auto",
+                        "color": "#000000"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": "lyr_opt_business",
+                  "kind": "stack",
+                  "style": {
+                    "padding": {
+                      "t": 16,
+                      "r": 16,
+                      "b": 16,
+                      "l": 16
+                    },
+                    "background": "#f1f5f9",
+                    "width": "full",
+                    "height": "auto"
+                  },
+                  "direction": "horizontal",
+                  "gap": 8,
+                  "children": [
+                    {
+                      "id": "lyr_opt_business_t",
+                      "kind": "text",
+                      "text": {
+                        "default": "Business use"
+                      },
+                      "style": {
+                        "width": "auto",
+                        "height": "auto",
+                        "color": "#000000"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "optionBindings": [
+                {
+                  "optionId": "personal",
+                  "rootLayerId": "lyr_opt_personal"
+                },
+                {
+                  "optionId": "business",
+                  "rootLayerId": "lyr_opt_business"
+                }
+              ],
+              "branching": {
+                "enabled": true,
+                "conditions": [
+                  {
+                    "choiceId": "business",
+                    "goTo": "scr_business_path_1"
+                  },
+                  {
+                    "choiceId": "personal",
+                    "goTo": "scr_personal_path_1"
+                  }
+                ]
+              },
+              "gap": 8,
+              "style": {
+                "width": "full",
+                "height": "auto"
+              }
+            },
+            {
+              "id": "lyr_q_next",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_q_next_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Continue"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": null
+      }
+    },
+    {
+      "id": "scr_personal_path_1",
+      "name": "Personal Path 1",
+      "regions": {
+        "body": {
+          "id": "lyr_p1_body",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_p1_title",
+              "kind": "text",
+              "text": {
+                "default": "Your Personal Digital Vault"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 28,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_p1_sub",
+              "kind": "text",
+              "text": {
+                "default": "Secure your photos, documents, and memories with end-to-end encryption. Only you hold the keys to your personal data."
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 16,
+                "fontWeight": 400,
+                "color": "#10b981",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_p1_next",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_p1_next_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_personal_path_2"
+      }
+    },
+    {
+      "id": "scr_personal_path_2",
+      "name": "Personal Path 2",
+      "regions": {
+        "body": {
+          "id": "lyr_p2_body",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_p2_title",
+              "kind": "text",
+              "text": {
+                "default": "Access Anywhere, Anytime"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 28,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_p2_sub",
+              "kind": "text",
+              "text": {
+                "default": "Sync your personal files across all your devices seamlessly. Your data is always available, wherever you go."
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 16,
+                "fontWeight": 400,
+                "color": "#10b981",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_p2_next",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_p2_next_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Complete Setup"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_completion"
+      }
+    },
+    {
+      "id": "scr_business_path_1",
+      "name": "Business Path 1",
+      "regions": {
+        "body": {
+          "id": "lyr_b1_body",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_b1_title",
+              "kind": "text",
+              "text": {
+                "default": "Enterprise-Grade Security"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 28,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_b1_sub",
+              "kind": "text",
+              "text": {
+                "default": "Scale your business operations with decentralized infrastructure that guarantees data integrity and compliance."
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 16,
+                "fontWeight": 400,
+                "color": "#10b981",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_b1_next",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_b1_next_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Next"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_business_path_2"
+      }
+    },
+    {
+      "id": "scr_business_path_2",
+      "name": "Business Path 2",
+      "regions": {
+        "body": {
+          "id": "lyr_b2_body",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_b2_title",
+              "kind": "text",
+              "text": {
+                "default": "Collaborate with Confidence"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 28,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_b2_sub",
+              "kind": "text",
+              "text": {
+                "default": "Streamline team workflows with shared decentralized storage. Manage permissions, audit logs, and access control in one unified dashboard."
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 16,
+                "fontWeight": 400,
+                "color": "#10b981",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_b2_next",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_b2_next_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Complete Setup"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "continue"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_completion"
+      }
+    },
+    {
+      "id": "scr_completion",
+      "name": "Completion",
+      "regions": {
+        "body": {
+          "id": "lyr_comp_body",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_mr8n9i48sudy",
+              "kind": "stack",
+              "direction": "vertical",
+              "align": "center",
+              "children": [
+                {
+                  "id": "lyr_comp_icon",
+                  "kind": "icon",
+                  "family": "ionicons",
+                  "iconName": "checkmark-circle-outline",
+                  "style": {
+                    "width": 100,
+                    "height": "auto",
+                    "color": "#10b981"
+                  },
+                  "styleBreakpoints": {
+                    "sm": {
+                      "width": 100
+                    },
+                    "md": {
+                      "width": 100
+                    },
+                    "lg": {
+                      "width": 100
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": "lyr_comp_title",
+              "kind": "text",
+              "text": {
+                "default": "You're All Set!"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 32,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_comp_sub",
+              "kind": "text",
+              "text": {
+                "default": "Your Pied Piper account is ready. Start securing your data today."
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 18,
+                "fontWeight": 400,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_comp_done",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_comp_done_t",
+                  "kind": "text",
+                  "text": {
+                    "default": "Finish"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "end_flow"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "scr_mr8n77wb7ma5"
+      }
+    },
+    {
+      "id": "scr_mr8mjwy14s0m",
+      "name": "Purchase Successful",
+      "regions": {
+        "body": {
+          "id": "lyr_mr8mjwy1wwbq",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_mr8mjwy23cqf",
+              "kind": "icon",
+              "family": "ionicons",
+              "iconName": "checkmark-circle-outline",
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "color": "#10b981"
+              }
+            },
+            {
+              "id": "lyr_mr8mjwy2x8sq",
+              "kind": "text",
+              "text": {
+                "default": "Welcome to\nPied Piper PRO"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 32,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_mr8mjwy233oa",
+              "kind": "text",
+              "text": {
+                "default": "Start exploring your PRO Plan benefits"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 18,
+                "fontWeight": 400,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_mr8mjwy2xz52",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_mr8mjwy24nrv",
+                  "kind": "text",
+                  "text": {
+                    "default": "Let's GO"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "end_flow"
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": null
+      }
+    },
+    {
+      "id": "scr_mr8n77wb7ma5",
+      "name": "Notifications",
+      "regions": {
+        "body": {
+          "id": "lyr_mr8n77wcekip",
+          "kind": "stack",
+          "style": {
+            "padding": {
+              "t": 64,
+              "r": 24,
+              "b": 64,
+              "l": 24
+            },
+            "background": "#ffffff",
+            "width": "full",
+            "height": "fill"
+          },
+          "direction": "vertical",
+          "gap": 24,
+          "children": [
+            {
+              "id": "lyr_mr8n94i643hm",
+              "kind": "stack",
+              "direction": "vertical",
+              "align": "center",
+              "children": [
+                {
+                  "id": "lyr_mr8n77wchv1k",
+                  "kind": "icon",
+                  "family": "ionicons",
+                  "iconName": "notifications-outline",
+                  "style": {
+                    "width": 100,
+                    "height": "auto",
+                    "color": "#10b981"
+                  },
+                  "styleBreakpoints": {
+                    "sm": {
+                      "width": 100
+                    },
+                    "md": {
+                      "width": 100
+                    },
+                    "lg": {
+                      "width": 100
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": "lyr_mr8n77wcojdx",
+              "kind": "text",
+              "text": {
+                "default": "Enable Notifications"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 32,
+                "fontWeight": 700,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_mr8n77wcpi3o",
+              "kind": "text",
+              "text": {
+                "default": "Never miss an update on your data with push notifications"
+              },
+              "style": {
+                "width": "auto",
+                "height": "auto",
+                "fontSize": 18,
+                "fontWeight": 400,
+                "color": "#000000",
+                "align": "center"
+              }
+            },
+            {
+              "id": "lyr_mr8n77wcd2jm",
+              "kind": "button",
+              "children": [
+                {
+                  "id": "lyr_mr8n77wcb9em",
+                  "kind": "text",
+                  "text": {
+                    "default": "Turn On Notifications"
+                  },
+                  "style": {
+                    "width": "auto",
+                    "height": "auto",
+                    "fontWeight": 700,
+                    "color": "#ffffff"
+                  }
+                }
+              ],
+              "action": {
+                "kind": "request_os_permission",
+                "permissionKey": "notifications",
+                "outcomes": {
+                  "granted": "surf_mr8mi319gnme",
+                  "denied": "surf_mr8mi319gnme",
+                  "blocked": "surf_mr8mi319gnme"
+                }
+              },
+              "variant": "primary",
+              "gap": 8,
+              "style": {
+                "background": "#10b981",
+                "width": "full",
+                "height": "auto"
+              }
+            }
+          ]
+        }
+      },
+      "next": {
+        "default": "surf_mr8mi319gnme"
+      }
+    }
+  ],
+  "decisionNodes": [],
+  "externalSurfaceNodes": [
+    {
+      "id": "surf_mr8mi319gnme",
+      "name": "Integration",
+      "config": {
+        "provider": "revenuecat",
+        "offeringId": "default"
+      },
+      "outcomes": {
+        "purchase_completed": "scr_mr8mjwy14s0m"
+      },
+      "fallback": "__onb_surface_no_next__"
+    }
+  ],
+  "sdkAttributeKeys": [],
+  "theme": {
+    "primary": "#10b981",
+    "accent": "#ffffff"
+  },
+  "builderMeta": {
+    "layout": {
+      "nodes": [
+        {
+          "id": "__flow_canvas_entry__",
+          "kind": "screen",
+          "x": 83,
+          "y": 743
+        },
+        {
+          "id": "scr_welcome",
+          "kind": "screen",
+          "x": 429,
+          "y": 453.5
+        },
+        {
+          "id": "scr_education_1",
+          "kind": "screen",
+          "x": 858,
+          "y": 453.5
+        },
+        {
+          "id": "scr_education_2",
+          "kind": "screen",
+          "x": 1287,
+          "y": 453.5
+        },
+        {
+          "id": "scr_questionnaire",
+          "kind": "screen",
+          "x": 1716,
+          "y": 453.5
+        },
+        {
+          "id": "scr_personal_path_1",
+          "kind": "screen",
+          "x": 2145,
+          "y": 82
+        },
+        {
+          "id": "scr_personal_path_2",
+          "kind": "screen",
+          "x": 2574,
+          "y": 82
+        },
+        {
+          "id": "scr_business_path_1",
+          "kind": "screen",
+          "x": 2145,
+          "y": 825
+        },
+        {
+          "id": "scr_business_path_2",
+          "kind": "screen",
+          "x": 2574,
+          "y": 825
+        },
+        {
+          "id": "scr_completion",
+          "kind": "screen",
+          "x": 3280,
+          "y": 800
+        },
+        {
+          "id": "scr_mr8mjwy14s0m",
+          "kind": "screen",
+          "x": 4944,
+          "y": 48
+        },
+        {
+          "id": "scr_mr8n77wb7ma5",
+          "kind": "screen",
+          "x": 3664,
+          "y": 800
+        }
+      ]
+    }
+  }
+}

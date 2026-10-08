@@ -129,8 +129,9 @@ const main = async () => {
   );
 
   const isRnCore = pkg.name === '@getrheo/react-native-core';
+  const bundleJsxLibrary = pkg.name === '@getrheo/renderer-web';
   const hasJsx = usesJsx(entries);
-  const shouldBundle = isRnCore || !hasJsx;
+  const shouldBundle = isRnCore || bundleJsxLibrary || !hasJsx;
   const externals = shouldBundle ? collectExternals() : undefined;
 
   await build({

@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/flow-runtime",
-  "version": "2.6.0",
+  "version": "3.0.0",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -31,7 +31,7 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/contracts": "2.6.0"
+    "@getrheo/contracts": "3.0.0"
   },
   "devDependencies": {
     "@rheo/config": "workspace:*",
@@ -173,6 +173,11 @@
         "types": "./dist/assignment.d.ts",
         "import": "./dist/assignment.js",
         "default": "./dist/assignment.js"
+      },
+      "./bannerValidation": {
+        "types": "./dist/bannerValidation.d.ts",
+        "import": "./dist/bannerValidation.js",
+        "default": "./dist/bannerValidation.js"
       },
       "./brandGradient": {
         "types": "./dist/brandGradient.d.ts",

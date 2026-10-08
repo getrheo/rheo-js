@@ -27,4 +27,15 @@ describe('assignVariant', () => {
   it('produces stable hash', () => {
     expect(fnv1a('e1:abc')).toBe(fnv1a('e1:abc'));
   });
+
+  it('walks caller order and does not sort by weight', () => {
+    const ordered: ExperimentVariant[] = [
+      { id: 'first', weight: 1 },
+      { id: 'second', weight: 1 },
+    ];
+    const reversed = [...ordered].reverse();
+    const fromOrdered = assignVariant('exp', 'order-user', ordered);
+    const fromReversed = assignVariant('exp', 'order-user', reversed);
+    expect(fromOrdered?.id).not.toBe(fromReversed?.id);
+  });
 });
