@@ -32,7 +32,7 @@ export const validateManifest = (
           : undefined;
       return {
         stepId: screenId ?? null,
-        path: [...i.path],
+        path: i.path.filter((segment): segment is string | number => typeof segment !== 'symbol'),
         message: i.message,
         code: i.code,
       };
