@@ -15,8 +15,6 @@ export { useBanner } from './useBanner.js';
 export type { UseBannerOptions, UseBannerResult } from './useBanner.js';
 export { identify } from './identify.js';
 export type { IdentifyInput } from './identify.js';
-export { track } from './track.js';
-export type { TrackCustomEventInput } from './track.js';
 export { prefetch, prefetchAll, useRheoPrefetch } from './prefetch.js';
 export type { PrefetchOptions, RheoPrefetchControls } from './prefetch.js';
 export {

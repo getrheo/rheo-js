@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/react",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
@@ -15,11 +15,11 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/attribution": "3.0.0",
-    "@getrheo/contracts": "3.0.0",
-    "@getrheo/flow-runtime": "3.0.0",
-    "@getrheo/flow-ui-state": "3.0.0",
-    "@getrheo/renderer-web": "3.0.0"
+    "@getrheo/attribution": "3.0.1",
+    "@getrheo/contracts": "3.0.1",
+    "@getrheo/flow-runtime": "3.0.1",
+    "@getrheo/flow-ui-state": "3.0.1",
+    "@getrheo/renderer-web": "3.0.1"
   },
   "peerDependencies": {
     "react": ">=18",

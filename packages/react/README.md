@@ -12,4 +12,4 @@ Product analytics is on by default. To wait for a consent banner, mount with `an
 
 Resolve responses cache per channel + locale (`localStorage` + `If-None-Match`). Pass `prefetch="all"` (or a channel id list) on `RheoProvider`, or call `prefetch` / `prefetchAll`.
 
-Engage: `identify` writes email and marketing consent; `track` emits custom events for automations and segments. `registerPush()` asks the host service worker to subscribe with the app VAPID public key (`RheoConfig.push.serviceWorkerUrl`, or `navigator.serviceWorker.ready`). A notifications grant in a flow calls it. `unregisterPush()` revokes the cached subscription.
+Engage: `identify` writes email and marketing consent. Automations and segments use Analytics events (`logEvent`, page views) on `POST /v1/sdk/analytics/events`, Convert funnel events on `POST /v1/sdk/events`, and email open and click. `registerPush()` asks the host service worker to subscribe with the app VAPID public key (`RheoConfig.push.serviceWorkerUrl`, or `navigator.serviceWorker.ready`). A notifications grant in a flow calls it. `unregisterPush()` revokes the cached subscription.

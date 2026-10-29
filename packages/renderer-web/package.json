@@ -1,6 +1,6 @@
 {
   "name": "@getrheo/renderer-web",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "private": false,
   "type": "module",
   "main": "./src/index.tsx",
@@ -16,10 +16,10 @@
     "prepublishOnly": "pnpm run build"
   },
   "dependencies": {
-    "@getrheo/contracts": "3.0.0",
-    "@getrheo/flow-runtime": "3.0.0",
-    "@getrheo/flow-ui-state": "3.0.0",
-    "@getrheo/renderer-core": "3.0.0",
+    "@getrheo/contracts": "3.0.1",
+    "@getrheo/flow-runtime": "3.0.1",
+    "@getrheo/flow-ui-state": "3.0.1",
+    "@getrheo/renderer-core": "3.0.1",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.468.0",
     "react-icons": "^5.4.0"

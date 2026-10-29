@@ -25,7 +25,7 @@ export const validateBannerManifest = (
     ok: false,
     issues: result.error.issues.map((i: z.ZodIssue) => ({
       stepId: null,
-      path: [...i.path],
+      path: i.path.filter((segment): segment is string | number => typeof segment !== 'symbol'),
       message: i.message,
       code: i.code,
     })),

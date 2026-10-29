@@ -1,20 +1,28 @@
 /**
- * Shared favicon metadata for public Rheo sites (marketing, docs).
- * Google Search expects a crawlable 48×48 PNG with explicit `sizes` and `type`.
+ * Shared favicon metadata for public Rheo sites.
  *
- * @param {string} siteUrl Canonical origin, e.g. `https://getrheo.io`
+ * Google Search reads `<link rel="icon">` on the hostname homepage. The icon must
+ * be square, at least 8×8 (larger than 48×48 is recommended), and a BMP, GIF, ICO,
+ * PNG, JPEG, PPM, or TIFF. SVG is not used. `type` must match the bytes the server
+ * sends: `/favicon.ico` is `image/vnd.microsoft.icon`, and `X-Content-Type-Options:
+ * nosniff` makes a declared `image/x-icon` look uncrawled.
+ *
+ * The 96×96 PNG is first so the icon Google and metadata checkers pick is larger
+ * than 48×48. Pass an empty origin to keep root-relative URLs.
+ *
+ * @param {string} [siteUrl] Canonical origin, e.g. `https://www.getrheo.io`
  */
-export const buildSiteIconMetadata = (siteUrl) => {
-  const base = siteUrl.endsWith('/') ? siteUrl : `${siteUrl}/`;
-  const toAbsolute = (path) => new URL(path, base).href;
+export const buildSiteIconMetadata = (siteUrl = '') => {
+  const trimmed = siteUrl.trim();
+  const base = trimmed ? (trimmed.endsWith('/') ? trimmed : `${trimmed}/`) : '';
+  const toUrl = (path) => (base ? new URL(path, base).href : path);
 
   return {
     icon: [
-      { url: toAbsolute('/favicon-48x48.png'), sizes: '48x48', type: 'image/png' },
-      { url: toAbsolute('/favicon-96x96.png'), sizes: '96x96', type: 'image/png' },
-      { url: toAbsolute('/favicon.ico'), sizes: '48x48', type: 'image/x-icon' },
+      { url: toUrl('/favicon-96x96.png'), sizes: '96x96', type: 'image/png' },
+      { url: toUrl('/favicon-48x48.png'), sizes: '48x48', type: 'image/png' },
+      { url: toUrl('/favicon.ico'), sizes: '48x48', type: 'image/vnd.microsoft.icon' },
     ],
-    apple: [{ url: toAbsolute('/apple-touch-icon.png'), sizes: '180x180', type: 'image/png' }],
-    shortcut: [{ url: toAbsolute('/favicon-48x48.png'), type: 'image/png' }],
+    apple: [{ url: toUrl('/apple-touch-icon.png'), sizes: '180x180', type: 'image/png' }],
   };
 };
